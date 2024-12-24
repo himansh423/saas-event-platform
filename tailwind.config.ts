@@ -12,6 +12,26 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      screens: {
+        "max-xs": {
+          max: "475px",
+        },
+        "max-sm": {
+          max: "760px",
+        },
+        "max-md": {
+          max: "768px",
+        },
+        "max-lg": {
+          max: "1024px",
+        },
+        "max-lg1px": {
+          max: "1023px",
+        },
+        "max-xl": {
+          max: "1280px",
+        },
+      },
     },
   },
   plugins: [],

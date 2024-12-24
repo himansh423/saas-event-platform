@@ -14,8 +14,8 @@ const shadows1 = Shadows_Into_Light({
 });
 const Login = () => {
   return (
-    <div className="w-screen h-screen flex">
-      <div className=" relative imageContainer flex-1 min-h-screen bg-black flex justify-center items-center">
+    <div className="w-screen h-screen flex max-sm:flex-col">
+      <div className=" relative imageContainer max-sm:hidden flex-1 min-h-screen bg-black flex justify-center items-center">
         <div className="relative imageContainer flex-1 min-h-screen bg-black flex justify-center items-center">
           <div className="relative imageContainer w-full min-h-screen">
             <Image
@@ -40,7 +40,15 @@ const Login = () => {
         </div>
        
 
-      <div className="credentialContainer text-white min-h-screen w-[500px] bg-black flex flex-col gap-9 items-center px-5 pt-12">
+      <div className="credentialContainer text-white min-h-screen max-sm:w-screen max-sm:overflow-y-scroll max-sm:pb-10 w-[500px] bg-black flex flex-col gap-9 items-center px-5 pt-12">
+        <div className="sm:hidden">
+
+        
+        <h1 className={`${rowdies1.className} text-3xl sm:hidden`}>
+          Brandname
+        </h1>
+        <p className={`${shadows1.className}`}>Grow Your Network Efficiently</p>
+        </div>
         <h2
           className={`${rowdies1.className} text-6xl`}
           style={{
