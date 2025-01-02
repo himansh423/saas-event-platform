@@ -34,8 +34,8 @@ const HomeHeroSection = () => {
   });
 
   return (
-    <div
-      className="relative w-full h-[calc(100vh-100px)]  overflow-hidden overflow-y-hidden"
+    <div 
+      className="relative w-full h-[calc(100vh-100px)] overflow-hidden overflow-y-hidden"
       {...handlers}
     >
       {slides.map((slide, index) => (
@@ -52,6 +52,7 @@ const HomeHeroSection = () => {
             objectFit="cover"
             priority={index === 0}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
         </div>
       ))}
 
