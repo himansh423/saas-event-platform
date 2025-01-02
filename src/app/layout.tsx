@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ShowNav from "@/components/ShowNav";
 
 export const metadata: Metadata = {
   title: "SAAS Event Platform",
@@ -13,7 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+     
+      <body> <ShowNav/>{children}</body>
     </html>
   );
 }
