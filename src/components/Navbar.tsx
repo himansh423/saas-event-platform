@@ -1,50 +1,98 @@
-import { Rowdies } from "next/font/google";
+import { useState } from 'react';
+import { Rowdies } from 'next/font/google';
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineNotificationsNone } from "react-icons/md";
-import logo from "../../public/tempLogo.png";
 import { IoMdArrowDropdown } from "react-icons/io";
+import logo from "../../public/tempLogo.png";
+import { motion } from 'framer-motion';
+
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
 });
+
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="w-screen min-h-[100px] bg-black border-b-[2px] border-[#0c1feb] px-8 flex justify-between items-center text-white pr-12">
-      <div className="w-[160px] invert filter h-[60px] relative">
-        <Image src={logo.src} alt="logo" layout="fill" objectFit="cover" />
-      </div>
-      <div
-        className={`${rowdies1.className} flex items-center gap-12 absolute left-[50%] translate-x-[-50%] text-2xl`}
+    <motion.nav 
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="w-full min-h-[100px] bg-black border-b-[1px] border-[#333] px-8 flex justify-between items-center text-white pr-12 sticky top-0 z-50"
+    >
+      <motion.div 
+        whileHover={{ scale: 1.05 }}
+        className="w-[160px] h-[60px] relative"
       >
-        <Link href={"/blog"} className="hover:text-[#0c1feb] duration-75">
-          Blog
-        </Link>
-        <Link href={"/"} className="hover:text-[#0c1feb] duration-75">
-          Events
-        </Link>
-        <Link href={"/hackathons"} className="hover:text-[#0c1feb] duration-75">
-          Hackathons
-        </Link>
+        <Image src={logo} alt="logo" fill className="object-cover invert" />
+      </motion.div>
+      
+      <div className={`${rowdies1.className} flex items-center gap-12 absolute left-[50%] translate-x-[-50%] text-2xl`}>
+        {['Blog', 'Events', 'Hackathons'].map((item, index) => (
+          <motion.div
+            key={item}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href={item === 'Events' ? '/' : `/${item.toLowerCase()}`} className="relative group">
+              <span className="text-white group-hover:text-[#0c1feb] transition-colors duration-300">{item}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0c1feb] transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </motion.div>
+        ))}
       </div>
+      
       <div className="flex gap-5 text-3xl items-center">
-        <div className="pt-[1px] mt-[2px] hover:text-[#0c1feb] duration-75">
+        <motion.div 
+          whileHover={{ scale: 1.1, rotate: 20 }}
+          whileTap={{ scale: 0.95 }}
+          className="pt-[1px] mt-[2px] text-white hover:text-[#0c1feb] transition-colors duration-300 cursor-pointer"
+        >
           <MdOutlineNotificationsNone />
-        </div>
-        <div className="flex gap-2 items-center text-xl p-2 border-dashed group border-[1px] rounded-[30px] hover:shadow-[0_0_0_2px_#0c1feb] duration-100">
-          <div className="mt-[1px]">
-            <FaRegUserCircle />
+        </motion.div>
+        
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="relative"
+        >
+          <div 
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex gap-2 items-center text-xl p-2 border-[1px] border-[#333] rounded-[30px] hover:border-[#0c1feb] hover:shadow-[0_0_15px_rgba(12,31,235,0.3)] transition-all duration-300 cursor-pointer group"
+          >
+            <FaRegUserCircle className="text-[#0c1feb] group-hover:text-white transition-colors duration-300" />
+            <p className="group-hover:text-[#0c1feb] transition-colors duration-300">Himanshu</p>
+            <motion.div 
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-[5px] text-[#0c1feb] group-hover:text-white transition-colors duration-300"
+            >
+              <IoMdArrowDropdown />
+            </motion.div>
           </div>
-          <p>Himanshu</p>
-          <div className="mt-[5px] group-hover:text-[#0c1feb]">
-            <IoMdArrowDropdown />
-          </div>
-        </div>
+          
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
+            >
+              <div className="py-1">
+                <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200">Your Profile</a>
+                <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200">Settings</a>
+                <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200">Sign out</a>
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
 export default Navbar;
+
