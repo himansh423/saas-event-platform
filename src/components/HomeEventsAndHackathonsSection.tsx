@@ -15,7 +15,7 @@ const HomeEventsAndHackathonsSection = () => {
      <SearchAndFilterBox/>
       <div className="w-full grid grid-cols-3 place-items-center py-10 mt-24 ">
         {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div className="mt-16">
+          <div className="mb-16">
             <EventCard />
           </div>
         ))}
