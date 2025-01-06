@@ -1,5 +1,7 @@
 import { Rowdies } from "next/font/google";
 import HomeEventsAndHackathonsSection from "./HomeEventsAndHackathonsSection";
+import EventCard from "./EventCard";
+import SearchAndFilterBox from "./SearchAndFilterBox";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -19,8 +21,15 @@ const HackathonPage = () => {
           Discover the latest insights, tutorials, and updates from our team.
         </p>
       </div>
-      <div>
-        <HomeEventsAndHackathonsSection />
+      <div className="mt-20 px-7">
+        <SearchAndFilterBox/>
+      </div>
+      <div className="w-full grid grid-cols-3 place-items-center py-10 mt-4 ">
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <div className="mt-16">
+            <EventCard />
+          </div>
+        ))}
       </div>
     </div>
   );
