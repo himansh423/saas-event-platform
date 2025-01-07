@@ -26,12 +26,14 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className="w-full min-h-[100px] bg-black border-b-[1px] border-[#333] px-8 flex justify-between items-center text-white pr-12 sticky top-0 z-50"
     >
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        className="w-[160px] h-[60px] relative"
-      >
-        <Image src={logo} alt="logo" fill className="object-cover invert" />
-      </motion.div>
+      <Link href={"/"}>
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="w-[160px] h-[60px] relative"
+        >
+          <Image src={logo} alt="logo" fill className="object-cover invert" />
+        </motion.div>
+      </Link>
 
       <div
         className={`${rowdies1.className} flex items-center gap-12 absolute left-[50%] translate-x-[-50%] text-2xl`}
@@ -55,44 +57,14 @@ const Navbar = () => {
           whileTap={{ scale: 0.95 }}
           className="relative"
         >
-          <div
-            onClick={() => setIsEventsOpen(!isEventsOpen)}
+          <Link
+            href={"/events"}
             className="relative group cursor-pointer flex items-center gap-2"
           >
             <span className="text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-[#0c1feb] group-hover:bg-clip-text group-hover:text-transparent">
               Events
             </span>
-            <IoMdArrowDropdown
-              className={`mt-1 text-[#0c1feb] group-hover:text-white transition-all duration-300 ${
-                isEventsOpen ? "rotate-180" : ""
-              }`}
-            />
-          </div>
-          <AnimatePresence>
-            {isEventsOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
-              >
-                <div className="py-1">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                  >
-                    Tech Events
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                  >
-                    Cultural Events
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </Link>
         </motion.div>
       </div>
 
@@ -111,7 +83,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
+                className="absolute right-0 mt-2 w-[400px] min-h-[500px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
               >
                 <div className="py-1">
                   <a
@@ -168,7 +140,19 @@ const Navbar = () => {
                   href="#"
                   className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
                 >
-                  Settings
+                  Switch to organizer
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
+                >
+                  My Events/Hackathons
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
+                >
+                  Logout
                 </a>
               </div>
             </motion.div>
