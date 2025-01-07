@@ -2,7 +2,6 @@ import Image from "next/image";
 import banner from "../../public/hackathonImage.webp";
 import { Rowdies } from "next/font/google";
 import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
-import { Clock, Trophy } from "lucide-react";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
 
@@ -73,6 +72,17 @@ const OverviewPage = () => {
               objectFit="cover"
             />
           </div>
+        </div>
+      </div>
+      <div className="OptionNav w-full h-[60px] px-14  border-b-[1px] border-zinc-400 flex items-end gap-10 sticky top-0 z-20">
+        <div className="border-b-[3px] border-blue-700 h-[40px] w-fit text-blue-700 text-2xl">
+          <p className={`${rowdies1.className}`}>Overview</p>
+        </div>
+        <div className=" w-fit text-2xl text-zinc-400 h-[40px]">
+          <p className={`${rowdies1.className}`}>Prizes</p>
+        </div>
+        <div className=" w-fit text-2xl text-zinc-400 h-[40px]">
+          <p className={`${rowdies1.className}`}>Schedule</p>
         </div>
       </div>
     </div>
