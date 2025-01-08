@@ -87,7 +87,7 @@ const OverviewPage = () => {
         </div>
       </div>
       <div className="w-screen min-h-screen flex">
-        <div className="OverviewContainer min-h-[100vh] w-[75vw] flex flex-col px-5 py-10 gap-5">
+        <div className="OverviewContainer min-h-[100vh] w-[75vw] flex flex-col px-5 py-10 gap-10">
           <div className="w-full min-h-[400px] bg-gray-950 rounded-lg border-zinc-400 border-[1px] px-5 py-4 pb-6 flex flex-col gap-4">
             <p
               className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent `}
@@ -139,21 +139,43 @@ const OverviewPage = () => {
             </div>
             <div className="w-full  bg-black rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
               <p className={`${rowdies1.className} text-3xl text-white`}>
-              Public Goods
+                Public Goods
               </p>
               <p className="text-zinc-400">
-              Build solutions that drive transparency, accessibility, and equity.
+                Build solutions that drive transparency, accessibility, and
+                equity.
               </p>
             </div>
             <div className="w-full  bg-black rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
               <p className={`${rowdies1.className} text-3xl text-white`}>
-              Open Innovation
+                Open Innovation
               </p>
               <p className="text-zinc-400">
-              Empower communities to solve challenges through collaboration and creativity.
+                Empower communities to solve challenges through collaboration
+                and creativity.
               </p>
             </div>
-            
+          </div>
+          <div className="w-full min-h-[400px] bg-gray-950 rounded-lg border border-zinc-400 px-5 py-4 pb-6 flex flex-col gap-7">
+            <p
+              className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
+            >
+              Judging Criteria
+            </p>
+            <div className="w-full h-[84px]  bg-black rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+              <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
+                <p className={`${rowdies1.className} text-white text-[25px] `}>
+                  1
+                </p>
+                
+              </div>
+              <div className="flex flex-col">
+                  <p className={`${rowdies1.className} text-[18px] text-white`}>Innovation
+                  </p>
+                  <p className="text-[14px] text-zinc-400">Originality and creative problem-solving.</p>
+
+                </div>
+            </div>
           </div>
         </div>
         <div className="min-h-screen flex-1  px-4 py-10 flex flex-col items-center gap-7 pr-7 bg-black">
