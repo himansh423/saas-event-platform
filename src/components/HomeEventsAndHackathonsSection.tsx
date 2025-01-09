@@ -12,7 +12,7 @@ const rowdies1 = Rowdies({
 const HomeEventsAndHackathonsSection = () => {
   return (
     <div className="w-screen min-h-screen px-9 py-14 ">
-     <SearchAndFilterBox/>
+      <SearchAndFilterBox />
       <div className="w-full grid grid-cols-3 place-items-center py-10 mt-24 ">
         {[1, 2, 3, 4, 5, 6].map((item) => (
           <div className="mb-16">

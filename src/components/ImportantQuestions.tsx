@@ -140,7 +140,7 @@ const ImportantQuestions = () => {
           </div>
         </div> */}
 
-<div className="UseCaseContainer w-full flex-1 flex flex-col  rounded-lg gap-3">
+        <div className="UseCaseContainer w-full flex-1 flex flex-col  rounded-lg gap-3">
           <div className="text-2xl">
             <p className={`${rowdies1.className} text-center`}>
               How do you heard about us?
@@ -161,11 +161,12 @@ const ImportantQuestions = () => {
               <button
                 className={` ${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
               >
-               Twitter (X)
+                Twitter (X)
               </button>
               <button
                 className={` ${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
-              >Youtube
+              >
+                Youtube
               </button>
               <button
                 className={` ${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}

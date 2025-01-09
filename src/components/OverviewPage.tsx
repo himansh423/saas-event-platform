@@ -5,7 +5,12 @@ import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
 import { Instagram, Twitter, X } from "lucide-react";
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -88,7 +93,7 @@ const OverviewPage = () => {
       </div>
       <div className="w-screen min-h-screen flex">
         <div className="OverviewContainer min-h-[100vh] w-[75vw] flex flex-col px-5 py-10 gap-10">
-          <div className="w-full min-h-[400px] bg-gray-950 rounded-lg border-zinc-400 border-[1px] px-5 py-4 pb-6 flex flex-col gap-4">
+          <div className="w-full min-h-[400px] bg-gray-950 rounded-lg  px-5 py-4 pb-6 flex flex-col gap-4">
             <p
               className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent `}
             >
@@ -122,13 +127,13 @@ const OverviewPage = () => {
               survive. See you there! 🚀
             </p>
           </div>
-          <div className="w-full min-h-[400px] bg-gray-950 rounded-lg border border-zinc-400 px-5 py-4 pb-6 flex flex-col gap-7">
+          <div className="w-full min-h-[400px]  rounded-lg  px-5 py-4 pb-6 flex flex-col gap-7">
             <p
               className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
             >
               Tracks
             </p>
-            <div className="w-full  bg-black rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
+            <div className="w-full  bg-gray-950 rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
               <p className={`${rowdies1.className} text-3xl text-white`}>
                 DeFi
               </p>
@@ -137,7 +142,7 @@ const OverviewPage = () => {
                 finance.
               </p>
             </div>
-            <div className="w-full  bg-black rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
+            <div className="w-full  bg-gray-950 rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
               <p className={`${rowdies1.className} text-3xl text-white`}>
                 Public Goods
               </p>
@@ -146,7 +151,7 @@ const OverviewPage = () => {
                 equity.
               </p>
             </div>
-            <div className="w-full  bg-black rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
+            <div className="w-full  bg-gray-950 rounded-md border border-zinc-400 px-4 py-5 flex flex-col gap-2">
               <p className={`${rowdies1.className} text-3xl text-white`}>
                 Open Innovation
               </p>
@@ -156,15 +161,15 @@ const OverviewPage = () => {
               </p>
             </div>
           </div>
-          <div className="w-full min-h-[400px] bg-gray-950 rounded-lg border border-zinc-400 px-5 py-4 pb-6 flex flex-col gap-7">
+          <div className="w-full min-h-[400px]  rounded-lg  px-5 py-4 pb-6 flex flex-col gap-7">
             <p
               className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
             >
               Judging Criteria
             </p>
-            <div className="w-full h-[84px]  bg-black rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+            <div className="w-full h-[84px]  bg-gray-950 rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
               <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
-                <p className={`${rowdies1.className} text-white text-[25px] `}>
+                <p className={`${rowdies1.className}  text-[25px] bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}>
                   1
                 </p>
                 
@@ -176,7 +181,95 @@ const OverviewPage = () => {
 
                 </div>
             </div>
+            <div className="w-full h-[84px]  bg-gray-950 rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+              <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
+                <p className={`${rowdies1.className}  text-[25px] bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent `}>
+                  2
+                </p>
+                
+              </div>
+              <div className="flex flex-col">
+                  <p className={`${rowdies1.className} text-[18px] text-white`}>Impact
+                  </p>
+                  <p className="text-[14px] text-zinc-400">Relevance and potential for real-world adoption.</p>
+
+                </div>
+            </div>
+
+            <div className="w-full h-[84px]  bg-gray-950 rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+              <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
+                <p className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-[25px] `}>
+                  3
+                </p>
+                
+              </div>
+              <div className="flex flex-col">
+                  <p className={`${rowdies1.className} text-[18px] text-white`}>Technical Execution
+                  </p>
+                  <p className="text-[14px] text-zinc-400">Code quality, scalability, and functionality.</p>
+
+                </div>
+            </div>
+            <div className="w-full h-[84px]  bg-gray-950 rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+              <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
+                <p className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-[25px] `}>
+                  4
+                </p>
+                
+              </div>
+              <div className="flex flex-col">
+                  <p className={`${rowdies1.className} text-[18px] text-white`}>User Experience
+                  </p>
+                  <p className="text-[14px] text-zinc-400">Design and usability.</p>
+
+                </div>
+            </div>
+            <div className="w-full h-[84px]  bg-gray-950 rounded-md border border-zinc-400 px-4 py-3 flex items-center gap-2">
+              <div className="h-full w-[60px] bg-gray-900 flex items-center justify-center rounded-full">
+                <p className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-[25px] `}>
+                  5
+                </p>
+                
+              </div>
+              <div className="flex flex-col">
+                  <p className={`${rowdies1.className} text-[18px] text-white`}>Presentation
+                  </p>
+                  <p className="text-[14px] text-zinc-400">Clarity, delivery, and vision.</p>
+
+                </div>
+            </div>
           </div>
+          <div className="min-h-screen bg-black p-8">
+      <h2 className="text-[#60A5FA] text-3xl font-bold mb-8">FAQs</h2>
+      <Accordion type="single" collapsible className="w-full space-y-4">
+        <AccordionItem value="item-1" className="border-b border-white/10">
+          <AccordionTrigger className="text-white text-xl hover:no-underline">
+            What is the team size?
+          </AccordionTrigger>
+          <AccordionContent className="text-white/80 text-lg">
+            Teams can have 3-5 members.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-2" className="border-b border-white/10">
+          <AccordionTrigger className="text-white text-xl hover:no-underline">
+            Registration costs?
+          </AccordionTrigger>
+          <AccordionContent className="text-white/80 text-lg">
+            Please contact us for registration costs and payment details.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-3" className="border-b border-white/10">
+          <AccordionTrigger className="text-white text-xl hover:no-underline">
+            Where is the event happening?
+          </AccordionTrigger>
+          <AccordionContent className="text-white/80 text-lg">
+            The event location and venue details will be shared with registered participants.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
         </div>
         <div className="min-h-screen flex-1  px-4 py-10 flex flex-col items-center gap-7 pr-7 bg-black">
           <div className="w-full h-[200px] bg-black border-[1px] rounded-xl border-zinc-400 text-zinc-400 p-5 flex flex-col justify-between">
