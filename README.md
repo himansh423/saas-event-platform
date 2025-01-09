@@ -7,11 +7,6 @@ The SaaS Event Platform is a modern solution for users and organizers. It empowe
 - Discover and participate in events and hackathons.
 - Organize and manage events and hackathons effortlessly.
 - Responsive design for a seamless user experience.
-- Key UI components:
-  - Hero section
-  - Search bar for events and hackathons
-  - Login page for users and organizers
-  - Overview page for event details
 
 ## Technology Stack
 
