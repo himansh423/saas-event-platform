@@ -69,8 +69,7 @@ const PrizesContainer = () => {
               </p>
             </div>
           </div>
-          
-          
+
           <div className="w-full h-[100px] bg-gray-950 border-zinc-400 border-[1px] rounded-lg flex justify-between items-center px-7">
             <div className="flex items-center gap-3">
               <div className="bg-white h-[50px] w-[50px] rounded-md"></div>
@@ -78,6 +77,58 @@ const PrizesContainer = () => {
                 <p className="font-bold text-white text-[18px]">DeFy25</p>
                 <p className="text-[14px] text-zinc-400">Sponsor Prize</p>
               </div>
+            </div>
+            <div>
+              <p className={`${rowdies1.className} text-white text-xl`}>
+                $1,350
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full min-h-[400px] flex flex-col gap-6">
+        <p
+          className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
+        >
+          Track Prizes
+        </p>
+        <div className="w-full flex flex-col gap-5">
+          <div className="w-full h-[100px] bg-gray-950 border-zinc-400 border-[1px] rounded-lg flex justify-between items-center px-7">
+            <div className="flex flex-col justify-center ">
+              <p className="text-[20px] font-bold text-white">Public Goods</p>
+
+              <p className="text-[16px] text-zinc-400">
+                Build solutions that drive transparency, accessibility, and
+                equity.
+              </p>
+            </div>
+            <div>
+              <p className={`${rowdies1.className} text-white text-xl`}>
+                $1,350
+              </p>
+            </div>
+          </div>
+          <div className="w-full h-[100px] bg-gray-950 border-zinc-400 border-[1px] rounded-lg flex justify-between items-center px-7">
+            <div className="flex flex-col justify-center ">
+              <p className="text-[20px] font-bold text-white">DeFi</p>
+              <p className="text-[16px] text-zinc-400">
+                Reinvent financial systems and shape the future of decentralized
+                finance.
+              </p>
+            </div>
+            <div>
+              <p className={`${rowdies1.className} text-white text-xl`}>
+                $1,350
+              </p>
+            </div>
+          </div>
+          <div className="w-full h-[100px] bg-gray-950 border-zinc-400 border-[1px] rounded-lg flex justify-between items-center px-7">
+            <div className="flex flex-col justify-center ">
+              <p className="text-[20px] font-bold text-white">Open Innovation</p>
+              <p className="text-[16px] text-zinc-400">
+              Empower communities to solve challenges through collaboration and creativity.
+              </p>
             </div>
             <div>
               <p className={`${rowdies1.className} text-white text-xl`}>
