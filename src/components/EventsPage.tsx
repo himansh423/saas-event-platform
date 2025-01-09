@@ -26,8 +26,8 @@ const EventsPage = () => {
       </div>
       <div className="w-full grid grid-cols-3 place-items-center py-10 mt-4 ">
         {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div className="mt-16">
-            <EventCard />
+          <div className="mt-16" key={item}>
+            <EventCard  />
           </div>
         ))}
       </div>

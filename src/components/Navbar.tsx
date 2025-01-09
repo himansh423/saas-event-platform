@@ -16,7 +16,6 @@ const rowdies1 = Rowdies({
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   return (

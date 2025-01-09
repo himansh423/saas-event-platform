@@ -33,7 +33,7 @@ const Login = () => {
             Grow Your Network efficiently
           </p>
           <div className=" text-white text-xl flex gap-2 items-center">
-            <p className={rowdies1.className}>Don't have an Account?</p>
+            <p className={rowdies1.className}>Don&apos;t have an Account?</p>
             <p  className={`font-bold text-[#3a57ff]`}>Register</p>
           </div>
       </div>

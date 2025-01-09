@@ -4,8 +4,7 @@ import { Rowdies } from "next/font/google";
 import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
-import { Instagram, Twitter, X } from "lucide-react";
-import OverviewContainer from "./OverviewContainer";
+import { Instagram, Twitter} from "lucide-react";
 import PrizesContainer from "./PrizesContainer";
 
 const rowdies1 = Rowdies({

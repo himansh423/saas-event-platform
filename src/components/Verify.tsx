@@ -1,7 +1,6 @@
 import Image from "next/image";
 import loginImage from "../../public/event.jpg";
 import { Rowdies, Shadows_Into_Light } from "next/font/google";
-import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -33,7 +32,7 @@ const Verify = () => {
             Grow Your Network efficiently
           </p>
           <div className=" text-white text-xl flex gap-2 items-center">
-            <p className={rowdies1.className}>Don't have an Account?</p>
+            <p className={rowdies1.className}>Don&apos;t have an Account?</p>
             <p className={`font-bold text-[#3a57ff]`}>Register</p>
           </div>
         </div>

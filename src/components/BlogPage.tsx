@@ -20,7 +20,7 @@ const BlogPage = () => {
       </div>
 
       <div className="CardsContainer w-full grid grid-cols-3 px-5 py-20 mt-10 ">
-       { [1,2,3,4,5,6].map((item) => (<BlogCards/>))}
+       { [1,2,3,4,5,6].map((item) => (<BlogCards key={item}/>))}
       </div>
     </div>
   );

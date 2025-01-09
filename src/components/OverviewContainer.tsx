@@ -36,7 +36,7 @@ const OverviewContainer = () => {
               (show ‘em what you’ve got). Idea Pitching (get those lightbulbs
               glowing). Guidance from expert judges and mentors (don’t sweat,
               they’re nice!). And of course Food, Games and Fun (because even we
-              can't survive without these 😅). 🎁 Perks that scream ‘Why not?’
+              can&apos;t survive without these 😅). 🎁 Perks that scream ‘Why not?’
               Free swag (who doesn’t love free stuff?). Goodies, meals, and a
               comfy place to crash. Networking with industry big shots. A chance
               to make your LinkedIn profile the envy of all your friends 😁 Code

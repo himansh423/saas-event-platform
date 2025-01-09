@@ -1,4 +1,4 @@
-import { Rowdies, Shadows_Into_Light } from "next/font/google";
+import { Rowdies } from "next/font/google";
 
 const rowdies1 = Rowdies({
   weight: "700",
