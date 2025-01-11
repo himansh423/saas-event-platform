@@ -4,8 +4,9 @@ import { Rowdies } from "next/font/google";
 import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
-import { Instagram, Twitter} from "lucide-react";
+import { Instagram, Twitter } from "lucide-react";
 import PrizesContainer from "./PrizesContainer";
+import OptionNav from "@/client-components/OptionNav";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -76,21 +77,13 @@ const OverviewPage = () => {
           </div>
         </div>
       </div>
-      <div className="OptionNav sticky top-0 z-10 bg-black border-b border-zinc-800 w-full h-[60px] px-14 flex items-end gap-10">
-        <div className="border-b-[3px] border-blue-700 h-[40px] w-fit text-blue-700 text-2xl">
-          <p className={rowdies1.className}>Overview</p>
-        </div>
-        <div className="w-fit text-2xl text-zinc-400 h-[40px]">
-          <p className={rowdies1.className}>Prizes</p>
-        </div>
-        <div className="w-fit text-2xl text-zinc-400 h-[40px]">
-          <p className={rowdies1.className}>Schedule</p>
-        </div>
+      <div>
+        <OptionNav/>
       </div>
       <div className="w-screen min-h-screen flex">
         <div>
           {/* <OverviewContainer/> */}
-          <PrizesContainer/>
+          <PrizesContainer />
         </div>
         <div className="min-h-screen flex-1  px-4 py-10 flex flex-col items-center gap-7 pr-7 bg-black">
           <div className="w-full h-[200px] bg-black border-[1px] rounded-xl border-zinc-400 text-zinc-400 p-5 flex flex-col justify-between">

@@ -1,5 +1,6 @@
 import { Rowdies } from "next/font/google";
 import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
+import Link from "next/link";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -38,10 +39,8 @@ const Footer = () => {
           <div className="text-white flex flex-col gap-3">
             <p className={`${rowdies1.className} text-2xl`}>Resources</p>
             <div className="flex flex-col gap-2 text-zinc-400">
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Help</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Documentation</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Brand Assets</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Tutorials</p>
+              <Link href={"/help"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Help</Link>
+              <Link href={"/tutorials"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Tutorial</Link>
             </div>
           </div>
         </div>
@@ -49,13 +48,13 @@ const Footer = () => {
           <div className="flex flex-col gap-3 mb-14">
             <p className={`${rowdies1.className} text-2xl`}>Quick Links</p>
             <div className="flex flex-col gap-2 text-zinc-400">
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Home</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Blog</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Events</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Hackathons</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Pricing</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Contact</p>
-              <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">About</p>
+              <Link href={"/"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Home</Link>
+              <Link href={"/blog"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Blog</Link>
+              <Link href={"/events"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Events</Link>
+              <Link href={"/hackathons"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Hackathons</Link>
+              <Link href={"/pricing"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Pricing</Link>
+              <Link href={"/contact"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Contact</Link>
+              <Link href={"/about"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">About</Link>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -85,9 +84,9 @@ const Footer = () => {
           <p className="text-[16px]">© 2025 EventFlow. All rights reserved.</p>
         </div>
         <div className="flex gap-5">
-          <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Privacy Policy</p>
-          <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Terms & Conditions</p>
-          <p className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Cookie Policy</p>
+          <Link href={"/privacy-policy"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Privacy Policy</Link>
+          <Link href={"/terms-and-conditions"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Terms & Conditions</Link>
+          <Link href={"/cookie-policy"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Cookie Policy</Link>
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import heroSlice from "./heroSlice";
+import overviewPageSlice from "./overviewPageSlice";
 
 
 
@@ -8,6 +9,7 @@ import heroSlice from "./heroSlice";
 export const store = configureStore({
   reducer: {
     hero:heroSlice.reducer,
+    overviewTab:overviewPageSlice.reducer,
   },
 });
 
