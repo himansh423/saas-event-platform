@@ -89,7 +89,7 @@ const Navbar = () => {
           </AnimatePresence>
         </motion.div>
 
-        <motion.div whileHover={{ scale: 1.05 }} className="relative">
+        <motion.div whileHover={{ scale: 1.05 }} className="relative  ">
           <div
             onClick={() => setIsOpen(!isOpen)}
             className="flex gap-2 items-center text-xl p-2 border-[1px] border-[#333] rounded-[30px] hover:border-[#0c1feb] hover:shadow-[0_0_15px_rgba(12,31,235,0.3)] transition-all duration-300 cursor-pointer group"
