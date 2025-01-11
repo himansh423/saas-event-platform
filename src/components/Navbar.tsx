@@ -3,10 +3,10 @@ import { Rowdies } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegUserCircle } from "react-icons/fa";
-import { MdOutlineLogout, MdOutlineNotificationsNone } from "react-icons/md";
+import { MdOutlineLogout } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logo from "../../public/tempLogo.png";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -16,7 +16,6 @@ const rowdies1 = Rowdies({
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   return (
     <motion.nav

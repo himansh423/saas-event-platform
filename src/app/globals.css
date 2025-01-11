@@ -76,3 +76,12 @@ html, body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+}
