@@ -3,7 +3,7 @@ import { Rowdies } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegUserCircle } from "react-icons/fa";
-import { MdOutlineNotificationsNone } from "react-icons/md";
+import { MdOutlineLogout, MdOutlineNotificationsNone } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logo from "../../public/tempLogo.png";
 import { motion, AnimatePresence } from "framer-motion";
@@ -37,7 +37,7 @@ const Navbar = () => {
       <div
         className={`${rowdies1.className} flex items-center gap-12 absolute left-[50%] translate-x-[-50%] text-2xl`}
       >
-        {["Blog", "Hackathons"].map((item) => (
+        {["Blog", "Hackathons", "Events"].map((item) => (
           <motion.div
             key={item}
             whileHover={{ scale: 1.1 }}
@@ -51,20 +51,6 @@ const Navbar = () => {
             </Link>
           </motion.div>
         ))}
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative"
-        >
-          <Link
-            href={"/events"}
-            className="relative group cursor-pointer flex items-center gap-2"
-          >
-            <span className="text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-[#0c1feb] group-hover:bg-clip-text group-hover:text-transparent">
-              Events
-            </span>
-          </Link>
-        </motion.div>
       </div>
 
       <div className="flex gap-5 text-3xl items-center">
@@ -82,20 +68,20 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute right-0 mt-2 w-[400px] min-h-[500px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
+                className="absolute right-0 mt-2 w-[400px] min-h-[500px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none px-[16px] py-[7px] flex flex-col items-center gap-4"
               >
-                <div className="py-1">
+                {" "}
+                <div className="w-full h-[70px] flex items-center justify-center">
+                  <p className={`text-white ${rowdies1.className}`}>
+                    Notifications
+                  </p>
+                </div>
+                <div className="py-1 flex flex-col w-full flex-1 bg-gray-950 rounded-md border border-zinc-400">
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
                   >
-                    New Message
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                  >
-                    New Comment
+                   <p> New Message</p>
                   </a>
                 </div>
               </motion.div>
@@ -151,7 +137,14 @@ const Navbar = () => {
                   href="#"
                   className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
                 >
-                  Logout
+                 <div className="flex items-center gap-1">
+                  
+                  <p>Logout</p>
+                  <div className="mt-1">
+                  <MdOutlineLogout />
+
+                  </div>
+                 </div>
                 </a>
               </div>
             </motion.div>
