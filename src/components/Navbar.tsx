@@ -54,41 +54,6 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-5 text-3xl items-center">
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative pt-[1px] mt-[2px] text-white hover:text-[#0c1feb] transition-colors duration-300 cursor-pointer"
-        >
-          <div onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>
-            <MdOutlineNotificationsNone />
-          </div>
-          <AnimatePresence>
-            {isNotificationsOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="absolute right-0 mt-2 w-[400px] min-h-[500px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none px-[16px] py-[7px] flex flex-col items-center gap-4"
-              >
-                {" "}
-                <div className="w-full h-[70px] flex items-center justify-center">
-                  <p className={`text-white ${rowdies1.className}`}>
-                    Notifications
-                  </p>
-                </div>
-                <div className="py-1 flex flex-col w-full flex-1 bg-gray-950 rounded-md border border-zinc-400">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                  >
-                   <p> New Message</p>
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-
         <motion.div whileHover={{ scale: 1.05 }} className="relative  ">
           <div
             onClick={() => setIsOpen(!isOpen)}
@@ -112,39 +77,25 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
+              className="absolute right-0 mt-2 w-[300px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
             >
               <div className="py-1">
                 <a
                   href="#"
-                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                >
-                  Your Profile
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
-                >
-                  Switch to organizer
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
+                  className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >
                   My Events/Hackathons
                 </a>
                 <a
                   href="#"
-                  className="block px-4 py-2 text-sm text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200"
+                  className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >
-                 <div className="flex items-center gap-1">
-                  
-                  <p>Logout</p>
-                  <div className="mt-1">
-                  <MdOutlineLogout />
-
+                  <div className="flex items-center gap-1">
+                    <p>Logout</p>
+                    <div className="mt-1">
+                      <MdOutlineLogout />
+                    </div>
                   </div>
-                 </div>
                 </a>
               </div>
             </motion.div>

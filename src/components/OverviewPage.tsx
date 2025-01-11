@@ -7,6 +7,7 @@ import { LuClock } from "react-icons/lu";
 import { Instagram, Twitter } from "lucide-react";
 import PrizesContainer from "./PrizesContainer";
 import OptionNav from "@/client-components/OptionNav";
+import OverviewTab from "@/client-components/OverviewTab";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -82,8 +83,7 @@ const OverviewPage = () => {
       </div>
       <div className="w-screen min-h-screen flex">
         <div>
-          {/* <OverviewContainer/> */}
-          <PrizesContainer />
+          <OverviewTab/>
         </div>
         <div className="min-h-screen flex-1  px-4 py-10 flex flex-col items-center gap-7 pr-7 bg-black">
           <div className="w-full h-[200px] bg-black border-[1px] rounded-xl border-zinc-400 text-zinc-400 p-5 flex flex-col justify-between">
