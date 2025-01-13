@@ -83,6 +83,7 @@ const Navbar = () => {
             >
               <div className="py-1">
                 <Link
+               onClick={() => dispatch(navbarActions.setIsOpen())}
                   href="/my-events-and-hackathons"
                   className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >

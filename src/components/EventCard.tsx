@@ -2,9 +2,7 @@
 import { Rowdies } from "next/font/google";
 import Link from "next/link";
 import { PiShareFatDuotone } from "react-icons/pi";
-import { RiTwitterXFill } from "react-icons/ri";
-import { Heart } from "lucide-react";
-import { useState } from "react";
+import { Bookmark } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -23,13 +21,13 @@ const rowdies1 = Rowdies({
 });
 
 const EventCard = () => {
-  const { isFavorite, showModal } = useSelector(
+  const { isSaved, showModal } = useSelector(
     (store: RootState) => store.eventCard
   );
   const dispatch = useDispatch();
   const toggleFavorite = () => {
     dispatch(eventCardActions.setIsFavourite());
-    if (!isFavorite) {
+    if (!isSaved) {
       dispatch(eventCardActions.setShowModal());
       // Close modal after 2 seconds
       setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
@@ -74,26 +72,23 @@ const EventCard = () => {
           <div className="flex  mt-5  text-white justify-between items-center">
             <div className="flex gap-4   text-2xl">
               <div className="bg-gray-900 rounded-full p-3">
-                <RiTwitterXFill />
-              </div>
-              <div className="bg-gray-900 rounded-full p-3">
                 <PiShareFatDuotone />
               </div>
               <button
                 onClick={toggleFavorite}
                 className={`bg-gray-900 rounded-full p-3 transition-colors ${
-                  isFavorite ? "text-[#0c1feb]" : "text-white"
+                  isSaved ? "text-[#0c1feb]" : "text-white"
                 }`}
                 aria-label={
-                  isFavorite ? "Remove from favorites" : "Add to favorites"
+                  isSaved ? "Remove from favorites" : "Add to favorites"
                 }
               >
-                <Heart
-                  className={`w-6 h-6 ${isFavorite ? "fill-current" : ""}`}
+                <Bookmark
+                  className={`w-6 h-6 ${isSaved ? "fill-current" : ""}`}
                 />
               </button>
             </div>
-            <div className="w-fit h-[40px] px-7 flex justify-center items-center bg-white  rounded-md bg-gradient-to-l from-blue-500 to-[#0c1feb] text-white">
+            <div className="w-fit h-[40px] px-7 flex justify-center items-center bg-gradient-to-r  rounded-md  from-blue-500 to-[#0c1feb] text-white">
               <p className={`${rowdies1.className}`}>OPEN</p>
             </div>
           </div>

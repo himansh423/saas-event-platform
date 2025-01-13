@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface EventCardState {
-  isFavorite: boolean;
+  isSaved: boolean;
   showModal: boolean;
 }
 
 const initialState: EventCardState = {
-  isFavorite: false,
+  isSaved: false,
   showModal: false,
 };
 
@@ -15,7 +15,7 @@ const eventCardSlice = createSlice({
   initialState,
   reducers: {
     setIsFavourite: (state) => {
-      state.isFavorite = !state.isFavorite;
+      state.isSaved = !state.isSaved;
     },
     setShowModal: (state) => {
       state.showModal = !state.showModal;

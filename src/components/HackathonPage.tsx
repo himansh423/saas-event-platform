@@ -1,6 +1,6 @@
 import { Rowdies } from "next/font/google";
 import EventCard from "./EventCard";
-import SearchAndFilterBox from "./SearchAndFilterBox";
+import SearchAndFilterBox from "@/components/SearchAndFilterBox";
 
 const rowdies1 = Rowdies({
   weight: "700",
