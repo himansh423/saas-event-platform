@@ -15,14 +15,20 @@ const rowdies = Rowdies({
   display: "swap",
 });
 
+const filters = ["Default", "Online", "Offline"];
+
 const SearchAndFilterBox = () => {
   const dispatch = useDispatch();
-  const { isfilterOpen } = useSelector(
+  const { isfilterOpen, selectedFilters } = useSelector(
     (store: RootState) => store.searchAndFilter
   );
 
   const handleIsFilterOpen = () => {
     dispatch(SearchAndFilterBoxAction.setFilterOpen());
+  };
+
+  const toggleFilter = (filter: string) => {
+    dispatch(SearchAndFilterBoxAction.toggleFilter(filter));
   };
 
   return (
@@ -59,21 +65,24 @@ const SearchAndFilterBox = () => {
                   exit={{ opacity: 0, y: -10 }}
                   className="bg-gray-950 absolute mt-[10px] left-0 w-[300px] rounded-lg border border-[#0c1feb] px-4 py-4 flex flex-col gap-2 overflow-y-scroll no-scrollbar z-10"
                 >
-                  {["Default", "Nearby First", "Online", "Offline"].map(
-                    (filter) => (
+                  {filters.map((filter) => (
+                    <div
+                      key={filter}
+                      className="w-full h-[50px] bg-gray-900 rounded-md text-xl text-white flex items-center px-2 justify-between cursor-pointer"
+                      onClick={() => toggleFilter(filter)}
+                    >
+                      <p className={`${rowdies.className}`}>{filter}</p>
                       <div
-                        key={filter}
-                        className="w-full h-[50px] bg-gray-900 rounded-md text-xl text-white flex items-center px-2 justify-between"
+                        className={`h-[30px] w-[30px] flex items-center justify-center rounded-sm border-[#0c1feb] border ${
+                          selectedFilters.includes(filter)
+                            ? "bg-gray-800 text-[#0c1feb]"
+                            : "bg-transparent text-transparent"
+                        }`}
                       >
-                        <p className={`${rowdies.className}`}>{filter}</p>
-                        <div className="h-[30px] w-[30px] bg-gray-800 flex items-center justify-center rounded-sm border-[#0c1feb] border">
-                          <div className="text-[#0c1feb]">
-                            <FaCheck />
-                          </div>
-                        </div>
+                        <FaCheck />
                       </div>
-                    )
-                  )}
+                    </div>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>

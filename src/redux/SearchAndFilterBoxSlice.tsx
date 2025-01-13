@@ -1,23 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SearchAndFilterState {
-  isfilterOpen:boolean;
+  isfilterOpen: boolean;
+  selectedFilters: string[];
 }
 
-const initialState:SearchAndFilterState = {
-   isfilterOpen:false,
-}
+const initialState: SearchAndFilterState = {
+  isfilterOpen: false,
+  selectedFilters: ["Default"], // Default is initially checked
+};
 
 const SearchAndFilterBoxSlice = createSlice({
-  name:"SearchAndFilter",
+  name: "SearchAndFilter",
   initialState,
-  reducers:{
-    setFilterOpen:(state) => {
+  reducers: {
+    setFilterOpen: (state) => {
       state.isfilterOpen = !state.isfilterOpen;
-    }
-  }
-})
-
+    },
+    toggleFilter: (state, action: PayloadAction<string>) => {
+      const filter = action.payload;
+      if (state.selectedFilters.includes(filter)) {
+        state.selectedFilters = state.selectedFilters.filter(
+          (item) => item !== filter
+        );
+      } else {
+        state.selectedFilters.push(filter);
+      }
+    },
+  },
+});
 
 export const SearchAndFilterBoxAction = SearchAndFilterBoxSlice.actions;
 
