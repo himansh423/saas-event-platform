@@ -52,7 +52,7 @@ const Footer = () => {
               <Link href={"/blog"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Blog</Link>
               <Link href={"/events"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Events</Link>
               <Link href={"/hackathons"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Hackathons</Link>
-              <Link href={"/pricing"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Pricing</Link>
+             
               <Link href={"/contact"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">Contact</Link>
               <Link href={"/about"} className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#0c1feb] hover:bg-clip-text hover:text-transparent">About</Link>
             </div>

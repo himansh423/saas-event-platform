@@ -1,15 +1,60 @@
+"use client";
 import { Rowdies } from "next/font/google";
 import Link from "next/link";
 import { PiShareFatDuotone } from "react-icons/pi";
 import { RiTwitterXFill } from "react-icons/ri";
+import { Heart } from "lucide-react";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { eventCardActions } from "@/redux/eventCardSlice";
+
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
 });
+
 const EventCard = () => {
+  const { isFavorite, showModal } = useSelector(
+    (store: RootState) => store.eventCard
+  );
+  const dispatch = useDispatch();
+  const toggleFavorite = () => {
+    dispatch(eventCardActions.setIsFavourite());
+    if (!isFavorite) {
+      dispatch(eventCardActions.setShowModal());
+      // Close modal after 2 seconds
+      setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
+    }
+  };
+  const setShowModal = () => {
+    dispatch(eventCardActions.setShowModal());
+  }
   return (
     <div>
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent className="bg-black border border-zinc-800">
+          <DialogHeader>
+            <DialogTitle
+              className={`${rowdies1.className} text-xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
+            >
+              Added to Your Hackathons!
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              You can find this hackathon in your saved collection.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
       <div className="w-[400px] h-[500px] text-white  bg-black border border-zinc-800 rounded-2xl p-6 flex flex-col shadow-[0_0_0_2px_#0c1feb]  hover:shadow-[0_0_0_4px_#0c1feb] transition-transform">
         <p
           className={`${rowdies1.className} text-2xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent mb-3`}
@@ -34,6 +79,19 @@ const EventCard = () => {
               <div className="bg-gray-900 rounded-full p-3">
                 <PiShareFatDuotone />
               </div>
+              <button
+                onClick={toggleFavorite}
+                className={`bg-gray-900 rounded-full p-3 transition-colors ${
+                  isFavorite ? "text-[#0c1feb]" : "text-white"
+                }`}
+                aria-label={
+                  isFavorite ? "Remove from favorites" : "Add to favorites"
+                }
+              >
+                <Heart
+                  className={`w-6 h-6 ${isFavorite ? "fill-current" : ""}`}
+                />
+              </button>
             </div>
             <div className="w-fit h-[40px] px-7 flex justify-center items-center bg-white  rounded-md bg-gradient-to-l from-blue-500 to-[#0c1feb] text-white">
               <p className={`${rowdies1.className}`}>OPEN</p>

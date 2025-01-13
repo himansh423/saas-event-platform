@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import heroSlice from "./heroSlice";
 import overviewPageSlice from "./overviewPageSlice";
 import SearchAndFilterBoxSlice from "./SearchAndFilterBoxSlice";
+import eventCardSlice from "./eventCardSlice";
 
 
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     hero:heroSlice.reducer,
     overviewTab:overviewPageSlice.reducer,
     searchAndFilter:SearchAndFilterBoxSlice.reducer,
+    eventCard: eventCardSlice.reducer,
   },
 });
 
