@@ -3,6 +3,7 @@ import "./globals.css";
 import ShowNav from "@/components/ShowNav";
 import { Providers } from "@/redux/Provider";
 import Footer from "@/components/Footer";
+import ShowFooter from "@/components/ShowFooter";
 
 export const metadata: Metadata = {
   title: "SAAS Event Platform",
@@ -21,7 +22,7 @@ export default function RootLayout({
         <Providers>
         <ShowNav />
         {children}
-        <Footer/>
+        <ShowFooter/>
         </Providers>
       </body>
     </html>
