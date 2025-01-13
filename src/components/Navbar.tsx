@@ -7,6 +7,9 @@ import { MdOutlineLogout } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logo from "../../public/tempLogo.png";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { navbarActions } from "@/redux/navbarSlice";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -15,8 +18,8 @@ const rowdies1 = Rowdies({
 });
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const { isOpen } = useSelector((store: RootState) => store.navbar);
+  const dispatch = useDispatch();
   return (
     <motion.nav
       initial={{ opacity: 0, y: -50 }}
@@ -55,7 +58,7 @@ const Navbar = () => {
       <div className="flex gap-5 text-3xl items-center">
         <motion.div whileHover={{ scale: 1.05 }} className="relative  ">
           <div
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => dispatch(navbarActions.setIsOpen())}
             className="flex gap-2 items-center text-xl p-2 border-[1px] border-[#333] rounded-[30px] hover:border-[#0c1feb] hover:shadow-[0_0_15px_rgba(12,31,235,0.3)] transition-all duration-300 cursor-pointer group"
           >
             <FaRegUserCircle className="text-[#0c1feb] group-hover:text-white transition-colors duration-300" />

@@ -3,6 +3,7 @@ import heroSlice from "./heroSlice";
 import overviewPageSlice from "./overviewPageSlice";
 import SearchAndFilterBoxSlice from "./SearchAndFilterBoxSlice";
 import eventCardSlice from "./eventCardSlice";
+import navbarSlice from "./navbarSlice";
 
 
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     overviewTab:overviewPageSlice.reducer,
     searchAndFilter:SearchAndFilterBoxSlice.reducer,
     eventCard: eventCardSlice.reducer,
+    navbar:navbarSlice.reducer,
   },
 });
 
