@@ -4,14 +4,10 @@ import RegisterImage from "../../public/event.jpg";
 import { Rowdies, Shadows_Into_Light } from "next/font/google";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { User } from "../library/zodSchema/RegisterSchema";
-import {
-  useForm,
-  Controller,
-  useFieldArray,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -24,7 +20,7 @@ const shadows1 = Shadows_Into_Light({
   subsets: ["latin"],
 });
 
-// Define FormData type based on schema
+
 type UserData = z.infer<typeof User>;
 const Register: React.FC = () => {
   const {
@@ -145,11 +141,11 @@ const Register: React.FC = () => {
           </button>
           <div className="text-white text-xl flex gap-2 items-center">
             <p className={rowdies1.className}>Already have an Account?</p>
-            <p
+            <Link href={"/login"}
               className={`${rowdies1.className} font-bold bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
             >
               Login
-            </p>
+            </Link>
           </div>
         </form>
 

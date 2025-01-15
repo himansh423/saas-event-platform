@@ -5,8 +5,8 @@ import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
 import { Instagram, Twitter } from "lucide-react";
-import OptionNav from "@/client-components/overviewPage/OptionNav";
-import OverviewTab from "@/client-components/overviewPage/OverviewTab";
+import OptionNav from "@/components/OptionNav";
+import OverviewTab from "@/components/OverviewTab";
 
 const rowdies1 = Rowdies({
   weight: "700",

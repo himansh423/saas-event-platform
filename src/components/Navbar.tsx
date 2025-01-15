@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Rowdies } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";

@@ -7,7 +7,7 @@ interface SearchAndFilterState {
 
 const initialState: SearchAndFilterState = {
   isfilterOpen: false,
-  selectedFilters: ["Default"], // Default is initially checked
+  selectedFilters: ["Default"],
 };
 
 const SearchAndFilterBoxSlice = createSlice({
