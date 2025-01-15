@@ -5,8 +5,6 @@ import { MdDateRange, MdGroups, MdLocationPin } from "react-icons/md";
 import { IoTrophyOutline } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
 import { Instagram, Twitter } from "lucide-react";
-import OptionNav from "@/components/OptionNav";
-import OverviewTab from "@/components/OverviewTab";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -77,13 +75,66 @@ const OverviewPage = () => {
           </div>
         </div>
       </div>
-      <div>
-        <OptionNav/>
+      <div className="OptionNav sticky top-0 z-10 bg-black border-b border-zinc-800 w-full h-[60px]  flex items-end gap-10 px-7">
+        <div
+          className={`
+          text-blue-700 border-blue-700 border-b-[3px] h-[40px] w-fit  text-2xl cursor-pointer`}
+        >
+          <p className={rowdies1.className}>Overview</p>
+        </div>
       </div>
       <div className="w-screen min-h-screen flex">
-        <div>
-          <OverviewTab/>
+      <div>
+      <div className="OverviewContainer w-[75vw] flex flex-col px-5 py-10 gap-10">
+        <div className="w-full min-h-[400px] bg-gradient-to-br from-[#0c1feb]/20 to-blue-500/10 border border-[#0c1feb]/20 rounded-lg  px-5 py-4 pb-6 flex flex-col gap-4">
+          <p
+            className={`${rowdies1.className} text-4xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent `}
+          >
+            About the Hackathon
+          </p>
+          <p className="text-white text-xl">
+            Where Geeks Battle with Code & Innovation! 🌟 Code Kshetra: Where
+            Innovation Meets Madness🌟 Are you ready to unleash your inner tech
+            wizard, survive on caffeine, and redefine what it means to innovate?
+            Code Kshetra isn’t just a hackathon – it’s a 36-hour rollercoaster
+            of creativity, chaos, and cutting-edge ideas, hosted by JIMS
+            Sector-5 Rohini and the tech rebels at Geek Room. 📅 Mark your
+            calendars: 🕒 When: 21st-22nd February 2024 📍 Where: JIMS Sector-5
+            Rohini, Near Rithala Metro Station 💰 What’s up for grabs? Prize
+            Pool: INR 1,00,00,000+ (yes, you read that right! 1Cr+ 😱) Cash
+            Prizes: Worth INR 50,000+ 🤯 And, of course, eternal bragging rights
+            😉 🎢 What’s in store? Live Project Presentations (show ‘em what
+            you’ve got). Idea Pitching (get those lightbulbs glowing). Guidance
+            from expert judges and mentors (don’t sweat, they’re nice!). And of
+            course Food, Games and Fun (because even we can&apos;t survive
+            without these 😅). 🎁 Perks that scream ‘Why not?’ Free swag (who
+            doesn’t love free stuff?). Goodies, meals, and a comfy place to
+            crash. Networking with industry big shots. A chance to make your
+            LinkedIn profile the envy of all your friends 😁 Code Kshetra 2.0
+            isn’t just about building projects – it’s about building memories,
+            having fun, and creating something the world didn’t know it needed.
+            So grab your laptops, your wildest ideas, and maybe an extra charger
+            or two. This isn’t just a hackathon – it’s Code Kshetra, a
+            battleground where your ideas will rise, your dreams will thrive,
+            and your sleep schedule will, well… not survive. See you there! 🚀
+          </p>
         </div>
+      </div>
+      <div className="OverviewContainer w-[75vw] flex flex-col px-5 py-10 gap-10">
+        <div className="w-full h-[200px] bg-gradient-to-br from-[#0c1feb]/20 to-blue-500/10 border border-[#0c1feb]/20 rounded-lg px-7 py-7">
+          <div className="flex items-center gap-2 text-3xl text-white">
+            <div className="text-blue-700">
+              <IoTrophyOutline />
+            </div>
+            <p className={`${rowdies1.className} `}>Prize Pool</p>
+          </div>
+          <p className={`${rowdies1.className} text-5xl text-white mt-6`}>
+            $1,900
+          </p>
+          <p className="text-zinc-400 mt-[4px]">Available in Prizes</p>
+        </div>
+      </div>
+    </div>
         <div className="min-h-screen flex-1  px-4 py-10 flex flex-col items-center gap-7 pr-7 bg-black">
           <div className="w-full h-[200px] bg-black border-[1px] rounded-xl border-zinc-400 text-zinc-400 p-5 flex flex-col justify-between">
             <div>
