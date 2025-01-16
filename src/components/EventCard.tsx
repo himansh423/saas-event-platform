@@ -35,7 +35,7 @@ const EventCard = () => {
   };
   const setShowModal = () => {
     dispatch(eventCardActions.setShowModal());
-  }
+  };
   return (
     <div>
       <Dialog open={showModal} onOpenChange={setShowModal}>

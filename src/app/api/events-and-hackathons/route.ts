@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       { success: true, message: "Event or Hackathon added Successfully" },
       { status: 201 }
     );
-  } catch (error:unknown) {
+  } catch (error: unknown) {
     if (error instanceof Error) {
       return NextResponse.json(
         { success: false, message: error.message },

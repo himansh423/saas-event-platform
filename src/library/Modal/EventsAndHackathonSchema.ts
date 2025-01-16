@@ -10,6 +10,7 @@ const EventAndHackathonSchema = new Schema({
   shortDescription: {
     required: true,
     type: String,
+    maxlength: 30, // Added max length to match Zod
   },
   date: {
     required: true,
@@ -20,6 +21,7 @@ const EventAndHackathonSchema = new Schema({
     type: String,
   },
   typeOfEvent: {
+    required: true,
     type: String,
   },
   isOpen: {
@@ -34,7 +36,7 @@ const EventAndHackathonSchema = new Schema({
     required: true,
     type: String,
   },
-  loaction: {
+  location: {
     required: true,
     type: String,
   },
@@ -47,12 +49,13 @@ const EventAndHackathonSchema = new Schema({
     type: String,
   },
   aboutDescriptions: {
-    type: String,
     required: true,
+    type: String,
+    minlength: 50,
   },
   eventPoster: {
-    type: String,
     required: true,
+    type: String,
   },
   instagramLink: {
     type: String,
