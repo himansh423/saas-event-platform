@@ -19,6 +19,6 @@ export const EventOrHackathon = z.object({
     .string()
     .min(50, "About Description must be Atleast 50 Characters"),
   eventPoster: z.string().min(2),
-  instagramLink: z.string().min(2),
-  twitterLink: z.string().min(2),
+  instagramLink: z.string().min(2).optional(),
+  twitterLink: z.string().min(2).optional(),
 });
