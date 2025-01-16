@@ -114,9 +114,98 @@ const AddEventOrHackathon = () => {
             </div>
           </div>
           <div className="flex flex-col gap-1 mt-7 pr-3">
-            <label htmlFor="theme" className="text-white">Theme</label>
-            <input type="text" className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-5" placeholder="Enter themes (commas-seperated)" />
-            <p className="text-zinc-400 text-xs">Enter themes separated by commas</p>
+            <label htmlFor="theme" className="text-white">
+              Theme
+            </label>
+            <input
+              type="text"
+              className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-5"
+              placeholder="Enter themes (commas-seperated)"
+            />
+            <p className="text-zinc-400 text-xs">
+              Enter themes separated by commas
+            </p>
+          </div>
+          <div className="w-full h-[190px] mt-10 pr-3  flex justify-between gap-20">
+            <div className="w-1/2   flex flex-col justify-between">
+              <div className="text-white  flex flex-col gap-1">
+                <label htmlFor="LogoURL">Logo URL</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter logo URL"
+                />
+              </div>
+              <div className="text-white  flex flex-col gap-1">
+                <label htmlFor="prize">Prize</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter prize details"
+                />
+              </div>
+            </div>
+            <div className="w-1/2 h-full  flex flex-col justify-between">
+              <div className="text-white  flex flex-col gap-1">
+                <label htmlFor="location">Location</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter location"
+                />
+              </div>
+              <div className="text-white  flex flex-col gap-1">
+                <label htmlFor="teamSize">Team Size</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter team size"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-1 mt-7 pr-3">
+            <label htmlFor="theme" className="text-white">
+              About Description
+            </label>
+            <textarea
+              className="w-full min-h-[140px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-3 py-2"
+              placeholder="Enter about description"
+            />
+            <p className="text-zinc-400 text-xs">Minimum 50 Characters</p>
+          </div>
+          <div className="flex flex-col gap-1 mt-7 pr-3">
+            <label htmlFor="theme" className="text-white">
+              Event poster URL
+            </label>
+            <input
+              type="text"
+              className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-5"
+              placeholder="Enter event Poster URL"
+            />
+            <p className="text-zinc-400 text-xs">Enter event poster URL</p>
+          </div>
+          <div className="w-full  mt-10 pr-3  flex justify-between gap-20">
+            <div className="w-1/2   flex flex-col justify-between">
+              <div className="text-white  flex flex-col gap-2">
+                <label htmlFor="instagramUrl">Instagram URL(Optional)</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter instgarm URL"
+                />
+              </div>
+            </div>
+            <div className="w-1/2 h-full  flex flex-col justify-between">
+              <div className="text-white  flex flex-col gap-2">
+                <label htmlFor="twitterUrl">Twitter URL(Optional)</label>
+                <input
+                  type="text"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400  px-4"
+                  placeholder="Enter twitter URL"
+                />
+              </div>
+            </div>
           </div>
         </form>
       </div>
