@@ -13,7 +13,7 @@ const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
-});
+}); 
 const shadows1 = Shadows_Into_Light({
   weight: "400",
   display: "swap",
@@ -24,7 +24,7 @@ const shadows1 = Shadows_Into_Light({
 type UserData = z.infer<typeof User>;
 const Register: React.FC = () => {
   const {
-    register,
+    register, 
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
