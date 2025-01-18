@@ -5,7 +5,7 @@ export const EventOrHackathon = z.object({
   shortDescription: z
     .string()
     .min(2, "Description must be Atleast 2 Characters")
-    .max(30, "Description should be short(30 Characters Max)"),
+    .max(30, "Description should be short(30 Characters Max)"), 
   date: z.string().min(2),
   modeOfEvent: z.string().min(2),
   typeOfEvent: z.string().min(2),
