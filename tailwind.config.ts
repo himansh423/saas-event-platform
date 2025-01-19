@@ -62,13 +62,10 @@ export default {
   				max: '768px'
   			},
   			'max-lg': {
-  				max: '1024px'
-  			},
-  			'max-lg1px': {
-  				max: '1023px'
+  				max: '1025px'
   			},
   			'max-xl': {
-  				max: '1280px'
+  				max: '1380px'
   			}
   		},
   		borderRadius: {
