@@ -53,7 +53,7 @@ const EventCard = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="w-[400px] h-[500px] text-white  bg-black border border-zinc-800 rounded-2xl p-6 flex flex-col shadow-[0_0_0_2px_#0c1feb]  hover:shadow-[0_0_0_4px_#0c1feb] transition-transform">
+      <div className="w-[400px] h-[530px] text-white  bg-black border border-zinc-800 rounded-2xl p-6 flex flex-col shadow-[0_0_0_2px_#0c1feb]  hover:shadow-[0_0_0_4px_#0c1feb] transition-transform">
         <p
           className={`${rowdies1.className} text-2xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent mb-3`}
         >
@@ -64,6 +64,10 @@ const EventCard = () => {
           <div className="flex gap-2 items-center ">
             <div className=" bg-gradient-to-r rounded-full text-[#0c1feb] from-blue-400 to-[#0c1feb] h-[6px] w-[6px] mt-[2px]" />
             <p className={`text-gray-300`}>12 Nov - 21 Oct, 2025</p>
+          </div>
+          <div className="flex gap-2 items-center ">
+            <div className=" bg-gradient-to-r rounded-full text-[#0c1feb] from-blue-400 to-[#0c1feb] h-[6px] w-[6px] mt-[2px]" />
+            <p className={`text-gray-300`}>New Delhi, India</p>
           </div>
           <div className="flex gap-2 items-center ">
             <div className=" bg-gradient-to-r rounded-full text-[#0c1feb] from-blue-400 to-[#0c1feb] h-[6px] w-[6px] mt-[2px]" />
