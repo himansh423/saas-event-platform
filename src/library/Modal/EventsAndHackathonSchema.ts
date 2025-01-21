@@ -63,6 +63,10 @@ const EventAndHackathonSchema = new Schema({
   twitterLink: {
     type: String,
   },
+  eventOrHackathonUrl:{
+    type:String,
+    required:true
+  }
 });
 
 const EventAndHackathon =

@@ -67,6 +67,7 @@ export async function POST(req: Request) {
       aboutDescriptions: eventData.aboutDescriptions,
       instagramLink: eventData.instagramLink,
       twitterLink: eventData.twitterLink,
+      eventOrHackathonUrl: eventData.eventOrHackathonUrl,
     });
     await newEntry.save();
 

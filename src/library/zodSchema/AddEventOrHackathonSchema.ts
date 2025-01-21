@@ -26,4 +26,5 @@ export const EventOrHackathon = z.object({
     .url("Instagram link must be a valid URL")
     .optional(),
   twitterLink: z.string().url("Twitter link must be a valid URL").optional(),
+  eventOrHackathonUrl: z.string().url("event or hackathon link must be a valid URL").optional(),
 });

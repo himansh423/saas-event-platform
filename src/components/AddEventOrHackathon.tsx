@@ -12,11 +12,7 @@ const rowdies1 = Rowdies({
   display: "swap",
   subsets: ["latin"],
 });
-type FileValidationOptions = RegisterOptions & {
-  validate?: {
-    isValidFile: (value: any) => boolean | string;
-  };
-};
+
 type EventOrHackathonFormData = z.infer<typeof EventOrHackathon>;
 
 const AddEventOrHackathon = () => {
@@ -26,6 +22,7 @@ const AddEventOrHackathon = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<EventOrHackathonFormData>({
     defaultValues: {
       name: "",
@@ -43,6 +40,7 @@ const AddEventOrHackathon = () => {
       eventPoster: undefined,
       instagramLink: "",
       twitterLink: "",
+      eventOrHackathonUrl: "",
     },
     resolver: zodResolver(EventOrHackathon),
   });
@@ -69,19 +67,16 @@ const AddEventOrHackathon = () => {
   const onSubmit = async (data: EventOrHackathonFormData) => {
     try {
       setIsUploading(true);
-  
-     
+
       const processedThemes = data.theme[0]
         .split(",")
         .map((theme) => theme.trim())
-        .filter((theme) => theme); 
-  
-  
+        .filter((theme) => theme);
+
       const logoFile = data.logo instanceof FileList ? data.logo[0] : null;
       const eventPosterFile =
         data.eventPoster instanceof FileList ? data.eventPoster[0] : null;
-  
-      
+
       const { data: presignedData } = await axios.post(
         "/api/get-presigned-url-to-upload-on-s3",
         {
@@ -91,31 +86,31 @@ const AddEventOrHackathon = () => {
           bannerFileType: eventPosterFile?.type,
         }
       );
-  
-      const { logoUploadUrl, bannerUploadUrl, logoKey, bannerKey } = presignedData;
-  
-    
+
+      const { logoUploadUrl, bannerUploadUrl, logoKey, bannerKey } =
+        presignedData;
+
       const uploadPromises = [];
-  
+
       if (logoFile) {
         uploadPromises.push(uploadFileToS3(logoFile, logoUploadUrl));
       }
-  
+
       if (eventPosterFile) {
         uploadPromises.push(uploadFileToS3(eventPosterFile, bannerUploadUrl));
       }
-  
+
       await Promise.all(uploadPromises);
-  
-      
+
       await axios.post("/api/save-event-to-database", {
         ...data,
-        theme: processedThemes, 
+        theme: processedThemes,
         logoKey,
         bannerKey,
       });
-  
+
       alert("Event created successfully!");
+      reset();
     } catch (error) {
       console.error("Error submitting form:", error);
       if (axios.isAxiosError(error)) {
@@ -132,15 +127,12 @@ const AddEventOrHackathon = () => {
     }
   };
 
-  
-
   const fileValidation = {
     validate: (value: FileList | null | undefined) => {
       if (!value || value.length === 0) return true;
       const file = value[0];
 
-     
-      if (!file) return true; 
+      if (!file) return true;
       if (!file.type.startsWith("image/")) return "Please upload an image file";
       if (file.size > 5 * 1024 * 1024) return "File size must be less than 5MB";
 
@@ -433,6 +425,22 @@ const AddEventOrHackathon = () => {
                 )}
               </div>
             </div>
+          </div>
+          <div className="flex flex-col gap-1 mt-7 pr-3">
+            <label htmlFor="event-Or-Hackathon-Url" className="text-white">
+              Hackathon URL
+            </label>
+            <input
+              {...register("eventOrHackathonUrl")}
+              type="url"
+              className=" text-white w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-5"
+              placeholder="Enter Hackathon or Event URL"
+            />
+            {errors.eventOrHackathonUrl && (
+              <p className="text-orange-500 text-sm">
+                {errors.eventOrHackathonUrl.message}
+              </p>
+            )}
           </div>
           <div className="w-full h-[60px] pr-3 mt-6 mb-10">
             <button
