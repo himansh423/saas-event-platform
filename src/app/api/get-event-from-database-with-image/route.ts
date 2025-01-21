@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import connectToDatabase from "@/library/db";
+import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";
 
 // AWS S3 Configuration
 const s3Client = new S3Client({
@@ -13,30 +13,22 @@ const s3Client = new S3Client({
   },
 });
 
-// MongoDB Schema and Model
-const Schema = new mongoose.Schema({
-  bannerKey: { type: String, required: true },
-  logoKey: { type: String, required: true },
-});
-
-const FileKeysModel = mongoose.models.FileKeys || mongoose.model("FileKeys", Schema);
-
 export async function GET() {
   try {
     // Connect to MongoDB
     await connectToDatabase();
 
-    // Fetch all image keys from the database
-    const records = await FileKeysModel.find();
+    // Fetch all records from the database
+    const records = await EventAndHackathon.find();
 
-    // Generate pre-signed URLs for each record
-    const imagesWithUrls = await Promise.all(
+    // Generate pre-signed URLs and prepare the data
+    const data = await Promise.all(
       records.map(async (record) => {
-        const bannerUrl = await getSignedUrl(
+        const eventPosterUrl = await getSignedUrl(
           s3Client,
           new GetObjectCommand({
             Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-            Key: record.bannerKey,
+            Key: record.eventPoster,
           }),
           { expiresIn: 3600 } // 1-hour expiration
         );
@@ -45,20 +37,34 @@ export async function GET() {
           s3Client,
           new GetObjectCommand({
             Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-            Key: record.logoKey,
+            Key: record.logo,
           }),
           { expiresIn: 3600 }
         );
 
         return {
-          bannerUrl,
-          logoUrl,
+          name: record.name,
+          shortDescription: record.shortDescription,
+          date: record.date,
+          modeOfEvent: record.modeOfEvent,
+          typeOfEvent: record.typeOfEvent,
+          isOpen: record.isOpen,
+          theme: record.theme,
+          logo: logoUrl,
+          eventPoster: eventPosterUrl,
+          location: record.location,
+          prize: record.prize,
+          teamSize: record.teamSize,
+          aboutDescriptions: record.aboutDescriptions,
+          instagramLink: record.instagramLink,
+          twitterLink: record.twitterLink,
+          eventOrHackathonUrl: record.eventOrHackathonUrl,
         };
       })
     );
 
     // Return the data as JSON
-    return NextResponse.json(imagesWithUrls);
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching images:", error);
     return NextResponse.json(
