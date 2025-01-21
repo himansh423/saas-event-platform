@@ -26,7 +26,6 @@ const AddEventOrHackathon = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
   } = useForm<EventOrHackathonFormData>({
     defaultValues: {
       name: "",
@@ -70,13 +69,19 @@ const AddEventOrHackathon = () => {
   const onSubmit = async (data: EventOrHackathonFormData) => {
     try {
       setIsUploading(true);
-
-      // Extract files from FileList
+  
+     
+      const processedThemes = data.theme[0]
+        .split(",")
+        .map((theme) => theme.trim())
+        .filter((theme) => theme); 
+  
+  
       const logoFile = data.logo instanceof FileList ? data.logo[0] : null;
       const eventPosterFile =
         data.eventPoster instanceof FileList ? data.eventPoster[0] : null;
-
-      // Get pre-signed URLs for file uploads
+  
+      
       const { data: presignedData } = await axios.post(
         "/api/get-presigned-url-to-upload-on-s3",
         {
@@ -86,32 +91,30 @@ const AddEventOrHackathon = () => {
           bannerFileType: eventPosterFile?.type,
         }
       );
-
-      const { logoUploadUrl, bannerUploadUrl, logoKey, bannerKey } =
-        presignedData;
-
-      // Upload files to S3
+  
+      const { logoUploadUrl, bannerUploadUrl, logoKey, bannerKey } = presignedData;
+  
+    
       const uploadPromises = [];
-
+  
       if (logoFile) {
         uploadPromises.push(uploadFileToS3(logoFile, logoUploadUrl));
       }
-
+  
       if (eventPosterFile) {
         uploadPromises.push(uploadFileToS3(eventPosterFile, bannerUploadUrl));
       }
-
-      // Wait for all uploads to complete
+  
       await Promise.all(uploadPromises);
-
-      // Save event data to MongoDB
+  
+      
       await axios.post("/api/save-event-to-database", {
         ...data,
+        theme: processedThemes, 
         logoKey,
         bannerKey,
       });
-
-      // Handle success
+  
       alert("Event created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -129,15 +132,15 @@ const AddEventOrHackathon = () => {
     }
   };
 
-  // File input registration with validation
+  
 
   const fileValidation = {
     validate: (value: FileList | null | undefined) => {
       if (!value || value.length === 0) return true;
       const file = value[0];
 
-      // Validation checks
-      if (!file) return true; // Optional file
+     
+      if (!file) return true; 
       if (!file.type.startsWith("image/")) return "Please upload an image file";
       if (file.size > 5 * 1024 * 1024) return "File size must be less than 5MB";
 
@@ -213,6 +216,7 @@ const AddEventOrHackathon = () => {
                 <input
                   {...register("shortDescription")}
                   type="text"
+                  maxLength={30}
                   className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
                   placeholder="Enter Short Description"
                 />
@@ -291,7 +295,7 @@ const AddEventOrHackathon = () => {
             <input
               {...register("theme.0")}
               type="text"
-              className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-5"
+              className=" text-white w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-5"
               placeholder="Enter themes (commas-seperated)"
             />
             {errors.theme && (
@@ -309,7 +313,7 @@ const AddEventOrHackathon = () => {
                   {...register("logo", fileValidation)}
                   type="file"
                   accept="image/*"
-                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4 py-2"
                 />
                 {errors.logo && (
                   <p className="text-orange-500 text-sm">
@@ -369,7 +373,8 @@ const AddEventOrHackathon = () => {
             </label>
             <textarea
               {...register("aboutDescriptions")}
-              className="w-full min-h-[140px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-3 py-2"
+              minLength={50}
+              className=" text-white w-full min-h-[140px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-3 py-2"
               placeholder="Enter about description"
             />
             {errors.aboutDescriptions && (
@@ -387,7 +392,7 @@ const AddEventOrHackathon = () => {
               {...register("eventPoster", fileValidation)}
               type="file"
               accept="image/*"
-              className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
+              className=" text-white w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4 py-2"
             />
             {errors.eventPoster && (
               <p className="text-orange-500 text-sm">
