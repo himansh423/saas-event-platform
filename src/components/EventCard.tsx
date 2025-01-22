@@ -1,18 +1,6 @@
-'use client'
 import { Rowdies } from "next/font/google";
 import Link from "next/link";
-import { PiShareFatDuotone } from "react-icons/pi";
-import { Bookmark } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { eventCardActions } from "@/redux/eventCardSlice";
+import SaveModal, { SaveButton } from "./SaveModal";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -21,37 +9,11 @@ const rowdies1 = Rowdies({
 });
 
 const EventCard = ({ card }: { card: any }) => {
-  const { isSaved, showModal } = useSelector(
-    (store: RootState) => store.eventCard
-  );
-  const dispatch = useDispatch();
-  const toggleFavorite = () => {
-    dispatch(eventCardActions.setIsFavourite());
-    if (!isSaved) {
-      dispatch(eventCardActions.setShowModal());
-      // Close modal after 2 seconds
-      setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
-    }
-  };
-  const setShowModal = () => {
-    dispatch(eventCardActions.setShowModal());
-  };
   return (
     <div>
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="bg-black border border-zinc-800">
-          <DialogHeader>
-            <DialogTitle
-              className={`${rowdies1.className} text-xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
-            >
-              Added to Your Hackathons!
-            </DialogTitle>
-            <DialogDescription className="text-gray-400">
-              You can find this hackathon in your saved collection.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <div>
+        <SaveModal />
+      </div>
 
       <div className="w-[400px] h-[530px] text-white  bg-black border border-zinc-800 rounded-2xl p-6 flex flex-col shadow-[0_0_0_2px_#0c1feb]  hover:shadow-[0_0_0_4px_#0c1feb] transition-transform">
         <p
@@ -74,23 +36,8 @@ const EventCard = ({ card }: { card: any }) => {
             <p className={`text-gray-300`}>{card.modeOfEvent}</p>
           </div>
           <div className="flex  mt-5  text-white justify-between items-center">
-            <div className="flex gap-4   text-2xl">
-              <div className="bg-gray-900 rounded-full p-3">
-                <PiShareFatDuotone />
-              </div>
-              <button
-                onClick={toggleFavorite}
-                className={`bg-gray-900 rounded-full p-3 transition-colors ${
-                  isSaved ? "text-[#0c1feb]" : "text-white"
-                }`}
-                aria-label={
-                  isSaved ? "Remove from favorites" : "Add to favorites"
-                }
-              >
-                <Bookmark
-                  className={`w-6 h-6 ${isSaved ? "fill-current" : ""}`}
-                />
-              </button>
+            <div>
+              <SaveButton />
             </div>
             <div className="w-fit h-[40px] px-7 flex justify-center items-center bg-gradient-to-r  rounded-md  from-blue-500 to-[#0c1feb] text-white">
               <p className={`${rowdies1.className}`}>
