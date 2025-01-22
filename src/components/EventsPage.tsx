@@ -1,18 +1,44 @@
 import { Rowdies } from "next/font/google";
-import EventCard from "./EventCard";
-import SearchAndFilterBox from "./SearchAndFilterBox";
+import axios from "axios";
+import SearchAndFilterBox from "@/components/SearchAndFilterBox";
+import EventCard from "@/components/EventCard";
 
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
 });
-const EventsPage = () => {
+
+interface CardData {
+  _id: string;
+  name: string;
+  shortDescription: string;
+  date: string;
+  modeOfEvent: string;
+  isOpen: boolean;
+  theme: string[];
+  location: string;
+  prize: string;
+}
+
+const getEventAndHackathonCards = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:3000/api/get-event-from-database-without-image"
+    );
+    return res.data;
+  } catch (error) {
+    return [];
+  }
+};
+
+const EventsPage = async () => {
+  const cards = await getEventAndHackathonCards();
   return (
     <div className="min-h-screen w-screen bg-black">
       <div className="w-full flex flex-col gap-4 items-center pt-10">
         <h1
-          className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-7xl `}
+          className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-7xl`}
         >
           Events
         </h1>
@@ -21,16 +47,22 @@ const EventsPage = () => {
         </p>
       </div>
       <div>
-      <div className="mt-20 px-7">
-        <SearchAndFilterBox/>
-      </div>
-      <div className="w-full grid grid-cols-3 place-items-center py-10 mt-4 ">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div className="mt-16" key={item}>
-            <EventCard  />
-          </div>
-        ))}
-      </div>
+        <div className="mt-20 px-7">
+          <SearchAndFilterBox />
+        </div>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center py-10 mt-4">
+          {cards && cards.length > 0 ? (
+            cards.map((card: CardData) => (
+              <div className="mt-16" key={card._id}>
+                <EventCard card={card} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-zinc-400">
+              No events available at the moment.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
