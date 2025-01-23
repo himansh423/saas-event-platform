@@ -8,23 +8,25 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
-}); 
+});
 const shadows1 = Shadows_Into_Light({
   weight: "400",
   display: "swap",
   subsets: ["latin"],
 });
 
-
 type UserData = z.infer<typeof User>;
 const Register: React.FC = () => {
+  const router = useRouter();
   const {
-    register, 
+    register,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
@@ -39,9 +41,19 @@ const Register: React.FC = () => {
     resolver: zodResolver(User),
   });
 
-  const onSubmit: SubmitHandler<UserData> = async () => {
+  const onSubmit: SubmitHandler<UserData> = async (data: UserData) => {
     try {
-      console.log("Success:");
+      const payload = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+      };
+      const res = await axios.post("/api/auth/register", payload);
+
+      if(res.data.success){
+        router.push(`/auth/verify-otp/${payload.email}`)
+      }
     } catch (error: any) {
       console.error("Error:", error);
       setError("root", {
@@ -141,7 +153,8 @@ const Register: React.FC = () => {
           </button>
           <div className="text-white text-xl flex gap-2 items-center">
             <p className={rowdies1.className}>Already have an Account?</p>
-            <Link href={"/login"}
+            <Link
+              href={"/login"}
               className={`${rowdies1.className} font-bold bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
             >
               Login
