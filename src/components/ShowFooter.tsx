@@ -6,7 +6,11 @@ const ShowFooter = () => {
   const pathname = usePathname();
 
   // Regular expressions to match dynamic paths
-  const hideFooterPaths = [/^\/login$/, /^\/register$/, /^\/verify-otp$/];
+  const hideFooterPaths = [
+    /^\/auth\/login$/,
+    /^\/auth\/register$/,
+    /^\/auth\/verify-otp\/[^\/]+$/,
+  ];
 
   // Check if the current pathname matches any of the hideNavbarPaths
   const shouldFooterNavbar = hideFooterPaths.some((pattern) =>

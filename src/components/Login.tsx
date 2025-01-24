@@ -123,7 +123,7 @@ const Login: React.FC = () => {
           <div className="text-white text-xl flex gap-2 items-center">
             <p className={rowdies1.className}>Don't have an Account?</p>
             <Link
-              href={"/Register"}
+              href={"/auth/register"}
               className={`${rowdies1.className} font-bold bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
             >
               Register
