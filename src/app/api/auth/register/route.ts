@@ -74,7 +74,7 @@ export async function POST(req: Request) {
           `,
         });
       }
-    }, 2 * 60 * 1000); 
+    }, 5 * 60 * 1000); 
 
     return NextResponse.json({ success: true, message: "OTP sent to your email" }, { status: 200 });
   } catch (error:unknown) {

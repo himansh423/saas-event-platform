@@ -10,6 +10,8 @@ import { z } from "zod";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { emailActions } from "@/redux/emailSlice";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -24,6 +26,7 @@ const shadows1 = Shadows_Into_Light({
 
 type UserData = z.infer<typeof User>;
 const Register: React.FC = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const {
     register,
@@ -51,8 +54,9 @@ const Register: React.FC = () => {
       };
       const res = await axios.post("/api/auth/register", payload);
 
-      if(res.data.success){
-        router.push(`/auth/verify-otp/${payload.email}`)
+      if (res.data.success) {
+        dispatch(emailActions.setEmail({ data: data.email }));
+        router.push(`/auth/verify-otp/${payload.email}`);
       }
     } catch (error: any) {
       console.error("Error:", error);

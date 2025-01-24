@@ -8,6 +8,8 @@ import { otpSchema } from "@/library/zodSchema/otpSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -21,8 +23,7 @@ const shadows1 = Shadows_Into_Light({
 type OTP = z.infer<typeof otpSchema>;
 const Verify = () => {
   const router = useRouter();
-  const params = useParams();
-  const email = params?.email;
+  const {email} = useSelector((store:RootState) => store.email)
 
   const {
     register,
@@ -42,7 +43,7 @@ const Verify = () => {
   });
 
   const onSubmit: SubmitHandler<OTP> = async (data: OTP) => {
-    const otp = [
+    const otp: string = [
       data.number1,
       data.number2,
       data.number3,
@@ -51,24 +52,30 @@ const Verify = () => {
       data.number6,
     ].join("");
 
+    
+
     try {
-      const payload = {
-        email,
-        otp,
-      };
-      const res = await axios.post("/api/auth/register", payload);
+      const payload = { email, otp };
+      console.log(payload)
+      const res = await axios.post("/api/auth/verify-otp", payload);
 
       if (res.data.success) {
         router.push("/");
+      } else {
+        setError("root", {
+          type: "manual",
+          message: res.data.message || "Invalid OTP",
+        });
       }
     } catch (error: any) {
       console.error("Error:", error);
       setError("root", {
         type: "manual",
-        message: error.message,
+        message: error.response?.data?.message || "Something went wrong",
       });
     }
   };
+
   return (
     <div className="w-screen h-screen flex">
       <div className=" relative imageContainer flex-1 min-h-screen bg-black flex justify-center items-center">
