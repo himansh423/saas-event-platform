@@ -8,6 +8,8 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@/library/zodSchema/LoginSchema";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -21,6 +23,7 @@ const shadows1 = Shadows_Into_Light({
 
 type UserData = z.infer<typeof User>;
 const Login: React.FC = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -33,9 +36,17 @@ const Login: React.FC = () => {
     },
     resolver: zodResolver(User),
   });
-  const onSubmit: SubmitHandler<UserData> = async () => {
+  const onSubmit: SubmitHandler<UserData> = async (data:UserData) => {
     try {
-      console.log("Success:");
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await axios.post("/api/auth/login", payload);
+
+      if (res.data.success) {
+        router.push("/");
+      }
     } catch (error: any) {
       console.error("Error:", error);
       setError("root", {

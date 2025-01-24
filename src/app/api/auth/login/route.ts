@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     // Generate a JWT token that contains the user's id, username, and email
     const token = jwt.sign(
-      { userId: existingUser._id, username: existingUser.username, email: existingUser.email },
+      { userId: existingUser._id, firstName: existingUser.firstName,lastName:existingUser.lastName, email: existingUser.email },
       JWT_SECRET as string,
       { expiresIn: '7d' } // Token valid for 7 days
     );
