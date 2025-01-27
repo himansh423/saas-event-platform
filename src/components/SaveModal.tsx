@@ -13,7 +13,7 @@ import { Rowdies } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
 import { Bookmark } from "lucide-react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -58,13 +58,32 @@ export const SaveButton = ({
 }) => {
   const { savedItems } = useSelector((store: RootState) => store.eventCard);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false); // Add a loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   const isSaved = savedItems.includes(cardId);
 
+  useEffect(() => {
+    const fetchSavedHackathons = async () => {
+      try {
+        const res = await axios.get(`/api/get-user-data/${userId}`);
+        if (res.data.success) {
+          dispatch(
+            eventCardActions.setSavedItems(res.data.savedEventAndHackathon)
+          );
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Failed to fetch saved hackathons:", error.message);
+        }
+      }
+    };
+
+    fetchSavedHackathons();
+  }, [userId, dispatch]);
+
   const toggleFavorite = async (cardId: string) => {
-    if (isLoading) return; // Prevent multiple requests
-    setIsLoading(true); // Set loading to true
+    if (isLoading) return; 
+    setIsLoading(true);
 
     try {
       const res = await axios.patch(`/api/save-event-or-hackathon/${userId}`, {
@@ -82,7 +101,7 @@ export const SaveButton = ({
         alert(error.message);
       }
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false); 
     }
   };
 
@@ -97,7 +116,7 @@ export const SaveButton = ({
           isSaved ? "text-[#0c1feb]" : "text-white"
         }`}
         aria-label={isSaved ? "Remove from favorites" : "Add to favorites"}
-        disabled={isLoading} // Disable the button while loading
+        disabled={isLoading} 
       >
         <Bookmark className={`w-6 h-6 ${isSaved ? "fill-current" : ""}`} />
       </button>

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface EventCardState {
-  savedItems: string[]; // Array to store IDs of saved items
+  savedItems: string[]; 
   showModal: boolean;
 }
 
 const initialState: EventCardState = {
-  savedItems: [], // Initially, no items are saved
+  savedItems: [], 
   showModal: false,
 };
 
@@ -18,15 +18,16 @@ const eventCardSlice = createSlice({
       const id = action.payload;
       const index = state.savedItems.indexOf(id);
       if (index === -1) {
-        // If the item is not saved, add it to the savedItems array
         state.savedItems.push(id);
       } else {
-        // If the item is already saved, remove it from the savedItems array
         state.savedItems.splice(index, 1);
       }
     },
     setShowModal: (state) => {
       state.showModal = !state.showModal;
+    },
+    setSavedItems: (state, action: PayloadAction<string[]>) => {
+      state.savedItems = action.payload; 
     },
   },
 });

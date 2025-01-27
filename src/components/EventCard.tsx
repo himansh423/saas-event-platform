@@ -8,7 +8,9 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const EventCard = ({ card, userId }: { card: any; userId: string }) => {
+
+
+const EventCard = ({ card, userId, }: { card: any; userId: string, }) => {
   
   return (
     <div>
@@ -38,7 +40,7 @@ const EventCard = ({ card, userId }: { card: any; userId: string }) => {
           </div>
           <div className="flex  mt-5  text-white justify-between items-center">
             <div>
-              <SaveButton userId={userId} cardId={card._id} />
+              <SaveButton userId={userId} cardId={card._id}  />
             </div>
             <div className="w-fit h-[40px] px-7 flex justify-center items-center bg-gradient-to-r  rounded-md  from-blue-500 to-[#0c1feb] text-white">
               <p className={`${rowdies1.className}`}>
