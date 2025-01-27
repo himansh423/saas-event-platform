@@ -2,6 +2,7 @@ import { Rowdies } from "next/font/google";
 import axios from "axios";
 import SearchAndFilterBox from "@/components/SearchAndFilterBox";
 import EventCard from "@/components/EventCard";
+import { cookies } from "next/headers";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -20,7 +21,31 @@ interface CardData {
   location: string;
   prize: string;
 }
+const fetchUserData = async () => {
 
+  const cookieStore = await cookies(); 
+  const token = cookieStore.get('token')?.value;
+
+  if (token) {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/decode-token",
+        {
+          headers: { Cookie: `token=${token}` },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch user data");
+
+      const data = await response.json();
+      if (data?.user) {
+        return data.user;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+};
 const getEventAndHackathonCards = async () => {
   try {
     const res = await axios.get(
@@ -34,6 +59,11 @@ const getEventAndHackathonCards = async () => {
 
 const EventsPage = async () => {
   const cards = await getEventAndHackathonCards();
+  const loggedInUser = await fetchUserData();
+  console.log(loggedInUser)
+
+
+
   return (
     <div className="min-h-screen w-screen bg-black">
       <div className="w-full flex flex-col gap-4 items-center pt-10">
@@ -54,7 +84,7 @@ const EventsPage = async () => {
           {cards && cards.length > 0 ? (
             cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} />
+                <EventCard card={card} userId={""} />
               </div>
             ))
           ) : (

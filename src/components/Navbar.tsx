@@ -9,8 +9,8 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { navbarActions } from "@/redux/navbarSlice";
-import { useEffect } from "react";
-import { userAction } from "@/redux/userSlice";
+
+
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -18,26 +18,16 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const Navbar = () => {
+const Navbar = async () => {
   const { isOpen } = useSelector((store: RootState) => store.navbar);
-  const {loggedInUser} = useSelector((store:RootState) => store.user)
+
+ 
+ 
   const dispatch = useDispatch();
+  
+  
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch("/api/auth/decode-token");
-        const data = await response.json();
-        if (data?.user) {
-          dispatch(userAction.setLoggedInUser({ data: data.user }));
-        }
-      } catch (error) {
-        console.error("Error fetching logged-in user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  
   return (
     <motion.nav
       initial={{ opacity: 0, y: -50 }}
@@ -81,7 +71,7 @@ const Navbar = () => {
           >
             <FaRegUserCircle className="text-[#0c1feb] group-hover:text-white transition-colors duration-300" />
             <p className="group-hover:text-[#0c1feb] transition-colors duration-300">
-              {loggedInUser.firstName}
+              {}
             </p>
             <motion.div
               animate={{ rotate: isOpen ? 180 : 0 }}

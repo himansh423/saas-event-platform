@@ -8,7 +8,7 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const EventCard = ({ card }: { card: any }) => {
+const EventCard = ({ card, userId }: { card: any; userId: string }) => {
   return (
     <div>
       <div>
