@@ -10,14 +10,14 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  loggedInUser: null // Initialize as null
+  loggedInUser: null 
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setLoggedInUser: (state, action) => { // ✅ Fixed parameter name
+    setLoggedInUser: (state, action) => { 
       const { data } = action.payload;
       state.loggedInUser = data;
       console.log(data)

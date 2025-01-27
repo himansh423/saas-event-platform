@@ -12,6 +12,8 @@ import { RootState } from "@/redux/store";
 import { Rowdies } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
 import { Bookmark } from "lucide-react";
+import axios from "axios";
+import { useState } from "react";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -20,19 +22,8 @@ const rowdies1 = Rowdies({
 });
 
 const SaveModal = () => {
-  const { isSaved, showModal } = useSelector(
-    (store: RootState) => store.eventCard
-  );
+  const { showModal } = useSelector((store: RootState) => store.eventCard);
   const dispatch = useDispatch();
-
-  const toggleFavorite = () => {
-    dispatch(eventCardActions.setIsFavourite());
-    if (!isSaved) {
-      dispatch(eventCardActions.setShowModal());
-      // Close modal after 2 seconds
-      setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
-    }
-  };
 
   const setShowModal = () => {
     dispatch(eventCardActions.setShowModal());
@@ -58,15 +49,40 @@ const SaveModal = () => {
   );
 };
 
-export const SaveButton = () => {
-  const { isSaved } = useSelector((store: RootState) => store.eventCard);
+export const SaveButton = ({
+  userId,
+  cardId,
+}: {
+  userId: string;
+  cardId: string;
+}) => {
+  const { savedItems } = useSelector((store: RootState) => store.eventCard);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false); // Add a loading state
 
-  const toggleFavorite = () => {
-    dispatch(eventCardActions.setIsFavourite());
-    if (!isSaved) {
-      dispatch(eventCardActions.setShowModal());
-      setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
+  const isSaved = savedItems.includes(cardId);
+
+  const toggleFavorite = async (cardId: string) => {
+    if (isLoading) return; // Prevent multiple requests
+    setIsLoading(true); // Set loading to true
+
+    try {
+      const res = await axios.patch(`/api/save-event-or-hackathon/${userId}`, {
+        id: cardId,
+      });
+      if (res.data.success) {
+        dispatch(eventCardActions.toggleSavedItem(cardId));
+        if (!isSaved) {
+          dispatch(eventCardActions.setShowModal());
+          setTimeout(() => dispatch(eventCardActions.setShowModal()), 2000);
+        }
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setIsLoading(false); // Reset loading state
     }
   };
 
@@ -76,11 +92,12 @@ export const SaveButton = () => {
         <PiShareFatDuotone />
       </div>
       <button
-        onClick={toggleFavorite}
+        onClick={() => toggleFavorite(cardId)}
         className={`bg-gray-900 rounded-full p-3 transition-colors ${
           isSaved ? "text-[#0c1feb]" : "text-white"
         }`}
         aria-label={isSaved ? "Remove from favorites" : "Add to favorites"}
+        disabled={isLoading} // Disable the button while loading
       >
         <Bookmark className={`w-6 h-6 ${isSaved ? "fill-current" : ""}`} />
       </button>

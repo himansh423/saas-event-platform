@@ -9,33 +9,55 @@ export async function PATCH(
   try {
     const { id: userId } = params;
     const { id: eventOrHackathonId } = await req.json();
-    await connectToDatabase();
-    const user = await User.findById(userId);
 
+   
+
+    await connectToDatabase();
+
+    
+    const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json(
         {
           success: false,
-          message: "User ID required",
+          message: "User not found",
         },
-        { status: 400 }
+        { status: 404 }
       );
     }
 
-    await User.findOneAndUpdate(
-      { _id: userId },
-      { $addToSet: { savedEventAndHackathon: eventOrHackathonId } },
-      { new: true }
-    );
+    
+    const isSaved = user.savedEventAndHackathon.includes(eventOrHackathonId);
+
+    if (isSaved) {
+      
+      await User.updateOne(
+        { _id: userId },
+        { $pull: { savedEventAndHackathon: eventOrHackathonId } }
+      );
+    } else {
+     
+      await User.updateOne(
+        { _id: userId },
+        { $push: { savedEventAndHackathon: eventOrHackathonId } }
+      );
+    }
+
+
     return NextResponse.json({
       success: true,
-      message: `Successfuly saved`,
+      message: isSaved
+        ? "Event or Hackathon unsaved successfully"
+        : "Event or Hackathon saved successfully",
     });
   } catch (error) {
-    console.error("Error saving Event or Hackathon", error);
-    return NextResponse.json({
-      success: false,
-      message: "Error saving Event or Hackathon",
-    });
+    console.error("Error toggling Event or Hackathon", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Error toggling Event or Hackathon",
+      },
+      { status: 500 }
+    );
   }
 }

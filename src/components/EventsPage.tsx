@@ -1,3 +1,4 @@
+// EventsPage.tsx
 import { Rowdies } from "next/font/google";
 import axios from "axios";
 import SearchAndFilterBox from "@/components/SearchAndFilterBox";
@@ -21,8 +22,8 @@ interface CardData {
   location: string;
   prize: string;
 }
-const fetchUserData = async () => {
 
+const fetchUserData = async () => {
   const cookieStore = await cookies(); 
   const token = cookieStore.get('token')?.value;
 
@@ -38,14 +39,15 @@ const fetchUserData = async () => {
       if (!response.ok) throw new Error("Failed to fetch user data");
 
       const data = await response.json();
-      if (data?.user) {
-        return data.user;
-      }
+      return data?.user || null;
     } catch (error) {
       console.error("Error fetching user data:", error);
+      return null;
     }
   }
+  return null;
 };
+
 const getEventAndHackathonCards = async () => {
   try {
     const res = await axios.get(
@@ -60,9 +62,6 @@ const getEventAndHackathonCards = async () => {
 const EventsPage = async () => {
   const cards = await getEventAndHackathonCards();
   const loggedInUser = await fetchUserData();
-  console.log(loggedInUser)
-
-
 
   return (
     <div className="min-h-screen w-screen bg-black">
@@ -84,7 +83,11 @@ const EventsPage = async () => {
           {cards && cards.length > 0 ? (
             cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={""} />
+                <EventCard 
+                  card={card} 
+                  userId={loggedInUser?.userId} 
+                  isSaved={loggedInUser?.savedEventAndHackathon?.includes(card._id)}
+                />
               </div>
             ))
           ) : (
