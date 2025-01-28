@@ -48,7 +48,7 @@ const fetchUserDataFromCookie = async () => {
 const getEventAndHackathonCards = async () => {
   try {
     const res = await axios.get(
-      "http://localhost:3000/api/get-event-from-database-without-image"
+      "http://localhost:3000/api/get-event-from-database-without-image/hackathon"
     );
     return res.data;
   } catch (error) {
