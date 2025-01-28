@@ -189,12 +189,14 @@ const AddEventOrHackathon = () => {
               </div>
               <div className="text-white flex flex-col gap-1">
                 <label htmlFor="typeOfEvent">Type of Event</label>
-                <input
+                <select
                   {...register("typeOfEvent")}
-                  type="text"
                   className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
-                  placeholder="Enter type of event"
-                />
+                  
+                >
+                  <option value="event">Event</option>
+                  <option value="hackathon">Hackathon</option>
+                </select>
                 {errors.typeOfEvent && (
                   <p className="text-orange-500 text-sm">
                     {errors.typeOfEvent.message}

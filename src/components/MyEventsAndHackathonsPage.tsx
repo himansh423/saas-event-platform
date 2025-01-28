@@ -1,15 +1,68 @@
 import { Rowdies } from "next/font/google";
-import EventCard from "./EventCard";
+import axios from "axios";
+import SearchAndFilterBox from "@/components/SearchAndFilterBox";
+import EventCard from "@/components/EventCard";
+import { cookies } from "next/headers";
 
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
 });
-const MyEventsAndHackathonsPage = () => {
+
+interface CardData {
+  _id: string;
+  name: string;
+  shortDescription: string;
+  date: string;
+  modeOfEvent: string;
+  isOpen: boolean;
+  theme: string[];
+  location: string;
+  prize: string;
+}
+const fetchUserDataFromCookie = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  if (token) {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/decode-token",
+        {
+          headers: { Cookie: `token=${token}` },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch user data");
+
+      const data = await response.json();
+      if (data?.user) {
+        return data.user;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+};
+const getSavedEventAndHackathonCards = async (id: string) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/api/get-user-saved-hackathon-or-events/${id}`
+    );
+    return res.data;
+  } catch (error) {
+    return [];
+  }
+};
+
+const EventsPage = async () => {
+  const loggedInUser = await fetchUserDataFromCookie();
+  const cards = await getSavedEventAndHackathonCards(loggedInUser.userId);
+
   return (
-    <div className="w-screen min-h-screen bg-black">
-      <div className="w-full flex flex-col gap-4 items-center pt-10">
+    <div className="min-h-screen w-screen bg-black">
+       <div className="w-full flex flex-col gap-4 items-center pt-10">
         <h1
           className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-7xl `}
         >
@@ -19,15 +72,25 @@ const MyEventsAndHackathonsPage = () => {
           Discover the latest insights, tutorials, and updates from our team.
         </p>
       </div>
-      <div className="w-full grid grid-cols-3 place-items-center py-10 mt-4 ">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div className="mt-16" key={item}>
-            <EventCard  />
-          </div>
-        ))}
+      <div>
+        
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center py-10 mt-4">
+          {cards.savedEventAndHackathon &&
+          cards.savedEventAndHackathon.length > 0 ? (
+            cards.savedEventAndHackathon.map((card: CardData) => (
+              <div className="mt-16" key={card._id}>
+                <EventCard card={card} userId={loggedInUser.userId} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-zinc-400">
+              No events available at the moment.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default MyEventsAndHackathonsPage;
+export default EventsPage;
