@@ -45,7 +45,7 @@ const fetchUserDataFromCookie = async () => {
     }
   }
 };
-const getSavedEventAndHackathonCards = async (id: string) => {
+const getSavedEventAndHackathonCards = async (id:string) => {
   try {
     const res = await axios.get(
       `http://localhost:3000/api/get-user-saved-hackathon-or-events/${id}`
@@ -56,30 +56,34 @@ const getSavedEventAndHackathonCards = async (id: string) => {
   }
 };
 
+
+
 const EventsPage = async () => {
   const loggedInUser = await fetchUserDataFromCookie();
   const cards = await getSavedEventAndHackathonCards(loggedInUser.userId);
+  
 
   return (
     <div className="min-h-screen w-screen bg-black">
-       <div className="w-full flex flex-col gap-4 items-center pt-10">
+      <div className="w-full flex flex-col gap-4 items-center pt-10">
         <h1
-          className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-7xl `}
+          className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent text-7xl`}
         >
-          Saved Hackathons & Events
+          Events
         </h1>
         <p className="text-zinc-400 text-xl">
           Discover the latest insights, tutorials, and updates from our team.
         </p>
       </div>
       <div>
-        
+        <div className="mt-20 px-7">
+          <SearchAndFilterBox />
+        </div>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center py-10 mt-4">
-          {cards.savedEventAndHackathon &&
-          cards.savedEventAndHackathon.length > 0 ? (
-            cards.savedEventAndHackathon.map((card: CardData) => (
+          {cards && cards.length > 0 ? (
+            cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={loggedInUser.userId} />
+                <EventCard card={card} userId={loggedInUser.userId}  />
               </div>
             ))
           ) : (

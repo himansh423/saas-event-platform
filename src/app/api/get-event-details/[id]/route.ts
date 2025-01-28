@@ -21,7 +21,10 @@ export async function GET(
       );
     }
 
-    return NextResponse.json(eventOrHackathon, {
+    return NextResponse.json({
+      success:true,
+      data:eventOrHackathon,
+    }, {
       status: 200,
       headers: {
         "Content-Type": "application/json",
