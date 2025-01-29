@@ -53,6 +53,6 @@ const overviewSlice = createSlice({
   },
 });
 
-export const overviewAction = overviewSlice.reducer;
+export const overviewAction = overviewSlice.actions;
 
 export default overviewSlice;
