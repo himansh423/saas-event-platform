@@ -11,6 +11,8 @@ import { RootState } from "@/redux/store";
 import { navbarActions } from "@/redux/navbarSlice";
 import { useEffect } from "react";
 import { userAction } from "@/redux/userSlice";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -19,8 +21,9 @@ const rowdies1 = Rowdies({
 });
 
 const Navbar = () => {
+  const router = useRouter();
   const { isOpen } = useSelector((store: RootState) => store.navbar);
-  const {loggedInUser} = useSelector((store:RootState) => store.user)
+  const { loggedInUser } = useSelector((store: RootState) => store.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,6 +41,14 @@ const Navbar = () => {
 
     fetchUserData();
   }, []);
+
+  const handleLogout = async () => {
+    const res = await axios.post("/api/auth/logout");
+
+    if (res.data.success) {
+      window.location.reload();
+    }
+  };
   return (
     <motion.nav
       initial={{ opacity: 0, y: -50 }}
@@ -71,6 +82,18 @@ const Navbar = () => {
             </Link>
           </motion.div>
         ))}
+        <motion.div
+           
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href={`/team-up`} className="relative group">
+              <span className="text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-[#0c1feb] group-hover:bg-clip-text group-hover:text-transparent">
+                Team Up
+              </span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0c1feb] transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </motion.div>
       </div>
 
       <div className="flex gap-5 text-3xl items-center">
@@ -107,8 +130,8 @@ const Navbar = () => {
                 >
                   My Events/Hackathons
                 </Link>
-                <a
-                  href="#"
+                <div
+                  onClick={handleLogout}
                   className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >
                   <div className="flex items-center gap-1">
@@ -117,7 +140,7 @@ const Navbar = () => {
                       <MdOutlineLogout />
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
             </motion.div>
           )}
