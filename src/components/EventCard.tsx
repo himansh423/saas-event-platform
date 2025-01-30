@@ -1,6 +1,7 @@
 import { Rowdies } from "next/font/google";
 import Link from "next/link";
 import SaveModal, { SaveButton } from "./SaveModal";
+import CardDate from "./CardDate";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -11,6 +12,8 @@ const rowdies1 = Rowdies({
 
 
 const EventCard = ({ card, userId, }: { card: any; userId: string, }) => {
+
+  
   
   return (
     <div>
@@ -26,10 +29,7 @@ const EventCard = ({ card, userId, }: { card: any; userId: string, }) => {
         </p>
         <p className="text-gray-400">{card.shortDescription}</p>
         <div className="flex flex-col gap-3 mt-5">
-          <div className="flex gap-2 items-center ">
-            <div className=" bg-gradient-to-r rounded-full text-[#0c1feb] from-blue-400 to-[#0c1feb] h-[6px] w-[6px] mt-[2px]" />
-            <p className={`text-gray-300`}>{card.date}</p>
-          </div>
+          <CardDate card={card}/>
           <div className="flex gap-2 items-center ">
             <div className=" bg-gradient-to-r rounded-full text-[#0c1feb] from-blue-400 to-[#0c1feb] h-[6px] w-[6px] mt-[2px]" />
             <p className={`text-gray-300`}>{card.location}</p>
