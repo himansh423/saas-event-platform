@@ -5,7 +5,9 @@ export const EventOrHackathon = z.object({
     .string()
     .min(2, "Description must be at least 2 characters")
     .max(30, "Description should be short (30 characters max)"),
-  date: z.string().min(2, "Date is required"),
+  dateStart: z.string(),
+  dateEnd: z.string().optional(),
+  applicationCloseDate:z.string(),
   modeOfEvent: z.string().min(2, "Mode of event is required"),
   typeOfEvent: z.string().min(2, "Type of event is required"),
   isOpen: z.boolean(),
@@ -26,5 +28,8 @@ export const EventOrHackathon = z.object({
     .url("Instagram link must be a valid URL")
     .optional(),
   twitterLink: z.string().url("Twitter link must be a valid URL").optional(),
-  eventOrHackathonUrl: z.string().url("event or hackathon link must be a valid URL").optional(),
+  eventOrHackathonUrl: z
+    .string()
+    .url("event or hackathon link must be a valid URL")
+    .optional(),
 });

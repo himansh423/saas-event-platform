@@ -55,7 +55,9 @@ export async function GET(
     const data = {
       name: record.name,
       shortDescription: record.shortDescription,
-      date: record.date,
+      dateStart: record.dateStart,
+      dateEnd: record.dateEnd,
+      applicationCloseDate:record.applicationCloseDate,
       modeOfEvent: record.modeOfEvent,
       typeOfEvent: record.typeOfEvent,
       isOpen: record.isOpen,

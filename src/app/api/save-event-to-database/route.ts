@@ -54,7 +54,9 @@ export async function POST(req: Request) {
     const newEntry = new EventAndHackathon({
       name: eventData.name,
       shortDescription: eventData.shortDescription,
-      date: eventData.date,
+      dateStart: eventData.dateStart,
+      dateEnd: eventData.dateEnd,
+      applicationCloseDate: eventData.applicationCloseDate,
       modeOfEvent: eventData.modeOfEvent,
       typeOfEvent: eventData.typeOfEvent,
       isOpen: eventData.isOpen,

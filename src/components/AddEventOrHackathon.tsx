@@ -27,17 +27,19 @@ const AddEventOrHackathon = () => {
     defaultValues: {
       name: "",
       shortDescription: "",
-      date: "",
+      dateStart: "",
+      dateEnd: "",
+      applicationCloseDate: "",
       modeOfEvent: "",
       typeOfEvent: "",
       isOpen: false,
       theme: [""],
       logo: undefined,
+      eventPoster: undefined,
       location: "",
       prize: "",
       teamSize: "",
       aboutDescriptions: "",
-      eventPoster: undefined,
       instagramLink: "",
       twitterLink: "",
       eventOrHackathonUrl: "",
@@ -106,6 +108,9 @@ const AddEventOrHackathon = () => {
         ...data,
         theme: processedThemes,
         logoKey,
+        dateStart: new Date(data.dateStart),
+        dateEnd: data.dateEnd ? new Date(data.dateEnd) : undefined,
+        applicationCloseDate: new Date(data.applicationCloseDate),
         bannerKey,
       });
 
@@ -174,16 +179,41 @@ const AddEventOrHackathon = () => {
                 )}
               </div>
               <div className="text-white flex flex-col gap-1">
-                <label htmlFor="date">Date</label>
+                <label htmlFor="date">Date Start*</label>
                 <input
-                  {...register("date")}
-                  type="text"
+                  {...register("dateStart")}
+                  type="date"
                   className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
-                  placeholder="Enter Date or Date Range"
                 />
-                {errors.date && (
+                {errors.dateStart && (
                   <p className="text-orange-500 text-sm">
-                    {errors.date.message}
+                    {errors.dateStart.message}
+                  </p>
+                )}
+              </div>
+              <div className="text-white flex flex-col gap-1">
+                <label htmlFor="date">Date End (Optional)</label>
+                <input
+                  {...register("dateEnd")}
+                  type="date"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
+                />
+                {errors.dateEnd && (
+                  <p className="text-orange-500 text-sm">
+                    {errors.dateEnd.message}
+                  </p>
+                )}
+              </div>
+              <div className="text-white flex flex-col gap-1">
+                <label htmlFor="date">Aplication Closing Date</label>
+                <input
+                  {...register("applicationCloseDate")}
+                  type="date"
+                  className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
+                />
+                {errors.applicationCloseDate && (
+                  <p className="text-orange-500 text-sm">
+                    {errors.applicationCloseDate.message}
                   </p>
                 )}
               </div>
@@ -192,7 +222,6 @@ const AddEventOrHackathon = () => {
                 <select
                   {...register("typeOfEvent")}
                   className="w-full h-[50px] bg-[#141519] rounded-lg focus:outline-none border-[1px] border-blue-700 focus:border-[2px] placeholder:text-zinc-400 px-4"
-                  
                 >
                   <option value="event">Event</option>
                   <option value="hackathon">Hackathon</option>

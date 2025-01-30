@@ -12,15 +12,16 @@ export async function GET() {
       _id:record._id,
       name: record.name,
       shortDescription: record.shortDescription,
-      date: record.date,
+      dateStart: record.dateStart,
+      dateEnd:record.dateEnd,
+      applicationCloseDate:record.applicationCloseDate,
       modeOfEvent: record.modeOfEvent,
       isOpen: record.isOpen,
       theme: record.theme,
       location: record.location,
-      prize: record.prize // Make sure this field exists in your schema
+      prize: record.prize 
     }));
     
-    // Add proper headers
     return NextResponse.json(data, {
       status: 200,
       headers: {

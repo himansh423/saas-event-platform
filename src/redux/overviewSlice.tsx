@@ -4,7 +4,8 @@ interface OverviewState {
   overviewData: {
     name: string;
     shortDescription: string;
-    date: string;
+    dateStart: string;
+    dateEnd: string;
     modeOfEvent: string;
     typeOfEvent: string;
     isOpen: boolean;
@@ -17,6 +18,7 @@ interface OverviewState {
     eventPoster: string;
     instagramLink: string;
     twitterLink: string;
+    applicationCloseDate: string;
     eventOrHackathonUrl: string;
   } | null;
 }
@@ -25,13 +27,15 @@ const initialState: OverviewState = {
   overviewData: {
     name: "",
     shortDescription: "",
-    date: "",
+    dateStart: "",
+    dateEnd: "",
     modeOfEvent: "",
     typeOfEvent: "",
     isOpen: false,
     theme: [],
     logo: "",
     location: "",
+    applicationCloseDate: "",
     prize: "",
     teamSize: "",
     aboutDescriptions: "",

@@ -10,11 +10,18 @@ const EventAndHackathonSchema = new Schema({
   shortDescription: {
     required: true,
     type: String,
-    maxlength: 30, // Added max length to match Zod
+    maxlength: 30,
   },
-  date: {
+  dateStart: {
     required: true,
-    type: String,
+    type: Date,
+  },
+  dateEnd: {
+    type: Date,
+  },
+  applicationCloseDate: {
+    type: Date,
+    require: true,
   },
   modeOfEvent: {
     required: true,
@@ -63,10 +70,10 @@ const EventAndHackathonSchema = new Schema({
   twitterLink: {
     type: String,
   },
-  eventOrHackathonUrl:{
-    type:String,
-    required:true
-  }
+  eventOrHackathonUrl: {
+    type: String,
+    required: true,
+  },
 });
 
 const EventAndHackathon =
