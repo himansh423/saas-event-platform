@@ -56,12 +56,9 @@ const getEventAndHackathonCards = async () => {
   }
 };
 
-
-
 const EventsPage = async () => {
   const cards = await getEventAndHackathonCards();
   const loggedInUser = await fetchUserDataFromCookie();
-  
 
   return (
     <div className="min-h-screen w-screen bg-black">
@@ -83,7 +80,7 @@ const EventsPage = async () => {
           {cards && cards.length > 0 ? (
             cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={loggedInUser.userId}  />
+                <EventCard card={card} userId={loggedInUser.userId} />
               </div>
             ))
           ) : (

@@ -53,12 +53,12 @@ const TeamUpCard = () => {
           </div>
         </div>
         <div className="flex items-center justify-between w-full gap-5">
-          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center">
+          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
             <p className={`${rowdies1.className} text-white`}>
               Apply for Team Up
             </p>
           </div>
-          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center">
+          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
             <p className={`${rowdies1.className} text-white`}>More Info</p>
           </div>
         </div>

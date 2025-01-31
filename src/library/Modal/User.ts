@@ -28,6 +28,13 @@ const UserSchema = new Schema({
   savedEventAndHackathon: [
     { type: mongoose.Schema.Types.ObjectId, ref: "EventAndHackathon" },
   ],
+  createdTeamUp: [{ type: mongoose.Schema.Types.ObjectId, ref: "TeamUp" }],
+  appliedTeamUp: [
+    {
+      teamUp: { type: mongoose.Schema.Types.ObjectId, ref: "TeamUp" },
+      isApproved: { type: Boolean, default: false },
+    },
+  ],
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
