@@ -12,11 +12,11 @@ const teamUpSchema = new Schema({
     required: true,
   },
   dateStart: {
-    type: String,
     required: true,
+    type: Date,
   },
   dateEnd: {
-    type: String,
+    type: Date,
   },
   location: {
     type: String,
@@ -26,7 +26,7 @@ const teamUpSchema = new Schema({
     type: String,
     required: true,
   },
-  appliedBy:[ { type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+  appliedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   eventOrHackathonUrl: {
     type: String,
     required: true,

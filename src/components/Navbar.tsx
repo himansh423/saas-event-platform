@@ -82,18 +82,14 @@ const Navbar = () => {
             </Link>
           </motion.div>
         ))}
-        <motion.div
-           
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link href={`/team-up`} className="relative group">
-              <span className="text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-[#0c1feb] group-hover:bg-clip-text group-hover:text-transparent">
-                Team Up
-              </span>
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0c1feb] transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+          <Link href={`/team-up`} className="relative group">
+            <span className="text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-[#0c1feb] group-hover:bg-clip-text group-hover:text-transparent">
+              Team Up
+            </span>
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0c1feb] transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+        </motion.div>
       </div>
 
       <div className="flex gap-5 text-3xl items-center">
@@ -128,7 +124,29 @@ const Navbar = () => {
                   href="/my-events-and-hackathons"
                   className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >
-                  My Events/Hackathons
+                  My Saved Events/Hackathons
+                </Link>
+
+                <Link
+                  onClick={() => dispatch(navbarActions.setIsOpen())}
+                  href="/my-team-up"
+                  className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
+                >
+                  My Team Up
+                </Link>
+                <Link
+                  onClick={() => dispatch(navbarActions.setIsOpen())}
+                  href="/applied-team-up"
+                  className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
+                >
+                  Applied Team Up
+                </Link>
+                <Link
+                  onClick={() => dispatch(navbarActions.setIsOpen())}
+                  href="/create-teamup"
+                  className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
+                >
+                  Create Team Up
                 </Link>
                 <div
                   onClick={handleLogout}
@@ -141,6 +159,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
+                
               </div>
             </motion.div>
           )}

@@ -1,3 +1,4 @@
+import connectToDatabase from "@/library/db";
 import TeamUp from "@/library/Modal/teamUpSchemaCardSchema";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
@@ -7,10 +8,10 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params; // Get userId from params
+    await connectToDatabase();
+    const { id } = params;
     const teamUpData = await req.json();
 
-    // Check if user exists
     const user = await User.findById(id);
     if (!user) {
       return NextResponse.json(
@@ -22,10 +23,9 @@ export async function POST(
       );
     }
 
-    // Create a new TeamUp entry with userId in createdBy
     const newTeamUp = new TeamUp({
-      hackName: teamUpData.name,
-      createdBy: id, // Assign the userId
+      hackName: teamUpData.hackName,
+      createdBy: id,
       description: teamUpData.description,
       dateStart: teamUpData.dateStart,
       dateEnd: teamUpData.dateEnd,
@@ -35,10 +35,8 @@ export async function POST(
       eventOrHackathonUrl: teamUpData.eventOrHackathonUrl,
     });
 
-    // Save the new TeamUp document
     const savedTeamUp = await newTeamUp.save();
 
-    // Add the new TeamUp ID to the user's createdTeamUp array
     user.createdTeamUp.push(savedTeamUp._id);
     await user.save();
 
