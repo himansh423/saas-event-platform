@@ -1,4 +1,4 @@
-import { Calendar, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Rowdies } from "next/font/google";
 import TeamUpDate from "./TeamUpDate";
 
@@ -26,7 +26,7 @@ const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
         </div>
         <div className="flex  flex-col gap-2">
           <div>
-            <TeamUpDate teamUp={teamUp}/>
+            <TeamUpDate teamUp={teamUp} />
           </div>
           <div className="flex gap-1 items-center text-[14px] text-[#9CA3AF]">
             <div>
@@ -53,7 +53,10 @@ const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
               Apply for Team Up
             </p>
           </div>
-          <a href={teamUp.eventOrHackathonUrl} className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
+          <a
+            href={teamUp.eventOrHackathonUrl}
+            className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer"
+          >
             <p className={`${rowdies1.className} text-white`}>More Info</p>
           </a>
         </div>

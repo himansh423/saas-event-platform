@@ -30,7 +30,7 @@ const TeamUpPage = async () => {
         </h1>
       </div>
       <div className="w-full px-6 grid grid-cols-3 place-items-center py-20">
-        {teamUpData.map((teamUp:any) => (
+        {teamUpData.map((teamUp: any) => (
           <TeamUpCard teamUp={teamUp} />
         ))}
       </div>
