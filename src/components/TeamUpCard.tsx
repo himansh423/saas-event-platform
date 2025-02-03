@@ -1,5 +1,6 @@
 import { Calendar, Mail, MapPin, Phone } from "lucide-react";
 import { Rowdies } from "next/font/google";
+import TeamUpDate from "./TeamUpDate";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -21,35 +22,29 @@ const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
           </p>
         </div>
         <div className="text-[#D1D5DB] text-[14px]">
-          <p>
-            Looking for team members skilled in full-stack development and UI/UX
-            design for a 24-hour hackathon focused on AI/ML solutions.
-          </p>
+          <p>{teamUp.description}</p>
         </div>
         <div className="flex  flex-col gap-2">
-          <div className="flex gap-1 items-center text-[14px] text-[#9CA3AF]">
-            <div>
-              <Calendar className="h-4 w-4" />
-            </div>
-            <p>15-16 February 2024</p>
+          <div>
+            <TeamUpDate teamUp={teamUp}/>
           </div>
           <div className="flex gap-1 items-center text-[14px] text-[#9CA3AF]">
             <div>
               <MapPin className="h-4 w-4" />
             </div>
-            <p>New Delhi, India</p>
+            <p>{teamUp.location}</p>
           </div>
           <div className="flex gap-1 items-center text-[14px] text-[#9CA3AF]">
             <div>
               <Mail className="h-4 w-4" />
             </div>
-            <p>himanshuchau423@gmail.com</p>
+            <p>{teamUp.email}</p>
           </div>
           <div className="flex gap-1 items-center text-[14px] text-[#9CA3AF]">
             <div>
               <Phone className="h-4 w-4" />
             </div>
-            <p>+91-8287015235</p>
+            <p>{teamUp.mobileNumber}</p>
           </div>
         </div>
         <div className="flex items-center justify-between w-full gap-5">
@@ -58,9 +53,9 @@ const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
               Apply for Team Up
             </p>
           </div>
-          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
+          <a href={teamUp.eventOrHackathonUrl} className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
             <p className={`${rowdies1.className} text-white`}>More Info</p>
-          </div>
+          </a>
         </div>
       </div>
     </>

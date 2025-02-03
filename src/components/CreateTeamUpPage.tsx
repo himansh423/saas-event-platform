@@ -19,7 +19,7 @@ import {
   type TeamUpFormData,
   TeamUpSchema,
 } from "@/library/zodSchema/TeamUpSchema";
-import type React from "react"; // Import React
+import type React from "react";
 
 const rowdies = Rowdies({ weight: "700", subsets: ["latin"] });
 
@@ -34,6 +34,7 @@ const CreateTeamUpPage = () => {
     resolver: zodResolver(TeamUpSchema),
   });
   const [userId, setUserId] = useState("");
+  const [email, setUserEmail] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,6 +43,7 @@ const CreateTeamUpPage = () => {
         const data = await response.json();
         if (data?.user) {
           setUserId(data.user.userId);
+          setUserEmail(data.user.email);
         }
       } catch (error) {
         console.error("Error fetching logged-in user data:", error);
@@ -52,11 +54,13 @@ const CreateTeamUpPage = () => {
   }, []);
 
   const onSubmit = async (data: TeamUpFormData) => {
+    console.log("emailjsbv:",email)
     try {
       const formattedData = {
         ...data,
         dateStart: new Date(data.dateStart),
         dateEnd: data.dateEnd ? new Date(data.dateEnd) : undefined,
+        email,
       };
 
       const response = await axios.post(

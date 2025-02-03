@@ -6,6 +6,11 @@ const teamUpSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   description: {
     type: String,

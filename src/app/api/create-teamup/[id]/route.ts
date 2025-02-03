@@ -25,6 +25,7 @@ export async function POST(
 
     const newTeamUp = new TeamUp({
       hackName: teamUpData.hackName,
+      email: teamUpData.email,
       createdBy: id,
       description: teamUpData.description,
       dateStart: teamUpData.dateStart,
