@@ -1,13 +1,25 @@
-import { Calendar, Mail, MapPin, Phone } from "lucide-react";
 import { Rowdies } from "next/font/google";
 import TeamUpCard from "./TeamUpCard";
+import axios from "axios";
 
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
   subsets: ["latin"],
 });
-const TeamUpPage = () => {
+
+const getTeamUpData = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/api/get-teamup");
+    if (res.data.success) {
+      return res.data.data;
+    }
+  } catch (error) {
+    return [];
+  }
+};
+const TeamUpPage = async () => {
+  const teamUpData = await getTeamUpData();
   return (
     <div className="w-screen min-h-screen">
       <div className="w-full flex flex-col gap-4 items-center pt-10">
@@ -18,8 +30,8 @@ const TeamUpPage = () => {
         </h1>
       </div>
       <div className="w-full px-6 grid grid-cols-3 place-items-center py-20">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <TeamUpCard />
+        {teamUpData.map((teamUp:any) => (
+          <TeamUpCard teamUp={teamUp} />
         ))}
       </div>
     </div>

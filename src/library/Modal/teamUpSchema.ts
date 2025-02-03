@@ -6,7 +6,7 @@ const teamUpSchema = new Schema({
     type: String,
     required: true,
   },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   description: {
     type: String,
     required: true,
@@ -26,7 +26,7 @@ const teamUpSchema = new Schema({
     type: String,
     required: true,
   },
-  appliedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+  appliedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   eventOrHackathonUrl: {
     type: String,
     required: true,

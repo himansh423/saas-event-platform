@@ -1,5 +1,5 @@
 import connectToDatabase from "@/library/db";
-import TeamUp from "@/library/Modal/teamUpSchemaCardSchema";
+import TeamUp from "@/library/Modal/teamUpSchema";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
 

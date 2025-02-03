@@ -6,7 +6,7 @@ const rowdies1 = Rowdies({
   display: "swap",
   subsets: ["latin"],
 });
-const TeamUpCard = () => {
+const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
   return (
     <>
       <div className="w-[467px] h-[367px] bg-[#111111] rounded-md border-[1px] border-[#222] flex flex-col items-start mb-12 justify-between px-4 py-5">
@@ -14,10 +14,10 @@ const TeamUpCard = () => {
           <p
             className={`${rowdies1.className} text-2xl bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
           >
-            Delhi Tech Summit Hackathon 2024
+            {teamUp.hackName}
           </p>
           <p className="text-[14px] text-[#A3A3A3]">
-            Posted by Himanshu Chauhan
+            Posted by {teamUp.createdBy.firstName} {teamUp.createdBy.lastName}
           </p>
         </div>
         <div className="text-[#D1D5DB] text-[14px]">
