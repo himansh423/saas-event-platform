@@ -22,10 +22,12 @@ export async function GET(
       );
     }
 
-   
     return NextResponse.json({
       success: true,
-      savedEventAndHackathon: user.savedEventAndHackathon,
+      user: {
+        savedEventAndHackathon: user.savedEventAndHackathon,
+        appliedTeamUp: user.appliedTeamUp,
+      },
     });
   } catch (error) {
     console.error("Error fetching user data:", error);

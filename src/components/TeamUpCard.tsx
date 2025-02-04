@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Rowdies } from "next/font/google";
 import TeamUpDate from "./TeamUpDate";
+import ApplyButton from "./ApplyButton";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -48,17 +49,7 @@ const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
           </div>
         </div>
         <div className="flex items-center justify-between w-full gap-5">
-          <div className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer">
-            <p className={`${rowdies1.className} text-white`}>
-              Apply for Team Up
-            </p>
-          </div>
-          <a
-            href={teamUp.eventOrHackathonUrl}
-            className="w-1/2 h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center  cursor-pointer"
-          >
-            <p className={`${rowdies1.className} text-white`}>More Info</p>
-          </a>
+          <ApplyButton teamUp={teamUp} />
         </div>
       </div>
     </>

@@ -41,18 +41,18 @@ export async function PATCH(
       );
 
     if (isApplied) {
-      const userUpdate = await User.updateOne(
+      await User.updateOne(
         { _id: userObjectId },
         { $pull: { appliedTeamUp: { _id: teamUpObjectId } } }
       );
 
-      const teamUpUpdate = await TeamUp.updateOne(
+      await TeamUp.updateOne(
         { _id: teamUpObjectId },
         { $pull: { appliedBy: userObjectId } }
       );
 
       return NextResponse.json({
-        success: true,
+        successWithdraw: true,
         message: "Withdrawn successfully",
       });
     } else {
@@ -68,11 +68,8 @@ export async function PATCH(
         { $push: { appliedBy: userObjectId } }
       );
 
-      console.log("User update result:", userUpdate);
-      console.log("TeamUp update result:", teamUpUpdate);
-
       return NextResponse.json({
-        success: true,
+        successApply: true,
         message: "Applied successfully",
       });
     }

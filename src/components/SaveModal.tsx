@@ -82,7 +82,7 @@ export const SaveButton = ({
   }, [userId, dispatch]);
 
   const toggleFavorite = async (cardId: string) => {
-    if (isLoading) return; 
+    if (isLoading) return;
     setIsLoading(true);
 
     try {
@@ -101,7 +101,7 @@ export const SaveButton = ({
         alert(error.message);
       }
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -116,7 +116,7 @@ export const SaveButton = ({
           isSaved ? "text-[#0c1feb]" : "text-white"
         }`}
         aria-label={isSaved ? "Remove from favorites" : "Add to favorites"}
-        disabled={isLoading} 
+        disabled={isLoading}
       >
         <Bookmark className={`w-6 h-6 ${isSaved ? "fill-current" : ""}`} />
       </button>
