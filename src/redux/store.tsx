@@ -6,6 +6,7 @@ import navbarSlice from "./navbarSlice";
 import emailSlice from "./emailSlice";
 import userSlice from "./userSlice";
 import overviewSlice from "./overviewSlice";
+import teamUpSlice from "./teamUpSlice";
 
 
 
@@ -20,6 +21,7 @@ export const store = configureStore({
     email:emailSlice.reducer,
     user:userSlice.reducer,
     overview:overviewSlice.reducer,
+    teamup:teamUpSlice.reducer,
   },
 });
 

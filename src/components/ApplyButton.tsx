@@ -1,7 +1,10 @@
 "use client";
+import { RootState } from "@/redux/store";
+import { teamUpAction } from "@/redux/teamUpSlice";
 import axios from "axios";
 import { Rowdies } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -10,8 +13,9 @@ const rowdies1 = Rowdies({
 });
 
 const ApplyButton = ({ teamUp }: { teamUp: any }) => {
-  const [userId, setUserId] = useState<string>("");
-  const [applied, setApplied] = useState<boolean>(false);
+  const { userId, appliedTeamUps } = useSelector((store: RootState) => store.teamup);
+  const isApplied = appliedTeamUps[teamUp._id] || false;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,8 +23,7 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
         const response = await fetch("/api/auth/decode-token");
         const data = await response.json();
         if (data?.user) {
-          setUserId(data.user.userId);
-          
+          dispatch(teamUpAction.setUserId({ id: data.user.userId }));
           checkApplicationStatus(data.user.userId);
         }
       } catch (error) {
@@ -38,7 +41,10 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
         const hasApplied = response.data.user.appliedTeamUp.some(
           (application: any) => application._id === teamUp._id
         );
-        setApplied(hasApplied);
+        dispatch(teamUpAction.setTeamUpApplicationStatus({ 
+          teamUpId: teamUp._id, 
+          isApplied: hasApplied 
+        }));
       }
     } catch (error) {
       console.error("Error checking application status:", error);
@@ -51,7 +57,10 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
         id,
       });
       if (res.data.successApply) {
-        setApplied(true);
+        dispatch(teamUpAction.setTeamUpApplicationStatus({ 
+          teamUpId: id, 
+          isApplied: true 
+        }));
       }
     } catch (error) {
       console.error(error);
@@ -64,7 +73,10 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
         id,
       });
       if (res.data.successWithdraw) {
-        setApplied(false);
+        dispatch(teamUpAction.setTeamUpApplicationStatus({ 
+          teamUpId: id, 
+          isApplied: false 
+        }));
       }
     } catch (error) {
       console.error(error);
@@ -74,22 +86,22 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
   return (
     <>
       <button
-        disabled={applied}
+        disabled={isApplied}
         onClick={() => handleApply(teamUp._id)}
         className={`${
-          applied
+          isApplied
             ? "bg-gradient-to-r w-1/3 from-blue-400 to-[#05f240]"
             : "bg-gradient-to-r w-1/2 from-blue-400 to-[#0c1feb]"
         } h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
       >
         <p className={`${rowdies1.className} text-white`}>
-          {applied ? "Applied" : "Apply for Teamup"}
+          {isApplied ? "Applied" : "Apply for Teamup"}
         </p>
       </button>
       <button
         onClick={() => handleWithdraw(teamUp._id)}
         className={`${
-          applied
+          isApplied
             ? "bg-gradient-to-r w-1/3 from-blue-400 to-[#ff0d3e]"
             : "bg-gradient-to-r w-1/2 from-blue-400 to-[#0c1feb] hidden"
         } h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
@@ -99,7 +111,7 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
       <a
         href={teamUp.eventOrHackathonUrl}
         className={`${
-          applied ? "w-1/3" : "w-1/2"
+          isApplied ? "w-1/3" : "w-1/2"
         } h-[40px] bg-gradient-to-r from-blue-400 to-[#0c1feb] rounded-sm flex justify-center items-center cursor-pointer`}
       >
         <p className={`${rowdies1.className} text-white`}>More Info</p>
