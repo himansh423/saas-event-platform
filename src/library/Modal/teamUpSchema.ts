@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const teamUpSchema = new Schema({
+const teamUpSchema = new Schema({ 
   hackName: {
     type: String,
     required: true,

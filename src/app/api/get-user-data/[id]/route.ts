@@ -10,7 +10,6 @@ export async function GET(
     const { id: userId } = params;
     await connectToDatabase();
 
-    // Find the user by ID
     const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json(
