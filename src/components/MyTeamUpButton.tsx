@@ -12,7 +12,7 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const ApplyButton = ({ teamUp }: { teamUp: any }) => {
+const MyTeamUpButton = ({ teamUp }: { teamUp: any }) => {
   const { userId, appliedTeamUps } = useSelector(
     (store: RootState) => store.teamup
   );
@@ -91,31 +91,19 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
     }
   };
 
+  // //////////////////////////////////////////////////////////
+
+  const handleCheckApplicationModal = () => {};
   return (
     <>
       <button
-        disabled={isApplied}
-        onClick={() => handleApply(teamUp._id)}
-        className={`${
-          isApplied
-            ? "bg-gradient-to-r w-1/3 from-blue-400 to-[#05f240]"
-            : "bg-gradient-to-r w-1/2 from-blue-400 to-[#0c1feb]"
-        } h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
+        onClick={() => handleCheckApplicationModal()}
+        className={`bg-gradient-to-r w-1/2 from-blue-400 to-[#05f240]
+         h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
       >
-        <p className={`${rowdies1.className} text-white`}>
-          {isApplied ? "Applied" : "Apply for Teamup"}
-        </p>
+        <p className={`${rowdies1.className} text-white`}>Check Applications</p>
       </button>
-      <button
-        onClick={() => handleWithdraw(teamUp._id)}
-        className={`${
-          isApplied
-            ? "bg-gradient-to-r w-1/3 from-blue-400 to-[#ff0d3e]"
-            : "bg-gradient-to-r w-1/2 from-blue-400 to-[#0c1feb] hidden"
-        } h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
-      >
-        <p className={`${rowdies1.className} text-white`}>Withdraw</p>
-      </button>
+
       <a
         href={teamUp.eventOrHackathonUrl}
         className={`${
@@ -124,8 +112,17 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
       >
         <p className={`${rowdies1.className} text-white`}>More Info</p>
       </a>
+      <button
+        onClick={() => handleWithdraw(teamUp._id)}
+        className={`
+             bg-gradient-to-r w-1/3 from-blue-400 to-[#ff0d3e]
+             
+         h-[40px] rounded-sm flex justify-center items-center cursor-pointer`}
+      >
+        <p className={`${rowdies1.className} text-white`}>Delete</p>
+      </button>
     </>
   );
 };
 
-export default ApplyButton;
+export default MyTeamUpButton;

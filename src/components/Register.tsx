@@ -38,6 +38,7 @@ const Register: React.FC = () => {
       firstName: "",
       lastName: "",
       email: "",
+      phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
@@ -125,6 +126,15 @@ const Register: React.FC = () => {
           />
           {errors.email && (
             <p style={{ color: "orangered" }}>{errors.email.message}</p>
+          )}
+          <input
+            {...register("phoneNumber")}
+            type="number"
+            className="w-full h-[50px] rounded-md border-[2px] border-[#0c1feb] bg-transparent outline-none focus:border-[3px] px-4 text-center"
+            placeholder="Phone Number"
+          />
+          {errors.phoneNumber && (
+            <p style={{ color: "orangered" }}>{errors.phoneNumber.message}</p>
           )}
           <input
             {...register("password")}

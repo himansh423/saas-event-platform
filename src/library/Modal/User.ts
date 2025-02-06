@@ -10,10 +10,21 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,
     match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  bio: {
+    type: String,
+    max: 50,
   },
   password: {
     type: String,
@@ -35,6 +46,17 @@ const UserSchema = new Schema({
       isApproved: { type: Boolean, default: false },
     },
   ],
+  questions: {
+    how_do_you_want_to_use_this_platform: {
+      type: String,
+    },
+    what_best_describes_you: {
+      type: String,
+    },
+    how_do_you_heard_about_us: {
+      type: String,
+    },
+  },
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

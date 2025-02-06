@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { fetchUserData } from "./redux/fetchUserData";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
@@ -21,7 +20,6 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// Specify the paths you want to protect
 export const config = {
   matcher: [
     "/",
@@ -30,7 +28,7 @@ export const config = {
     "/blog",
     "/events",
     "/hackathons",
-    "/important-questions",
+    // "/important-questions",
     "/my-events-and-hackathons",
     "/overview",
   ],

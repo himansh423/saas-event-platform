@@ -1,5 +1,6 @@
 import connectToDatabase from "@/library/db";
 import User from "@/library/Modal/User";
+import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
@@ -14,23 +15,34 @@ export async function GET(
       populate: {
         path: "appliedBy",
         model: "User",
-        select: "firstName lastName email",
+        select: "firstName lastName email ",
       },
       select:
-        "hackName email createdBy dateStart dateEnd location mobileNumber appliedBy eventOrHackathonUrl",
+        "hackName email dateStart dateEnd location mobileNumber appliedBy eventOrHackathonUrl description",
     });
 
     if (!user) {
-      return new Response(JSON.stringify({ message: "User not found" }), {
-        status: 404,
-      });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "User not found",
+        },
+        { status: 404 }
+      );
     }
 
-    return new Response(JSON.stringify(user), { status: 200 });
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-      status: 500,
+    return NextResponse.json({
+      success: true,
+      data: user,
     });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Error fetching my teamup data",
+      },
+      { status: 500 }
+    );
   }
 }
