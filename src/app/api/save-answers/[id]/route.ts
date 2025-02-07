@@ -19,7 +19,7 @@ export async function PATCH(
       );
     }
 
-    user.importantQuestions = payload.questions;
+    user.questions = payload.questions;
     await user.save();
 
     return NextResponse.json(

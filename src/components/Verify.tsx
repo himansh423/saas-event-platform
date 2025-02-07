@@ -23,7 +23,7 @@ const shadows1 = Shadows_Into_Light({
 type OTP = z.infer<typeof otpSchema>;
 const Verify = () => {
   const router = useRouter();
-  const {email} = useSelector((store:RootState) => store.email)
+  const { email } = useSelector((store: RootState) => store.email);
 
   const {
     register,
@@ -52,15 +52,13 @@ const Verify = () => {
       data.number6,
     ].join("");
 
-    
-
     try {
       const payload = { email, otp };
-      console.log(payload)
+      console.log(payload);
       const res = await axios.post("/api/auth/verify-otp", payload);
 
       if (res.data.success) {
-        router.push("/");
+        router.push("/important-questions");
       } else {
         setError("root", {
           type: "manual",
