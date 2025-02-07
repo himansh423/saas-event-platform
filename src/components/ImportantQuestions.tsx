@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store";
 import { Check } from "lucide-react";
 import { Rowdies } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -12,7 +13,7 @@ const rowdies1 = Rowdies({
 });
 
 const ImportantQuestions = () => {
-  const { currTab, tabOneAnswer, tabTwoAnswer } = useSelector(
+  const { currTab, tabOneAnswer, tabTwoAnswer, tabThreeAnswer } = useSelector(
     (store: RootState) => store.importantQuestion
   );
   const dispatch = useDispatch();
@@ -37,11 +38,18 @@ const ImportantQuestions = () => {
   };
   const handleTabThreeAnswer = (optionNumber: number, value: string) => {
     dispatch(
-      importantQuestionsAction.setTabTwoAnswer({
+      importantQuestionsAction.setTabThreeAnswer({
         data: { optionNumber, value },
       })
     );
   };
+
+  // Disable Next button if no option is selected in the current tab
+  const isNextDisabled =
+    (currTab === 1 && !tabOneAnswer.optionNumber) ||
+    (currTab === 2 && !tabTwoAnswer.optionNumber) ||
+    (currTab === 3 && !tabThreeAnswer.optionNumber);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-black">
       <div className="w-[500px] h-[90vh] border-[2px] border-[#0c1feb] bg-gray-950 rounded-lg flex flex-col items-center px-8 py-5 text-white gap-5">
@@ -55,36 +63,26 @@ const ImportantQuestions = () => {
             </div>
             <div className="w-full flex-1 flex flex-col bg-gray-900 rounded-lg px-6 py-6 gap-3">
               <div className="flex-grow flex-col flex gap-5">
-                <div className="relative">
-                  <button
-                    onClick={() =>
-                      handleTabOneAnswer(1, "Want to Team Up for Hackathon")
-                    }
-                    className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
-                  >
-                    Want to Team Up for Hackathon
-                  </button>
-                  {tabOneAnswer.optionNumber === 1 && (
-                    <div className="text-2xl text-white rounded-full absolute top-[50%] translate-y-[-50%] right-[20px] h-[30px] w-[30px] flex items-center justify-center bg-green-500">
-                      <Check />
-                    </div>
-                  )}
-                </div>
-                <div className="relative">
-                  <button
-                    onClick={() =>
-                      handleTabOneAnswer(2, "News and Insights About Events")
-                    }
-                    className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
-                  >
-                    News and Insights About Events
-                  </button>
-                  {tabOneAnswer.optionNumber === 2 && (
-                    <div className="text-2xl text-white rounded-full absolute top-[50%] translate-y-[-50%] right-[20px] h-[30px] w-[30px] flex items-center justify-center bg-green-500">
-                      <Check />
-                    </div>
-                  )}
-                </div>
+                {[
+                  { value: "Want to Team Up for Hackathon", optionNumber: 1 },
+                  { value: "News and Insights About Events", optionNumber: 2 },
+                ].map((option) => (
+                  <div key={option.optionNumber} className="relative">
+                    <button
+                      onClick={() =>
+                        handleTabOneAnswer(option.optionNumber, option.value)
+                      }
+                      className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
+                    >
+                      {option.value}
+                    </button>
+                    {tabOneAnswer.optionNumber === option.optionNumber && (
+                      <div className="text-2xl text-white rounded-full absolute top-[50%] translate-y-[-50%] right-[20px] h-[30px] w-[30px] flex items-center justify-center bg-green-500">
+                        <Check />
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -107,12 +105,11 @@ const ImportantQuestions = () => {
                   { value: "Software Engineer", optionNumber: 4 },
                   { value: "Other", optionNumber: 5 },
                 ].map((option) => (
-                  <div className="relative">
+                  <div key={option.optionNumber} className="relative">
                     <button
                       onClick={() =>
                         handleTabTwoAnswer(option.optionNumber, option.value)
                       }
-                      key={option.optionNumber}
                       className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
                     >
                       {option.value}
@@ -140,18 +137,27 @@ const ImportantQuestions = () => {
             <div className="w-full flex-1 flex flex-col bg-gray-900 rounded-lg px-6 py-6 gap-3">
               <div className="flex-grow flex-col flex gap-5">
                 {[
-                  "Instagram",
-                  "Facebook",
-                  "Twitter (X)",
-                  "YouTube",
-                  "LinkedIn",
+                  { value: "Instagram", optionNumber: 1 },
+                  { value: "Facebook", optionNumber: 2 },
+                  { value: "Twitter (X)", optionNumber: 3 },
+                  { value: "YouTube", optionNumber: 4 },
+                  { value: "LinkedIn", optionNumber: 5 },
                 ].map((option) => (
-                  <button
-                    key={option}
-                    className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
-                  >
-                    {option}
-                  </button>
+                  <div key={option.optionNumber} className="relative">
+                    <button
+                      onClick={() =>
+                        handleTabThreeAnswer(option.optionNumber, option.value)
+                      }
+                      className={`${rowdies1.className} w-full h-[70px] bg-black border-[1px] border-[#0c1feb] rounded-md font-bold`}
+                    >
+                      {option.value}
+                    </button>
+                    {tabThreeAnswer.optionNumber === option.optionNumber && (
+                      <div className="text-2xl text-white rounded-full absolute top-[50%] translate-y-[-50%] right-[20px] h-[30px] w-[30px] flex items-center justify-center bg-green-500">
+                        <Check />
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -166,12 +172,23 @@ const ImportantQuestions = () => {
           >
             Back
           </button>
-          <button
-            onClick={() => handleTabChange(currTab + 1)}
-            className={`${rowdies1.className} bg-[#111111] rounded-md border-[1px] border-[#0c1feb] h-full w-[190px] text-2xl`}
-          >
-            {currTab === 3 ? "Finish" : "Next"}
-          </button>
+
+          {currTab === 3 ? (
+            <Link
+              href="/"
+              className={`${rowdies1.className} bg-[#111111] rounded-md border-[1px] border-[#0c1feb] h-full w-[190px] text-2xl flex items-center justify-center`}
+            >
+              Finish
+            </Link>
+          ) : (
+            <button
+              onClick={() => handleTabChange(currTab + 1)}
+              disabled={isNextDisabled}
+              className={`${rowdies1.className} bg-[#111111] rounded-md border-[1px] border-[#0c1feb] h-full w-[190px] text-2xl disabled:opacity-50`}
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     </div>

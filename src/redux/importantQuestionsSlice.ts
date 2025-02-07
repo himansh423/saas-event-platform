@@ -47,13 +47,13 @@ const importantQuestionsSlice = createSlice({
     },
     setTabTwoAnswer: (state, actions) => {
       const { data } = actions.payload;
-      state.tabOneAnswer.optionNumber = data.optionNumber;
-      state.tabOneAnswer.value = data.value;
+      state.tabTwoAnswer.optionNumber = data.optionNumber;
+      state.tabTwoAnswer.value = data.value;
     },
     setTabThreeAnswer: (state, actions) => {
       const { data } = actions.payload;
-      state.tabOneAnswer.optionNumber = data.optionNumber;
-      state.tabOneAnswer.value = data.value;
+      state.tabThreeAnswer.optionNumber = data.optionNumber;
+      state.tabThreeAnswer.value = data.value;
     },
   },
 });
