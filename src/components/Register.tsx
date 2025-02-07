@@ -51,6 +51,7 @@ const Register: React.FC = () => {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
+        phoneNumber: data.phoneNumber,
         password: data.password,
       };
       const res = await axios.post("/api/auth/register", payload);

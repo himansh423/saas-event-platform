@@ -21,7 +21,6 @@ const rowdies1 = Rowdies({
 });
 
 const Navbar = () => {
-  const router = useRouter();
   const { isOpen } = useSelector((store: RootState) => store.navbar);
   const { loggedInUser } = useSelector((store: RootState) => store.user);
   const dispatch = useDispatch();

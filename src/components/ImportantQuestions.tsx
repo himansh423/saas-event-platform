@@ -4,7 +4,10 @@ import { RootState } from "@/redux/store";
 import { Check } from "lucide-react";
 import { Rowdies } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
+import axios from "axios";
+import { userAction } from "@/redux/userSlice";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -16,6 +19,7 @@ const ImportantQuestions = () => {
   const { currTab, tabOneAnswer, tabTwoAnswer, tabThreeAnswer } = useSelector(
     (store: RootState) => store.importantQuestion
   );
+  const { loggedInUser } = useSelector((store: RootState) => store.user);
   const dispatch = useDispatch();
 
   const handleTabChange = (tab: number) => {
@@ -50,6 +54,42 @@ const ImportantQuestions = () => {
     (currTab === 2 && !tabTwoAnswer.optionNumber) ||
     (currTab === 3 && !tabThreeAnswer.optionNumber);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/api/auth/decode-token");
+        const data = await response.json();
+        if (data?.user) {
+          dispatch(userAction.setLoggedInUser({ data: data.user }));
+        }
+      } catch (error) {
+        console.error("Error fetching logged-in user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+  const router = useRouter();
+  const handleSaveAnswersToDatabase = async () => {
+    try {
+      const payload = {
+        questions: {
+          how_do_you_want_to_use_this_platform: tabOneAnswer.value,
+          what_best_describes_you: tabTwoAnswer.value,
+          how_do_you_heard_about_us: tabThreeAnswer.value,
+        },
+      };
+      const res = await axios.patch(
+        `/api/save-answers/${loggedInUser?.userId}`,
+        payload
+      );
+      if (res.data.success) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-black">
       <div className="w-[500px] h-[90vh] border-[2px] border-[#0c1feb] bg-gray-950 rounded-lg flex flex-col items-center px-8 py-5 text-white gap-5">
@@ -174,12 +214,12 @@ const ImportantQuestions = () => {
           </button>
 
           {currTab === 3 ? (
-            <Link
-              href="/"
+            <div
+              onClick={handleSaveAnswersToDatabase}
               className={`${rowdies1.className} bg-[#111111] rounded-md border-[1px] border-[#0c1feb] h-full w-[190px] text-2xl flex items-center justify-center`}
             >
               Finish
-            </Link>
+            </div>
           ) : (
             <button
               onClick={() => handleTabChange(currTab + 1)}
