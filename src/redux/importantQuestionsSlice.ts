@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+ 
 interface ImportantQuestionState {
   currTab: number;
   tabOneAnswer: {
