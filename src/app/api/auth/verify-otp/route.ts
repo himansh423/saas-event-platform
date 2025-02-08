@@ -19,10 +19,10 @@ export async function POST(req: Request) {
   }
 
   try {
-    const {email,otp} = await req.json();
+    const { email, otp } = await req.json();
 
     // Find the user with the matching email and OTP
-    const user = await User.findOne({email,otp});
+    const user = await User.findOne({ email, otp });
 
     if (!user) {
       return NextResponse.json(
@@ -38,7 +38,15 @@ export async function POST(req: Request) {
 
     // Generate JWT token with essential information
     const token = jwt.sign(
-      { userId:user._id, firstName: user.firstName, lastName: user.lastName, email: user.email,  },
+      {
+        userId: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        isAnswersPresent: false,
+        isProfilePictureUploaded: false,
+        isBioAdded: false,
+      },
       JWT_SECRET as string,
       { expiresIn: "7d" }
     );

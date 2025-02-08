@@ -5,11 +5,13 @@ import Footer from "./Footer";
 const ShowFooter = () => {
   const pathname = usePathname();
 
-  // Regular expressions to match dynamic paths
   const hideFooterPaths = [
     /^\/auth\/login$/,
     /^\/auth\/register$/,
     /^\/auth\/verify-otp\/[^\/]+$/,
+    /^\/upload-profile-picture$/,
+    /^\/write-about-yourself$/,
+    /^\/important-questions$/,
   ];
 
   // Check if the current pathname matches any of the hideNavbarPaths

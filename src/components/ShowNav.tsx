@@ -5,10 +5,15 @@ import Navbar from "./Navbar";
 const ShowNav = () => {
   const pathname = usePathname();
 
-  // Regular expressions to match dynamic paths
-  const hideNavbarPaths = [/^\/auth\/login$/,/^\/auth\/register$/, /^\/auth\/verify-otp\/[^\/]+$/];
+  const hideNavbarPaths = [
+    /^\/auth\/login$/,
+    /^\/auth\/register$/,
+    /^\/auth\/verify-otp\/[^\/]+$/,
+    /^\/upload-profile-picture$/,
+    /^\/write-about-yourself$/,
+    /^\/important-questions$/,
+  ];
 
-  // Check if the current pathname matches any of the hideNavbarPaths
   const shouldHideNavbar = hideNavbarPaths.some((pattern) =>
     pattern.test(pathname)
   );
