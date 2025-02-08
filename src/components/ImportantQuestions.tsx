@@ -84,7 +84,7 @@ const ImportantQuestions = () => {
         payload
       );
       if (res.data.success) {
-        router.push("/");
+        router.push("/upload-profile-picture");
       }
     } catch (error) {
       console.log(error);

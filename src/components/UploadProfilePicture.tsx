@@ -1,35 +1,98 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import Image from "next/image"
-import { Rowdies } from "next/font/google"
-import { Camera } from "lucide-react"
-import type React from "react" // Added import for React
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import { Rowdies } from "next/font/google";
+import { Camera, Loader2 } from "lucide-react";
+import axios from "axios";
+import type React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userAction } from "@/redux/userSlice";
+import { RootState } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 const rowdies = Rowdies({
   weight: "700",
   subsets: ["latin"],
-})
+});
 
 export default function ProfileUpload() {
-  const [image, setImage] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [image, setImage] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { loggedInUser } = useSelector((store: RootState) => store.user);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/api/auth/decode-token");
+        const data = await response.json();
+        if (data?.user) {
+          dispatch(userAction.setLoggedInUser({ data: data.user }));
+        }
+      } catch (error) {
+        console.error("Error fetching logged-in user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result as string)
-      }
-      reader.readAsDataURL(file)
+        setImage(reader.result as string);
+        setFile(selectedFile);
+      };
+      reader.readAsDataURL(selectedFile);
     }
-  }
+  };
 
-  const handleSave = () => {
-    // Implement save functionality here
-    console.log("Saving profile picture:", image)
-  }
+  const handleUpload = async () => {
+    if (!file) return;
+    setLoading(true);
+
+    try {
+      const fileName = file.name;
+      const fileType = file.type;
+
+      const { data } = await axios.post(
+        "/api/get-presigned-url-to-upload-profile-picture-s3",
+        {
+          profilePictureFileName: fileName,
+          profilePictureFileType: fileType,
+        }
+      );
+
+      const { profilePictureUploadUrl, profilePictureKey } = data;
+
+      await axios.put(profilePictureUploadUrl, file, {
+        headers: { "Content-Type": fileType },
+      });
+
+      const userId = loggedInUser?.userId;
+      const res = await axios.patch(
+        `/api/save-profile-picture-on-database/${userId}`,
+        {
+          profilePictureKey,
+        }
+      );
+
+      if (res.data.success) {
+        router.push("/set-bio");
+      }
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      alert("Upload failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
@@ -43,15 +106,13 @@ export default function ProfileUpload() {
         <div className="relative w-64 h-64 mx-auto mb-8">
           <div className="w-full h-full rounded-full border-4 border-blue-500 overflow-hidden relative">
             {image ? (
-              <div className="w-full h-full rounded-full overflow-hidden">
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt="Profile"
-                  fill
-                  className="rounded-full object-cover"
-                  sizes="256px"
-                />
-              </div>
+              <Image
+                src={image}
+                alt="Profile"
+                fill
+                className="rounded-full object-cover"
+                sizes="256px"
+              />
             ) : (
               <div className="w-full h-full bg-gray-800 flex items-center justify-center rounded-full">
                 <Camera size={64} className="text-gray-400" />
@@ -66,7 +127,13 @@ export default function ProfileUpload() {
           </button>
         </div>
 
-        <input type="file" ref={fileInputRef} onChange={handleImageChange} accept="image/*" className="hidden" />
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          accept="image/*"
+          className="hidden"
+        />
 
         <button
           onClick={() => fileInputRef.current?.click()}
@@ -76,16 +143,21 @@ export default function ProfileUpload() {
         </button>
 
         <button
-          onClick={handleSave}
-          disabled={!image}
-          className={`w-full bg-gradient-to-r from-blue-400 to-[#0c1feb] text-white rounded-md py-2 px-4 ${
-            image ? "hover:from-blue-500 hover:to-[#0d20ff]" : "opacity-50 cursor-not-allowed"
+          onClick={handleUpload}
+          disabled={!file || loading}
+          className={`w-full flex justify-center items-center bg-gradient-to-r from-blue-400 to-[#0c1feb] text-white rounded-md py-2 px-4 ${
+            file && !loading
+              ? "hover:from-blue-500 hover:to-[#0d20ff]"
+              : "opacity-50 cursor-not-allowed"
           } transition-all duration-200`}
         >
-          <span className={rowdies.className}>Set Profile Picture</span>
+          {loading ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <span className={rowdies.className}>Set Profile Picture</span>
+          )}
         </button>
       </div>
     </div>
-  )
+  );
 }
-

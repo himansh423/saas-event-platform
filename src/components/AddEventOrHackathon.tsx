@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Rowdies } from "next/font/google";
 import { useState } from "react";
-import { RegisterOptions, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const rowdies1 = Rowdies({
