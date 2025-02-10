@@ -6,21 +6,24 @@ interface UserState {
     lastName: string;
     userId: string;
     email: string;
+    isAnswersPresent: boolean;
+    isProfilePictureUploaded: boolean;
+    isBioAdded: boolean;
   } | null;
 }
 
 const initialState: UserState = {
-  loggedInUser: null 
+  loggedInUser: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setLoggedInUser: (state, action) => { 
+    setLoggedInUser: (state, action) => {
       const { data } = action.payload;
       state.loggedInUser = data;
-      console.log(data)
+      console.log(data);
     },
     clearUser: (state) => {
       state.loggedInUser = null;

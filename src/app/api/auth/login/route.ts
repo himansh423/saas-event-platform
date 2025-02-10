@@ -5,8 +5,7 @@ import cookie from "cookie";
 import connectToDatabase from "@/library/db";
 import User from "@/library/Modal/User";
 
-
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET 
+const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
 export async function POST(req: Request) {
   await connectToDatabase();
@@ -14,45 +13,67 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
 
-    // Check if the user exists
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid credentials" },
+        { status: 400 }
+      );
     }
 
-    // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
     if (!isPasswordValid) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid credentials" },
+        { status: 400 }
+      );
     }
 
-    // Generate a JWT token that contains the user's id, username, and email
+    const isAnswersPresent = Boolean(
+      existingUser.questions?.how_do_you_want_to_use_this_platform &&
+        existingUser.questions?.what_best_describes_you &&
+        existingUser.questions?.how_do_you_heard_about_us
+    );
+    const isProfilePictureUploaded = Boolean(existingUser.profilePicture);
+    const isBioAdded = Boolean(existingUser.bio);
+
     const token = jwt.sign(
-      { userId: existingUser._id, firstName: existingUser.firstName,lastName:existingUser.lastName, email: existingUser.email },
+      {
+        userId: existingUser._id,
+        firstName: existingUser.firstName,
+        lastName: existingUser.lastName,
+        email: existingUser.email,
+        isAnswersPresent,
+        isProfilePictureUploaded,
+        isBioAdded,
+      },
       JWT_SECRET as string,
-      { expiresIn: '7d' } // Token valid for 7 days
+      { expiresIn: "7d" }
     );
 
-    // Create the response and set the JWT token in an HTTP-only cookie
     const response = NextResponse.json({
-      success:true,
+      success: true,
       message: "Login successful",
       userId: existingUser._id,
-      username: existingUser.username, // Pass user data to frontend if needed
-      email: existingUser.email
+      username: existingUser.username,
+      email: existingUser.email,
     });
 
-    // Set the cookie with the token
-    response.headers.set('Set-Cookie', cookie.serialize('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Ensure cookie is sent over HTTPS in production
-      maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
-      sameSite: 'strict', // Protect against CSRF
-      path: '/' // Cookie valid across the entire domain
-    }));
+    response.headers.set(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 7 * 24 * 60 * 60,
+        sameSite: "strict",
+        path: "/",
+      })
+    );
 
     return response;
-
   } catch (error) {
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }

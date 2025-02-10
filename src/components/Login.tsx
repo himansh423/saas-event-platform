@@ -10,6 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@/library/zodSchema/LoginSchema";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { userAction } from "@/redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -23,6 +26,8 @@ const shadows1 = Shadows_Into_Light({
 
 type UserData = z.infer<typeof User>;
 const Login: React.FC = () => {
+  const dispatch = useDispatch();
+  const { loggedInUser } = useSelector((store: RootState) => store.user);
   const router = useRouter();
   const {
     register,
@@ -36,7 +41,7 @@ const Login: React.FC = () => {
     },
     resolver: zodResolver(User),
   });
-  const onSubmit: SubmitHandler<UserData> = async (data:UserData) => {
+  const onSubmit: SubmitHandler<UserData> = async (data: UserData) => {
     try {
       const payload = {
         email: data.email,
@@ -45,7 +50,41 @@ const Login: React.FC = () => {
       const res = await axios.post("/api/auth/login", payload);
 
       if (res.data.success) {
-        router.push("/");
+        const fetchUserData = async () => {
+          try {
+            const response = await fetch("/api/auth/decode-token");
+            const data = await response.json();
+            if (data?.user) {
+              dispatch(userAction.setLoggedInUser({ data: data.user }));
+            }
+          } catch (error) {
+            console.error("Error fetching logged-in user data:", error);
+          }
+        };
+
+        fetchUserData();
+        if (
+          !loggedInUser?.isAnswersPresent &&
+          !loggedInUser?.isProfilePictureUploaded &&
+          !loggedInUser?.isBioAdded
+        ) {
+          router.push("/important-questions");
+        } else if (
+          loggedInUser?.isAnswersPresent &&
+          !loggedInUser?.isProfilePictureUploaded &&
+          !loggedInUser?.isBioAdded
+        ) {
+          router.push("/upload-profile-picture");
+        } else if (
+          loggedInUser?.isAnswersPresent &&
+          loggedInUser?.isProfilePictureUploaded &&
+          !loggedInUser?.isBioAdded
+        ) {
+          router.push("/add-bio");
+        }
+        else {
+          router.push("/")
+        }
       }
     } catch (error: any) {
       console.error("Error:", error);
@@ -102,9 +141,9 @@ const Login: React.FC = () => {
               className="w-full h-[50px] rounded-md border-[2px] border-[#0c1feb] bg-transparent outline-none focus:border-[3px] px-4 text-center"
               placeholder="Email address"
             />
-             {errors.email && (
-            <p style={{ color: "orangered" }}>{errors.email.message}</p>
-          )}
+            {errors.email && (
+              <p style={{ color: "orangered" }}>{errors.email.message}</p>
+            )}
           </div>
 
           <div className="w-full flex flex-col gap-2 items-center">
@@ -115,8 +154,8 @@ const Login: React.FC = () => {
               placeholder="Password"
             />
             {errors.password && (
-            <p style={{ color: "orangered" }}>{errors.password.message}</p>
-          )}
+              <p style={{ color: "orangered" }}>{errors.password.message}</p>
+            )}
           </div>
           <div className="flex gap-2 items-center">
             <p className="">Forgot password?</p>
@@ -129,7 +168,9 @@ const Login: React.FC = () => {
           </div>
 
           <button className="w-full bg-[#0c1feb] h-[45px] flex justify-center items-center rounded-md text-xl">
-            <p className={rowdies1.className}>Login</p>
+            <p className={rowdies1.className}>
+              {isSubmitting ? "Logging..." : "Login"}
+            </p>
           </button>
           <div className="text-white text-xl flex gap-2 items-center">
             <p className={rowdies1.className}>Don't have an Account?</p>
