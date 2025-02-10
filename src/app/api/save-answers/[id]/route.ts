@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
 import connectToDatabase from "@/library/db";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
@@ -58,7 +58,7 @@ export async function PATCH(
 
     response.headers.append(
       "Set-Cookie",
-      cookie.serialize("token", token, {
+      cookie.serialize("token", token, { 
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 7 * 24 * 60 * 60, // 7 days
