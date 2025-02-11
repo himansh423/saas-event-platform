@@ -33,6 +33,8 @@ const UserSchema = new Schema({
   otp: {
     type: String,
   },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
   isVerified: {
     type: Boolean,
   },

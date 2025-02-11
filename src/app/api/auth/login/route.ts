@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
       return NextResponse.json(
-        { message: "Invalid credentials" },
+        { success: false, message: "Invalid credentials" },
         { status: 400 }
       );
     }
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     );
     if (!isPasswordValid) {
       return NextResponse.json(
-        { message: "Invalid credentials" },
+        { success: false, message: "Invalid credentials" },
         { status: 400 }
       );
     }

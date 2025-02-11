@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { userAction } from "@/redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { loginAction } from "@/redux/loginSlice";
 const rowdies1 = Rowdies({
   weight: "700",
   display: "swap",
@@ -28,6 +29,7 @@ type UserData = z.infer<typeof User>;
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const { loggedInUser } = useSelector((store: RootState) => store.user);
+  const { error } = useSelector((store: RootState) => store.login);
   const router = useRouter();
   const {
     register,
@@ -81,13 +83,12 @@ const Login: React.FC = () => {
           !loggedInUser?.isBioAdded
         ) {
           router.push("/add-bio");
-        }
-        else {
-          router.push("/")
+        } else {
+          router.push("/");
         }
       }
     } catch (error: any) {
-      console.error("Error:", error);
+      dispatch(loginAction.setError({ data: "Invalid Credentials" }));
       setError("root", {
         type: "manual",
         message: error.message,
@@ -166,7 +167,9 @@ const Login: React.FC = () => {
               click here
             </Link>
           </div>
-
+          <div className="w-full">
+            <p className="text-red-600 text-center">{error}</p>
+          </div>
           <button className="w-full bg-[#0c1feb] h-[45px] flex justify-center items-center rounded-md text-xl">
             <p className={rowdies1.className}>
               {isSubmitting ? "Logging..." : "Login"}

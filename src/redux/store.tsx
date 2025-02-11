@@ -8,6 +8,7 @@ import userSlice from "./userSlice";
 import overviewSlice from "./overviewSlice";
 import teamUpSlice from "./teamUpSlice";
 import importantQuestionsSlice from "./importantQuestionsSlice";
+import loginSlice from "./loginSlice";
 
 
 
@@ -24,6 +25,7 @@ export const store = configureStore({
     overview:overviewSlice.reducer,
     teamup:teamUpSlice.reducer,
     importantQuestion:importantQuestionsSlice.reducer,
+    login:loginSlice.reducer,
   },
 });
 
