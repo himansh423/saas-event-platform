@@ -13,6 +13,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { ResetPasswordSchema } from "@/library/zodSchema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 
 const rowdies = Rowdies({
   weight: "700",
@@ -82,7 +83,10 @@ export default function ResetPassword() {
         </h1>
         {resetMessage && (
           <p className="mb-6 text-center text-sm bg-gray-900 border border-zinc-700 rounded-md p-3">
-            {resetMessage}
+            {resetMessage}!{" "}
+            <Link className="text-blue-500" href={"/auth/login"}>
+              Login
+            </Link>
           </p>
         )}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

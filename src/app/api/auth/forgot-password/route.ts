@@ -7,7 +7,7 @@ import { sendEmail } from "@/library/sendEmail";
 
 export async function POST(req: Request) {
   await connectToDatabase();
-  const { email } = await req.json();
+  const {email} = await req.json();
 
   // Checking if user exists
   const user = await User.findOne({ email });

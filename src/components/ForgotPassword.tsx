@@ -33,7 +33,7 @@ export default function ForgotPassword() {
   });
 
   const onSubmit: SubmitHandler<EmailData> = async (data: EmailData) => {
-    const payload = data.email;
+    const payload = { email: data.email };
     try {
       const { data } = await axios.post("/api/auth/forgot-password", payload);
       dispatch(forgotPasswordAction.setMessage({ data: data.message }));
@@ -69,8 +69,8 @@ export default function ForgotPassword() {
             />
             <Mail className="absolute left-4 top-3.5 text-zinc-400" size={20} />
             {errors.email && (
-            <p style={{ color: "orangered" }}>{errors.email.message}</p>
-          )}
+              <p style={{ color: "orangered" }}>{errors.email.message}</p>
+            )}
           </div>
           <button
             type="submit"
