@@ -12,7 +12,6 @@ import { navbarActions } from "@/redux/navbarSlice";
 import { useEffect } from "react";
 import { userAction } from "@/redux/userSlice";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const rowdies1 = Rowdies({
   weight: "700",

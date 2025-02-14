@@ -12,6 +12,8 @@ const ShowNav = () => {
     /^\/upload-profile-picture$/,
     /^\/write-about-yourself$/,
     /^\/important-questions$/,
+    /^\/forgot-password$/,
+    /^\/reset-password(?:\?.*)?$/ 
   ];
 
   const shouldHideNavbar = hideNavbarPaths.some((pattern) =>

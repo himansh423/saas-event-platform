@@ -30,7 +30,7 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
   const { pathname } = req.nextUrl;
 
-  // Redirect logged-in users away from login/register pages
+  
   if (
     token &&
     (pathname.startsWith("/auth/login") ||
@@ -39,19 +39,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // Redirect unauthenticated users to the login page
   if (!token && !pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
-  // Fetch user data after authentication
   const loggedInUser = await fetchUserDataFromCookie();
 
   if (loggedInUser) {
     const { isAnswersPresent, isProfilePictureUploaded, isBioAdded } =
       loggedInUser;
 
-    // Ensure user follows onboarding steps sequentially
     if (!isAnswersPresent && pathname !== "/important-questions") {
       return NextResponse.redirect(new URL("/important-questions", req.url));
     }
@@ -70,7 +67,6 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/write-about-yourself", req.url));
     }
 
-    // 🚨 Restrict users from revisiting completed steps
     if (isAnswersPresent && pathname === "/important-questions") {
       return NextResponse.redirect(new URL("/", req.url));
     }

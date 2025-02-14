@@ -36,7 +36,7 @@ const Register: React.FC = () => {
   } = useForm<UserData>({
     defaultValues: {
       firstName: "",
-      lastName: "",
+      lastName: "", 
       email: "",
       phoneNumber: "",
       password: "",

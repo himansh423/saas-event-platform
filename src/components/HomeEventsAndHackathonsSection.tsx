@@ -1,14 +1,7 @@
-import { Rowdies } from "next/font/google";
 import axios from "axios";
 import SearchAndFilterBox from "@/components/SearchAndFilterBox";
 import EventCard from "@/components/EventCard";
 import { cookies } from "next/headers";
-
-const rowdies1 = Rowdies({
-  weight: "700",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 interface CardData {
   _id: string;
@@ -56,16 +49,12 @@ const getEventAndHackathonCards = async () => {
   }
 };
 
-
-
 const HomeEventsAndHackathonSection = async () => {
   const cards = await getEventAndHackathonCards();
   const loggedInUser = await fetchUserDataFromCookie();
-  
 
   return (
     <div className="min-h-screen w-screen bg-black">
-      
       <div>
         <div className="mt-20 px-7">
           <SearchAndFilterBox />
@@ -74,7 +63,7 @@ const HomeEventsAndHackathonSection = async () => {
           {cards && cards.length > 0 ? (
             cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={loggedInUser.userId}  />
+                <EventCard card={card} userId={loggedInUser.userId} />
               </div>
             ))
           ) : (

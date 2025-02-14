@@ -12,9 +12,11 @@ const ShowFooter = () => {
     /^\/upload-profile-picture$/,
     /^\/write-about-yourself$/,
     /^\/important-questions$/,
+    /^\/forgot-password$/,
+    /^\/reset-password(?:\?.*)?$/,
   ];
 
-  // Check if the current pathname matches any of the hideNavbarPaths
+  // Checking if the current pathname matches any of the hideNavbarPaths
   const shouldFooterNavbar = hideFooterPaths.some((pattern) =>
     pattern.test(pathname)
   );

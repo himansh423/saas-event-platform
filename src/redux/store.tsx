@@ -9,6 +9,7 @@ import overviewSlice from "./overviewSlice";
 import teamUpSlice from "./teamUpSlice";
 import importantQuestionsSlice from "./importantQuestionsSlice";
 import loginSlice from "./loginSlice";
+import forgotPasswordSlice from "./fogotPasswordSlice";
 
 
 
@@ -26,6 +27,7 @@ export const store = configureStore({
     teamup:teamUpSlice.reducer,
     importantQuestion:importantQuestionsSlice.reducer,
     login:loginSlice.reducer,
+    forgotPassword:forgotPasswordSlice.reducer,
   },
 });
 

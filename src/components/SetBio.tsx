@@ -57,7 +57,7 @@ export default function BioInputPage() {
 
     fetchUserData();
   }, []);
-  
+
   const onSubmit: SubmitHandler<BioData> = async (data: BioData) => {
     try {
       const payload = {
@@ -81,7 +81,10 @@ export default function BioInputPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-screen min-h-screen bg-black flex items-center justify-center p-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-screen min-h-screen bg-black flex items-center justify-center p-4"
+    >
       <div className="w-full max-w-2xl bg-gradient-to-br from-[#0c1feb]/20 to-blue-500/10 border border-[#0c1feb]/20 rounded-lg p-8">
         <h1
           className={`${rowdies.className} text-4xl text-center mb-6 bg-gradient-to-r from-blue-400 to-[#0c1feb] bg-clip-text text-transparent`}
@@ -94,9 +97,9 @@ export default function BioInputPage() {
           className="w-full h-40 bg-gray-950 border border-zinc-400 rounded-lg p-4 text-white text-xl resize-none focus:outline-none focus:border-blue-500"
           maxLength={100}
         />
-      {errors.bio && (
-            <p style={{ color: "orangered" }}>{errors.bio.message}</p>
-          )}
+        {errors.bio && (
+          <p style={{ color: "orangered" }}>{errors.bio.message}</p>
+        )}
         <p className="text-zinc-400 text-right mt-2">
           {bioLength}/100 characters
         </p>
