@@ -60,7 +60,7 @@ export const SaveButton = ({
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const isSaved = savedItems.includes(cardId);
+  const isSaved = savedItems?.includes(cardId);
 
   useEffect(() => {
     const fetchSavedHackathons = async () => {
@@ -68,8 +68,10 @@ export const SaveButton = ({
         const res = await axios.get(`/api/get-user-data/${userId}`);
         if (res.data.success) {
           dispatch(
-            eventCardActions.setSavedItems(res.data.savedEventAndHackathon)
+            eventCardActions.setSavedItems(res.data.user.savedEventAndHackathon)
           );
+          console.log(savedItems);
+          console.log(res.data);
         }
       } catch (error) {
         if (error instanceof Error) {

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface EventCardState {
-  savedItems: string[]; 
+  savedItems: string[];
   showModal: boolean;
 }
 
 const initialState: EventCardState = {
-  savedItems: [], 
+  savedItems: [],
   showModal: false,
 };
 
@@ -15,6 +15,7 @@ const eventCardSlice = createSlice({
   initialState,
   reducers: {
     toggleSavedItem: (state, action: PayloadAction<string>) => {
+      if (!state.savedItems) state.savedItems = []; 
       const id = action.payload;
       const index = state.savedItems.indexOf(id);
       if (index === -1) {
@@ -27,7 +28,7 @@ const eventCardSlice = createSlice({
       state.showModal = !state.showModal;
     },
     setSavedItems: (state, action: PayloadAction<string[]>) => {
-      state.savedItems = action.payload; 
+      state.savedItems = Array.isArray(action.payload) ? action.payload : []; // Ensure it's always an array
     },
   },
 });
