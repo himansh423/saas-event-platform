@@ -1,13 +1,10 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Rowdies } from "next/font/google";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, Lock, MapPin, Calendar, LinkIcon } from "lucide-react";
-import profPicture from "../../public/blog.webp";
-
 const rowdies = Rowdies({
   weight: "700",
   subsets: ["latin"],
