@@ -30,6 +30,7 @@ export async function PATCH(
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        username:user.username,
         isAnswersPresent: true,
         isProfilePictureUploaded: true,
         isBioAdded: true,

@@ -47,6 +47,7 @@ const Navbar = () => {
       window.location.reload();
     }
   };
+  console.log("loggedin User:", loggedInUser)
   return (
     <motion.nav
       initial={{ opacity: 0, y: -50 }}
@@ -117,12 +118,12 @@ const Navbar = () => {
               className="absolute right-0 mt-2 w-[300px] rounded-md shadow-lg bg-black ring-1 ring-[#333] divide-y divide-[#333] focus:outline-none"
             >
               <div className="py-1">
-              <Link
+                <Link
                   onClick={() => dispatch(navbarActions.setIsOpen())}
-                  href='/profile/${'
+                  href={`/profile/${loggedInUser?.username}`}
                   className="block px-4 py-2  text-white hover:bg-[#111] hover:text-[#0c1feb] transition-colors duration-200 text-xl"
                 >
-                  My Saved Events/Hackathons
+                  My Profile
                 </Link>
                 <Link
                   onClick={() => dispatch(navbarActions.setIsOpen())}

@@ -5,6 +5,8 @@ interface UserState {
     firstName: string;
     lastName: string;
     userId: string;
+    username: string;
+
     email: string;
     isAnswersPresent: boolean;
     isProfilePictureUploaded: boolean;

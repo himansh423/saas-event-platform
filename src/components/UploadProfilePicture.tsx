@@ -84,7 +84,7 @@ export default function ProfileUpload() {
       );
 
       if (res.data.success) {
-        router.push("/set-bio");
+        router.push("/write-about-yourself");
       }
     } catch (error) {
       console.error("Error uploading profile picture:", error);
