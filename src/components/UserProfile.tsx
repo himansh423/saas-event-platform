@@ -5,6 +5,8 @@ import { Rowdies } from "next/font/google";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, Lock, MapPin, Calendar, LinkIcon } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const rowdies = Rowdies({
   weight: "700",
   subsets: ["latin"],
@@ -24,6 +26,8 @@ interface UserProfile {
 }
 
 export default function UserProfile() {
+
+  const {loggedInUser} = useSelector((store:RootState) => store.userProfile);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isRequested, setIsRequested] = useState(false);
 
@@ -34,13 +38,7 @@ export default function UserProfile() {
     setIsRequested(true);
   };
 
-  if (!profile) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
+ 
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -48,8 +46,8 @@ export default function UserProfile() {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           <div className="w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-black overflow-hidden flex-shrink-0">
             <Image
-              src={profile.profilePicture || "/placeholder.svg"}
-              alt={profile.username}
+              src={loggedInUser?.profilePicture || "/placeholder.svg"}
+              alt={loggedInUser?.username || "Username"}
               width={160}
               height={160}
               className="object-cover"
@@ -59,9 +57,9 @@ export default function UserProfile() {
             <h1
               className={`${rowdies.className} text-3xl md:text-4xl mb-1 text-white`}
             >
-              {profile.fullName}
+              {loggedInUser?.firstName} {loggedInUser?.lastName}
             </h1>
-            <p className="text-zinc-400 mb-4">@{profile.username}</p>
+            <p className="text-zinc-400 mb-4">@{loggedInUser?.username}</p>
             <Button
               onClick={handleRequestContact}
               disabled={isRequested}
@@ -73,28 +71,7 @@ export default function UserProfile() {
         </div>
 
         <div className="mt-8 bg-gray-900 border border-zinc-700 rounded-lg p-6 shadow-lg">
-          <p className="text-lg mb-4">{profile.bio}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex items-center gap-2">
-              <MapPin size={18} className="text-blue-400" />
-              <span>{profile.location}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <LinkIcon size={18} className="text-blue-400" />
-              <a
-                href={`https://${profile.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
-              >
-                {profile.website}
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-blue-400" />
-              <span>{profile.joinedDate}</span>
-            </div>
-          </div>
+          <p className="text-lg mb-4">{loggedInUser?.bio}</p>
         </div>
 
         <div className="mt-6 bg-gray-900 border border-zinc-700 rounded-lg p-6 shadow-lg">
@@ -107,24 +84,24 @@ export default function UserProfile() {
             <div className="flex items-center gap-2">
               <Mail size={18} className="text-blue-400" />
               <span>
-                {profile.isContactVisible
-                  ? profile.email
-                  : profile.email.replace(/(?<=^.{2}).*(?=@)/, "******")}
+                
+                  { loggedInUser?.email}
+                  
               </span>
-              {!profile.isContactVisible && (
+              {/* {!profile.isContactVisible && (
                 <Lock size={16} className="text-zinc-400" />
-              )}
+              )} */}
             </div>
             <div className="flex items-center gap-2">
               <Phone size={18} className="text-blue-400" />
               <span>
-                {profile.isContactVisible
-                  ? profile.phone
-                  : profile.phone.replace(/\d(?=\d{4})/g, "*")}
+          
+                 {loggedInUser?.phoneNumber}
+                  
               </span>
-              {!profile.isContactVisible && (
+              {/* {!profile.isContactVisible && (
                 <Lock size={16} className="text-zinc-400" />
-              )}
+              )} */}
             </div>
           </div>
         </div>

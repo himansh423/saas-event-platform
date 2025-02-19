@@ -10,27 +10,24 @@ import teamUpSlice from "./teamUpSlice";
 import importantQuestionsSlice from "./importantQuestionsSlice";
 import loginSlice from "./loginSlice";
 import forgotPasswordSlice from "./fogotPasswordSlice";
-
-
-
-
+import userProfileSlice from "./userProfileSlice";
 
 export const store = configureStore({
   reducer: {
-    hero:heroSlice.reducer,
-    searchAndFilter:SearchAndFilterBoxSlice.reducer,
+    hero: heroSlice.reducer,
+    searchAndFilter: SearchAndFilterBoxSlice.reducer,
     eventCard: eventCardSlice.reducer,
-    navbar:navbarSlice.reducer,
-    email:emailSlice.reducer,
-    user:userSlice.reducer,
-    overview:overviewSlice.reducer,
-    teamup:teamUpSlice.reducer,
-    importantQuestion:importantQuestionsSlice.reducer,
-    login:loginSlice.reducer,
-    forgotPassword:forgotPasswordSlice.reducer,
+    navbar: navbarSlice.reducer,
+    email: emailSlice.reducer,
+    user: userSlice.reducer,
+    overview: overviewSlice.reducer,
+    teamup: teamUpSlice.reducer,
+    importantQuestion: importantQuestionsSlice.reducer,
+    login: loginSlice.reducer,
+    forgotPassword: forgotPasswordSlice.reducer,
+    userProfile: userProfileSlice.reducer,
   },
 });
-
 
 export type RootState = ReturnType<typeof store.getState>;
 
