@@ -1,17 +1,20 @@
 "use client";
 import Image from "next/image";
+import type React from "react";
+
 import RegisterImage from "../../public/event.jpg";
 import { Rowdies, Shadows_Into_Light } from "next/font/google";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { User } from "../library/zodSchema/RegisterSchema";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import type { z } from "zod";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { emailActions } from "@/redux/emailSlice";
+import { useState, useEffect } from "react";
 
 const rowdies1 = Rowdies({
   weight: "700",
@@ -28,15 +31,20 @@ type UserData = z.infer<typeof User>;
 const Register: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [usernameMessage, setUsernameMessage] = useState<string>("");
+  const [isUsernameValid, setIsUsernameValid] = useState<boolean>(true);
+
   const {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<UserData>({
     defaultValues: {
       firstName: "",
-      lastName: "", 
+      lastName: "",
+      username: "",
       email: "",
       phoneNumber: "",
       password: "",
@@ -45,11 +53,46 @@ const Register: React.FC = () => {
     resolver: zodResolver(User),
   });
 
+  const username = watch("username");
+
+  useEffect(() => {
+    const checkUsername = async () => {
+      if (username) {
+        try {
+          const { data } = await axios.post("/api/auth/check-username", {
+            username,
+          });
+          setUsernameMessage(data.message);
+          setIsUsernameValid(data.message !== "Username already taken");
+        } catch (error) {
+          console.error("Error checking username:", error);
+          setUsernameMessage("An error occurred while checking the username");
+          setIsUsernameValid(false);
+        }
+      } else {
+        setUsernameMessage("");
+        setIsUsernameValid(true);
+      }
+    };
+
+    const timeoutId = setTimeout(checkUsername, 500);
+    return () => clearTimeout(timeoutId);
+  }, [username]);
+
   const onSubmit: SubmitHandler<UserData> = async (data: UserData) => {
+    if (!isUsernameValid) {
+      setError("username", {
+        type: "manual",
+        message: "Please choose a different username",
+      });
+      return;
+    }
+
     try {
       const payload = {
         firstName: data.firstName,
         lastName: data.lastName,
+        username: data.username,
         email: data.email,
         phoneNumber: data.phoneNumber,
         password: data.password,
@@ -75,7 +118,7 @@ const Register: React.FC = () => {
         <div className="relative imageContainer flex-1 min-h-screen bg-black flex justify-center items-center">
           <div className="relative imageContainer w-full min-h-screen">
             <Image
-              src={RegisterImage}
+              src={RegisterImage || "/placeholder.svg"}
               alt={"Register page image"}
               layout="fill"
               objectFit="cover"
@@ -118,6 +161,20 @@ const Register: React.FC = () => {
           />
           {errors.lastName && (
             <p style={{ color: "orangered" }}>{errors.lastName.message}</p>
+          )}
+          <input
+            {...register("username")}
+            type="text"
+            className="w-full h-[50px] rounded-md border-[2px] border-[#0c1feb] bg-transparent outline-none focus:border-[3px] px-4 text-center"
+            placeholder="Username"
+          />
+          {usernameMessage && (
+            <p style={{ color: isUsernameValid ? "green" : "orangered" }}>
+              {usernameMessage}
+            </p>
+          )}
+          {errors.username && (
+            <p style={{ color: "orangered" }}>{errors.username.message}</p>
           )}
           <input
             {...register("email")}

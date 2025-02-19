@@ -45,6 +45,7 @@ export async function POST(req: Request) {
         userId: existingUser._id,
         firstName: existingUser.firstName,
         lastName: existingUser.lastName,
+        username:existingUser.username,
         email: existingUser.email,
         isAnswersPresent,
         isProfilePictureUploaded,
