@@ -64,6 +64,7 @@ export async function GET(
     );
 
     const response = {
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       username: user.username,

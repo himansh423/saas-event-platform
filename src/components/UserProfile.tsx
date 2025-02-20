@@ -5,8 +5,12 @@ import { Rowdies } from "next/font/google";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, Lock, MapPin, Calendar, LinkIcon } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useParams } from "next/navigation";
+import axios from "axios";
+import { userProfileActions } from "@/redux/userProfileSlice";
+import EventCard from "./EventCard";
 const rowdies = Rowdies({
   weight: "700",
   subsets: ["latin"],
@@ -26,19 +30,33 @@ interface UserProfile {
 }
 
 export default function UserProfile() {
+  const { loggedInUser } = useSelector((store: RootState) => store.userProfile);
+  const { username } = useParams();
+  const dispatch = useDispatch();
 
-  const {loggedInUser} = useSelector((store:RootState) => store.userProfile);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const res = await axios.get(`/api/get-user-profile/${username}`);
+        if (res.data.success) {
+          dispatch(userProfileActions.setProfileData({ data: res.data.data }));
+          console.log("checking idddd: ",res.data.data)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserData();
+  }, []);
+
   const [isRequested, setIsRequested] = useState(false);
 
-  useEffect(() => {}, []);
+
 
   const handleRequestContact = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsRequested(true);
   };
-
- 
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -83,22 +101,14 @@ export default function UserProfile() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-center gap-2">
               <Mail size={18} className="text-blue-400" />
-              <span>
-                
-                  { loggedInUser?.email}
-                  
-              </span>
+              <span>{loggedInUser?.email}</span>
               {/* {!profile.isContactVisible && (
                 <Lock size={16} className="text-zinc-400" />
               )} */}
             </div>
             <div className="flex items-center gap-2">
               <Phone size={18} className="text-blue-400" />
-              <span>
-          
-                 {loggedInUser?.phoneNumber}
-                  
-              </span>
+              <span>{loggedInUser?.phoneNumber}</span>
               {/* {!profile.isContactVisible && (
                 <Lock size={16} className="text-zinc-400" />
               )} */}
@@ -129,9 +139,20 @@ export default function UserProfile() {
           </TabsList>
           <TabsContent
             value="saved"
-            className="bg-gray-900 border border-zinc-700 rounded-lg p-6 mt-4 shadow-lg"
+            className="bg-gray-900 border border-zinc-700 rounded`-lg p-6 mt-4 shadow-lg "
           >
-            <p>Saved hackathons will be displayed here.</p>
+            {loggedInUser?.savedEventAndHackathon && loggedInUser.savedEventAndHackathon.length > 0 ? (
+            loggedInUser.savedEventAndHackathon.map((card: any) => (
+              <div className="mt-16" key={card._id}>
+                <EventCard card={card} userId={loggedInUser._id} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-zinc-400">
+              No events available at the moment.
+            </div>
+          )}
+        
           </TabsContent>
           <TabsContent
             value="created"

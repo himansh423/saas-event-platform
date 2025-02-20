@@ -13,7 +13,7 @@ export async function GET(
 
     const user = await User.findById(userId).populate(
       "savedEventAndHackathon",
-      "name shortDescription date location modeOfEvent isOpen theme"
+      "name shortDescription dateStart dateEnd location modeOfEvent isOpen theme"
     );
 
     if (!user) {

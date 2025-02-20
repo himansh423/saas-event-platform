@@ -50,7 +50,7 @@ const getSavedEventAndHackathonCards = async (id: string) => {
     const res = await axios.get(
       `http://localhost:3000/api/get-user-saved-hackathon-or-events/${id}`
     );
-    return res.data;
+    return res.data.savedEventAndHackathon;
   } catch (error) {
     return [];
   }
@@ -59,6 +59,8 @@ const getSavedEventAndHackathonCards = async (id: string) => {
 const EventsPage = async () => {
   const loggedInUser = await fetchUserDataFromCookie();
   const cards = await getSavedEventAndHackathonCards(loggedInUser.userId);
+
+  
 
   return (
     <div className="min-h-screen w-screen bg-black">
@@ -77,7 +79,7 @@ const EventsPage = async () => {
           {cards && cards.length > 0 ? (
             cards.map((card: CardData) => (
               <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={loggedInUser.userId} />
+                <EventCard card={card} userId={loggedInUser._id} />
               </div>
             ))
           ) : (

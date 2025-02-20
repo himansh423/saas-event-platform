@@ -1,7 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface SavedEventAndHackathon {
+  name: string;
+  dateEnd: string;
+  dateStart: Date;
+  isOpen: boolean;
+  location: string;
+  modeOfEvent: string;
+  theme: [string];
+}
+
 interface UserProfileState {
   loggedInUser: {
+    _id: string;
     firstName: string;
     lastName: string;
     username: string;
@@ -9,7 +20,8 @@ interface UserProfileState {
     email: string;
     phoneNumber: string;
     bio: string;
-    location:string
+    location: string;
+    savedEventAndHackathon: [SavedEventAndHackathon];
   } | null;
 }
 

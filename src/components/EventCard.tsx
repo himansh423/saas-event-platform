@@ -10,6 +10,9 @@ const rowdies1 = Rowdies({
 });
 
 const EventCard = ({ card, userId }: { card: any; userId: string }) => {
+
+  console.log("debugging: ",card, userId)
+  
   return (
     <div>
       <div>
