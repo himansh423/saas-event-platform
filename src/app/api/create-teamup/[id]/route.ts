@@ -8,8 +8,9 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    await connectToDatabase();
     const { id } = params;
+    await connectToDatabase();
+    
     const teamUpData = await req.json();
 
     const user = await User.findById(id);

@@ -4,13 +4,14 @@ import Image from "next/image";
 import { Rowdies } from "next/font/google";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Lock, MapPin, Calendar, LinkIcon } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { userProfileActions } from "@/redux/userProfileSlice";
 import EventCard from "./EventCard";
+import TeamUpCard from "./TeamUpCard";
 const rowdies = Rowdies({
   weight: "700",
   subsets: ["latin"],
@@ -28,7 +29,34 @@ interface UserProfile {
   joinedDate: string;
   isContactVisible: boolean;
 }
+interface CardData {
+  _id: string;
+  name: string;
+  shortDescription: string;
+  dateStart: Date;
+  dateEnd: Date;
+  modeOfEvent: string;
+  isOpen: boolean;
+  theme: string[];
+  location: string;
+  prize: string;
+}
+interface TeamUp {
+  _id: string;
+  hackName: string;
+  createdBy: {
+    firstName: string;
+    lastName: string;
+  };
 
+  description: string;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  dateStart: Date;
+  dateEnd: Date;
+  eventOrHackathonUrl: string;
+}
 export default function UserProfile() {
   const { loggedInUser } = useSelector((store: RootState) => store.userProfile);
   const { username } = useParams();
@@ -40,7 +68,7 @@ export default function UserProfile() {
         const res = await axios.get(`/api/get-user-profile/${username}`);
         if (res.data.success) {
           dispatch(userProfileActions.setProfileData({ data: res.data.data }));
-          console.log("checking idddd: ",res.data.data)
+          console.log("checking idddd: ", res.data.data);
         }
       } catch (error) {
         console.log(error);
@@ -50,8 +78,6 @@ export default function UserProfile() {
   }, []);
 
   const [isRequested, setIsRequested] = useState(false);
-
-
 
   const handleRequestContact = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -139,33 +165,42 @@ export default function UserProfile() {
           </TabsList>
           <TabsContent
             value="saved"
-            className="bg-gray-900 border border-zinc-700 rounded`-lg p-6 mt-4 shadow-lg "
+            className="bg-gray-900 border border-zinc-700 rounded`-lg p-6 mt-4 shadow-lg flex flex-col items-center "
           >
-            {loggedInUser?.savedEventAndHackathon && loggedInUser.savedEventAndHackathon.length > 0 ? (
-            loggedInUser.savedEventAndHackathon.map((card: any) => (
-              <div className="mt-16" key={card._id}>
-                <EventCard card={card} userId={loggedInUser._id} />
+            {loggedInUser?.savedEventAndHackathon &&
+            loggedInUser.savedEventAndHackathon.length > 0 ? (
+              loggedInUser.savedEventAndHackathon.map((card: CardData) => (
+                <div className="mt-16" key={card._id}>
+                  <EventCard  card={card} userId={loggedInUser._id} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center text-zinc-400">
+                No events available at the moment.
               </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-zinc-400">
-              No events available at the moment.
-            </div>
-          )}
-        
+            )}
           </TabsContent>
           <TabsContent
             value="created"
-            className="bg-gray-900 border border-zinc-700 rounded-lg p-6 mt-4 shadow-lg"
+            className="bg-gray-900 border border-zinc-700 rounded-lg p-6 mt-4 shadow-lg flex flex-col items-center"
           >
-            <p>Created team-ups will be displayed here.</p>
+            {loggedInUser?.createdTeamUp.map((teamUp: TeamUp) => (
+              <TeamUpCard
+              key={teamUp._id}
+                teamUp={{
+                  ...teamUp,
+                  createdBy: {
+                    firstName: loggedInUser.firstName,
+                    lastName: loggedInUser.lastName,
+                  },
+                }}
+              />
+            ))}
           </TabsContent>
           <TabsContent
             value="applied"
-            className="bg-gray-900 border border-zinc-700 rounded-lg p-6 mt-4 shadow-lg"
-          >
-            <p>Applied team-ups will be displayed here.</p>
-          </TabsContent>
+            className="bg-gray-900 border border-zinc-700 rounded-lg p-6 mt-4 shadow-lg flex flex-col items-center"
+          ></TabsContent>
         </Tabs>
       </div>
     </div>

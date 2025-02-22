@@ -1,13 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface SavedEventAndHackathon {
+  _id:string;
+  shortDescription:string,
   name: string;
-  dateEnd: string;
+  dateEnd: Date;
+  prize:string
   dateStart: Date;
   isOpen: boolean;
   location: string;
   modeOfEvent: string;
   theme: [string];
+}
+
+interface CreatedteamUp {
+  _id: string;
+  hackName: string;
+  createdBy: {
+    firstName: string;
+    lastName: string;
+  };
+
+  description: string;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  dateStart: Date;
+  dateEnd: Date;
+  eventOrHackathonUrl: string;
 }
 
 interface UserProfileState {
@@ -22,6 +42,7 @@ interface UserProfileState {
     bio: string;
     location: string;
     savedEventAndHackathon: [SavedEventAndHackathon];
+    createdTeamUp: [CreatedteamUp];
   } | null;
 }
 

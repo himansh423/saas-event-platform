@@ -1,22 +1,41 @@
-import connectToDatabase from "@/library/db";
 import TeamUp from "@/library/Modal/teamUpSchema";
 import User from "@/library/Modal/User";
-import { NextResponse } from "next/server";
-import mongoose from "mongoose";
+import { NextResponse, NextRequest } from "next/server";
+import mongoose, { Types } from "mongoose";
+import connectToDatabase from "@/library/db";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+interface UserType {
+  _id: Types.ObjectId;
+  appliedTeamUp: Array<{ _id: Types.ObjectId; isApproved: boolean }>;
+}
+
+interface TeamUpType {
+  _id: Types.ObjectId;
+  appliedBy: Array<Types.ObjectId>;
+}
+
+export async function PATCH(req: NextRequest) {
   try {
-    const { id: userId } = params;
+    // Extract `userId` from the URL params
+    const url = new URL(req.url);
+    const userId = url.pathname.split("/").pop(); // Assuming the URL is `/api/route/${userId}`
+
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, message: "User ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Extract `teamUpId` from the request body
     const { id: teamUpId } = await req.json();
+
     await connectToDatabase();
 
     const userObjectId = new mongoose.Types.ObjectId(userId);
     const teamUpObjectId = new mongoose.Types.ObjectId(teamUpId);
 
-    const user = await User.findById(userObjectId);
+    const user: UserType | null = await User.findById(userObjectId);
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },
@@ -24,7 +43,7 @@ export async function PATCH(
       );
     }
 
-    const teamUp = await TeamUp.findById(teamUpObjectId);
+    const teamUp: TeamUpType | null = await TeamUp.findById(teamUpObjectId);
     if (!teamUp) {
       return NextResponse.json(
         { success: false, message: "Teamup not found" },
@@ -34,10 +53,11 @@ export async function PATCH(
 
     const isApplied =
       user.appliedTeamUp.some(
-        (item: any) => item._id.toString() === teamUpObjectId.toString()
+        (item: { _id: Types.ObjectId }) =>
+          item._id.toString() === teamUpObjectId.toString()
       ) &&
       teamUp.appliedBy.some(
-        (id: any) => id.toString() === userObjectId.toString()
+        (id: Types.ObjectId) => id.toString() === userObjectId.toString()
       );
 
     if (isApplied) {
@@ -58,12 +78,12 @@ export async function PATCH(
     } else {
       console.log("User has not applied yet. Adding application...");
 
-      const userUpdate = await User.updateOne(
+      await User.updateOne(
         { _id: userObjectId },
         { $push: { appliedTeamUp: { _id: teamUpObjectId, isApproved: false } } }
       );
 
-      const teamUpUpdate = await TeamUp.updateOne(
+      await TeamUp.updateOne(
         { _id: teamUpObjectId },
         { $push: { appliedBy: userObjectId } }
       );

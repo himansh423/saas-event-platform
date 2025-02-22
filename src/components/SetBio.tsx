@@ -71,8 +71,9 @@ export default function BioInputPage() {
       if (res.data.success) {
         router.push(`/`);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error:", error);
+      if(error instanceof Error)
       setError("root", {
         type: "manual",
         message: error.message,
@@ -105,9 +106,10 @@ export default function BioInputPage() {
         </p>
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          Submit
+          {isSubmitting? "Submitting....":"Submit"}
         </button>
       </div>
     </form>

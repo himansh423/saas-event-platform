@@ -9,10 +9,25 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const EventCard = ({ card, userId }: { card: any; userId: string }) => {
+interface CardData {
+  _id: string;
+  name: string;
+  shortDescription: string;
+  dateStart: Date;
+  dateEnd: Date;
+  modeOfEvent: string;
+  isOpen: boolean;
+  theme: string[];
+  location: string;
+  prize: string;
+}
 
-  console.log("debugging: ",card, userId)
-  
+interface EventCardProps {
+  card: CardData;
+  userId: string;
+}
+
+const EventCard = ({ card, userId }: EventCardProps) => {
   return (
     <div>
       <div>
@@ -55,7 +70,7 @@ const EventCard = ({ card, userId }: { card: any; userId: string }) => {
             </p>
             <div className="w-full h-[70px] p-2 flex flex-wrap gap-2 bg-gray-900 rounded-lg">
               {card.theme.map((item: string) => (
-                <div className="px-[4px] h-[30px] bg-gradient-to-r from-blue-500 to-[#0c1feb] flex justify-center items-center text-[12px] rounded-lg text-[#e4e0e0]">
+                <div key={item} className="px-[4px] h-[30px] bg-gradient-to-r from-blue-500 to-[#0c1feb] flex justify-center items-center text-[12px] rounded-lg text-[#e4e0e0]">
                   <p className={rowdies1.className}>{item}</p>
                 </div>
               ))}

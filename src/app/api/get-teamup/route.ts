@@ -2,10 +2,10 @@ import connectToDatabase from "@/library/db";
 import TeamUp from "@/library/Modal/teamUpSchema";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     await connectToDatabase();
-    console.log("Database connected successfully");
+    
 
     const teamup = await TeamUp.find().populate(
       "createdBy",

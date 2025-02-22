@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import axios from "axios";
 import { Rowdies } from "next/font/google";
 import { Mail } from "lucide-react";
@@ -37,16 +36,13 @@ export default function ForgotPassword() {
     try {
       const { data } = await axios.post("/api/auth/forgot-password", payload);
       dispatch(forgotPasswordAction.setMessage({ data: data.message }));
-    } catch (error: any) {
-      dispatch(
-        forgotPasswordAction.setMessage({
-          data: error.response?.data?.error || "Something went wrong",
-        })
-      );
-      setError("root", {
-        type: "manual",
-        message: error.message,
-      });
+    } catch (error:unknown) {
+      dispatch(forgotPasswordAction.setMessage("Something went wrong"));
+      if (error instanceof Error)
+        setError("root", {
+          type: "manual",
+          message: error.message,
+        });
     }
   };
 

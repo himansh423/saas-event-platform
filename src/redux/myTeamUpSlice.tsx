@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import teamUpSlice from "./teamUpSlice";
 
-interface MyTeamUpState {}
-const initialState: MyTeamUpState = {
-  
-};
+const initialState = {};
 const myTeamUpSlice = createSlice({
   name: "myTeamUp",
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
 });
+
+export const myTeamUpAction = myTeamUpSlice.actions;
+
+export default teamUpSlice;

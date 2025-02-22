@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
 import { S3Client, HeadObjectCommand } from "@aws-sdk/client-s3";
 import connectToDatabase from "@/library/db";
 import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";

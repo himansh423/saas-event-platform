@@ -7,7 +7,22 @@ const rowdies1 = Rowdies({
   display: "swap",
   subsets: ["latin"],
 });
+interface TeamUp {
+  _id: string;
+  hackName: string;
+  createdBy: {
+    firstName: string;
+    lastName: string;
+  };
 
+  description: string;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  dateStart: Date;
+  dateEnd: Date;
+  eventOrHackathonUrl: string;
+}
 const getTeamUpData = async () => {
   try {
     const res = await axios.get("http://localhost:3000/api/get-teamup");
@@ -15,6 +30,7 @@ const getTeamUpData = async () => {
       return res.data.data;
     }
   } catch (error) {
+    console.log(error)
     return [];
   }
 };
@@ -30,8 +46,8 @@ const TeamUpPage = async () => {
         </h1>
       </div>
       <div className="w-full px-6 grid grid-cols-3 place-items-center py-20">
-        {teamUpData.map((teamUp: any) => (
-          <TeamUpCard teamUp={teamUp} />
+        {teamUpData.map((teamUp: TeamUp) => (
+          <TeamUpCard teamUp={teamUp} key={teamUp._id} />
         ))}
       </div>
     </div>

@@ -9,7 +9,6 @@ export async function GET(req: Request) {
     const cookies = cookie.parse(req.headers.get("cookie") || "");
     const token = cookies.token;
 
-
     if (!token) {
       return NextResponse.json(
         { message: "No token provided" },
@@ -19,10 +18,9 @@ export async function GET(req: Request) {
 
     const decoded = jwt.verify(token, JWT_SECRET as string);
 
-
     return NextResponse.json({ user: decoded });
   } catch (error) {
-
+    console.log(error);
     return NextResponse.json(
       { message: "Invalid or expired token" },
       { status: 401 }

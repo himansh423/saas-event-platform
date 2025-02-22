@@ -109,8 +109,10 @@ const Register: React.FC = () => {
         dispatch(emailActions.setEmail({ data: data.email }))
         router.push(`/auth/verify-otp/${payload.email}`)
       }
-    } catch (error: any) {
+    } catch (error:unknown) {
+      
       console.error("Error:", error)
+      if(error instanceof Error)
       setError("root", {
         type: "manual",
         message: error.message,

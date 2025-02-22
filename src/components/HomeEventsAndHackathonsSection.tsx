@@ -7,7 +7,8 @@ interface CardData {
   _id: string;
   name: string;
   shortDescription: string;
-  date: string;
+  dateStart:Date,
+  dateEnd:Date,
   modeOfEvent: string;
   isOpen: boolean;
   theme: string[];
@@ -45,6 +46,7 @@ const getEventAndHackathonCards = async () => {
     );
     return res.data;
   } catch (error) {
+    console.log(error)
     return [];
   }
 };

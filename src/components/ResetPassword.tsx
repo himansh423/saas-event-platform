@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { Rowdies } from "next/font/google";
@@ -60,16 +60,13 @@ export default function ResetPassword() {
         newPassword,
       });
       dispatch(forgotPasswordAction.setResetMessage({ data: data.message }));
-    } catch (error: any) {
-      dispatch(
-        forgotPasswordAction.setResetMessage({
-          data: error.response?.data?.error || "Something went wrong",
-        })
-      );
-      setError("root", {
-        type: "manual",
-        message: error.message,
-      });
+    } catch (error: unknown) {
+      dispatch(forgotPasswordAction.setResetMessage("Something went wrong"));
+      if (error instanceof Error)
+        setError("root", {
+          type: "manual",
+          message: error.message,
+        });
     }
   };
 

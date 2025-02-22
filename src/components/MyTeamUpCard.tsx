@@ -8,7 +8,19 @@ const rowdies1 = Rowdies({
   display: "swap",
   subsets: ["latin"],
 });
-const MyTeamUpCard = ({ myTeamUp }: { myTeamUp: any }) => {
+
+interface MyTeamUp {
+  _id: string;
+  hackName: string;
+  description: string;
+  dateStart: Date;
+  dateEnd: Date;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  eventOrHackathonUrl: string;
+}
+const MyTeamUpCard = ({ myTeamUp }: { myTeamUp: MyTeamUp }) => {
   return (
     <>
       <div className="w-[467px] h-[367px] bg-[#111111] rounded-md border-[1px] border-[#222] flex flex-col items-start mb-12 justify-between px-4 py-5">
@@ -18,9 +30,7 @@ const MyTeamUpCard = ({ myTeamUp }: { myTeamUp: any }) => {
           >
             {myTeamUp.hackName}
           </p>
-          <p className="text-[14px] text-[#A3A3A3]">
-            Posted by you
-          </p>
+          <p className="text-[14px] text-[#A3A3A3]">Posted by you</p>
         </div>
         <div className="text-[#D1D5DB] text-[14px]">
           <p>{myTeamUp.description}</p>

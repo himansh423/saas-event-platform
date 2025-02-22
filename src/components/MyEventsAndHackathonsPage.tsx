@@ -1,6 +1,5 @@
 import { Rowdies } from "next/font/google";
 import axios from "axios";
-import SearchAndFilterBox from "@/components/SearchAndFilterBox";
 import EventCard from "@/components/EventCard";
 import { cookies } from "next/headers";
 
@@ -14,7 +13,8 @@ interface CardData {
   _id: string;
   name: string;
   shortDescription: string;
-  date: string;
+  dateStart: Date;
+  dateEnd: Date;
   modeOfEvent: string;
   isOpen: boolean;
   theme: string[];
@@ -52,6 +52,7 @@ const getSavedEventAndHackathonCards = async (id: string) => {
     );
     return res.data.savedEventAndHackathon;
   } catch (error) {
+    console.log(error)
     return [];
   }
 };
@@ -59,8 +60,6 @@ const getSavedEventAndHackathonCards = async (id: string) => {
 const EventsPage = async () => {
   const loggedInUser = await fetchUserDataFromCookie();
   const cards = await getSavedEventAndHackathonCards(loggedInUser.userId);
-
-  
 
   return (
     <div className="min-h-screen w-screen bg-black">

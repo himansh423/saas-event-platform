@@ -61,8 +61,9 @@ const Verify = () => {
       } else {
         setError(res.data.message || "Invalid OTP");
       }
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Something went wrong");
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        setError(error.message || "Something went wrong");
     } finally {
       setIsSubmitting(false);
     }
@@ -111,7 +112,9 @@ const Verify = () => {
                 value={value}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                ref={(el: any) => (inputRefs.current[index] = el)}
+                ref={(el: HTMLInputElement | null) => {
+                  inputRefs.current[index] = el;
+                }}
                 className="w-[50px] h-[50px] rounded-md border-[2px] border-[#0c1feb] bg-transparent outline-none focus:border-[3px] px-4 text-center"
               />
             ))}

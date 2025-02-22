@@ -39,14 +39,26 @@ const getMyTeamUpData = async (id: string) => {
       return res.data.data.createdTeamUp;
     }
   } catch (error) {
+    console.log(error)
     return [];
   }
 };
 
+interface MyTeamUp {
+  _id: string;
+  hackName: string;
+  description: string;
+  dateStart: Date;
+  dateEnd: Date;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  eventOrHackathonUrl: string;
+}
 const MyTeamUpPage = async () => {
   const loggedInUser = await fetchUserDataFromCookie();
   const myTeamUpData = await getMyTeamUpData(loggedInUser.userId);
-  console.log(MyTeamUpCard);
+
   return (
     <div className="w-screen h-screen relative">
       <div className="w-[70vw] h-[80vh] absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] rounded-lg border-zinc-400 border-[1px] bg-black flex flex-col items-center gap-6 px-5 py-5">
@@ -70,8 +82,8 @@ const MyTeamUpPage = async () => {
         </p>
       </div>
       <div className="w-full px-6 grid grid-cols-3 place-items-center py-20">
-        {myTeamUpData?.map((myTeamUp: any) => (
-          <MyTeamUpCard myTeamUp={myTeamUp} />
+        {myTeamUpData?.map((myTeamUp: MyTeamUp) => (
+          <MyTeamUpCard myTeamUp={myTeamUp} key={myTeamUp._id} />
         ))}
       </div>
     </div>

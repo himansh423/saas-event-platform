@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import ShowNav from "@/components/ShowNav";
 import { Providers } from "@/redux/Provider";
-import Footer from "@/components/Footer";
 import ShowFooter from "@/components/ShowFooter";
 
 export const metadata: Metadata = {

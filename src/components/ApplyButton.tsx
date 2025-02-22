@@ -12,7 +12,35 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const ApplyButton = ({ teamUp }: { teamUp: any }) => {
+interface TeamUp {
+  _id: string;
+  hackName: string;
+  createdBy: {
+    firstName: string;
+    lastName: string;
+  };
+  description: string;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  dateStart: Date;
+  dateEnd: Date;
+  eventOrHackathonUrl: string;
+}
+
+interface Application {
+  _id: string;
+  isApproved: boolean;
+}
+
+interface UserData {
+  user: {
+    appliedTeamUp: Application[];
+  };
+  success: boolean;
+}
+
+const ApplyButton = ({ teamUp }: { teamUp: TeamUp }) => {
   const { userId, appliedTeamUps } = useSelector(
     (store: RootState) => store.teamup
   );
@@ -38,10 +66,12 @@ const ApplyButton = ({ teamUp }: { teamUp: any }) => {
 
   const checkApplicationStatus = async (currentUserId: string) => {
     try {
-      const response = await axios.get(`/api/get-user-data/${currentUserId}`);
+      const response = await axios.get<UserData>(
+        `/api/get-user-data/${currentUserId}`
+      );
       if (response.data.success) {
         const hasApplied = response.data.user.appliedTeamUp.some(
-          (application: any) => application._id === teamUp._id
+          (application: Application) => application._id === teamUp._id
         );
         dispatch(
           teamUpAction.setTeamUpApplicationStatus({

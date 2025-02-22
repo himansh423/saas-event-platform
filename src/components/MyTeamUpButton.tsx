@@ -12,7 +12,19 @@ const rowdies1 = Rowdies({
   subsets: ["latin"],
 });
 
-const MyTeamUpButton = ({ teamUp }: { teamUp: any }) => {
+interface MyTeamUp {
+  _id: string;
+  hackName: string;
+  description: string;
+  dateStart: Date;
+  dateEnd: Date;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  eventOrHackathonUrl: string;
+}
+
+const MyTeamUpButton = ({ teamUp }: { teamUp: MyTeamUp }) => {
   const { userId, appliedTeamUps } = useSelector(
     (store: RootState) => store.teamup
   );
@@ -41,7 +53,7 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: any }) => {
       const response = await axios.get(`/api/get-user-data/${currentUserId}`);
       if (response.data.success) {
         const hasApplied = response.data.user.appliedTeamUp.some(
-          (application: any) => application._id === teamUp._id
+          (application: MyTeamUp) => application._id === teamUp._id
         );
         dispatch(
           teamUpAction.setTeamUpApplicationStatus({
@@ -55,23 +67,7 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: any }) => {
     }
   };
 
-  const handleApply = async (id: string) => {
-    try {
-      const res = await axios.patch(`/api/apply-for-teamup/${userId}`, {
-        id,
-      });
-      if (res.data.successApply) {
-        dispatch(
-          teamUpAction.setTeamUpApplicationStatus({
-            teamUpId: id,
-            isApplied: true,
-          })
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   const handleWithdraw = async (id: string) => {
     try {

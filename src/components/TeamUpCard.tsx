@@ -8,7 +8,24 @@ const rowdies1 = Rowdies({
   display: "swap",
   subsets: ["latin"],
 });
-const TeamUpCard = ({ teamUp }: { teamUp: any }) => {
+
+interface TeamUp {
+  _id: string;
+  hackName: string;
+  createdBy: {
+    firstName: string;
+    lastName: string;
+  };
+
+  description: string;
+  location: string;
+  email: string;
+  mobileNumber: string;
+  dateStart: Date;
+  dateEnd: Date;
+  eventOrHackathonUrl: string;
+}
+const TeamUpCard = ({ teamUp }: { teamUp: TeamUp }) => {
   return (
     <>
       <div className="w-[467px] h-[367px] bg-[#111111] rounded-md border-[1px] border-[#222] flex flex-col items-start mb-12 justify-between px-4 py-5">
