@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import { NextResponse } from "next/server";
 import User from "@/library/Modal/User";
-import { sendEmail } from "@/library/sendEmail";
+import { sendEmail } from "@/library/emailSetup/sendEmail";
 
 
 export async function POST(req: Request) {

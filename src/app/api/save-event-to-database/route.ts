@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { S3Client, HeadObjectCommand } from "@aws-sdk/client-s3";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";
 
 const s3Client = new S3Client({

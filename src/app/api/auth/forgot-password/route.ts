@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import User from "@/library/Modal/User";
-import { sendEmail } from "@/library/sendEmail";
+import { sendEmail } from "@/library/emailSetup/sendEmail";
 
 export async function POST(req: Request) {
   await connectToDatabase();
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   await user.save();
 
   
-  const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/reset-password?token=${resetToken}&email=${email}`;
+  const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&email=${email}`;
   await sendEmail({
     to: user.email,
     subject: "Password Reset",

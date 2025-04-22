@@ -1,4 +1,6 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
+import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";
+import TeamUp from "@/library/Modal/teamUpSchema";
 import User from "@/library/Modal/User";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
@@ -6,10 +8,10 @@ import { NextResponse } from "next/server";
 
 // AWS S3 Configuration
 const s3Client = new S3Client({
-  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 });
 
@@ -24,24 +26,29 @@ export async function GET(
     const user = await User.findOne({ username })
       .populate({
         path: "savedEventAndHackathon",
+        model: EventAndHackathon,
         select:
           "name shortDescription dateStart dateEnd applicationCloseDate location modeOfEvent isOpen theme logo prize teamSize aboutDescriptions eventPoster instagramLink twitterLink eventOrHackathonUrl",
       })
       .populate({
         path: "createdTeamUp",
+        model: TeamUp,
         select:
           "hackName email createdBy description dateStart dateEnd location mobileNumber appliedBy eventOrHackathonUrl",
         populate: {
           path: "appliedBy",
+          model: User,
           select: "firstName lastName email profilePicture",
         },
       })
       .populate({
         path: "appliedTeamUp.teamUp",
+        model: TeamUp,
         select:
           "hackName email createdBy description dateStart dateEnd location mobileNumber appliedBy eventOrHackathonUrl",
         populate: {
           path: "createdBy",
+          model: User,
           select: "firstName lastName email profilePicture",
         },
       });
@@ -57,7 +64,7 @@ export async function GET(
     const profilePictureUrl = await getSignedUrl(
       s3Client,
       new GetObjectCommand({
-        Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+        Bucket: process.env.S3_BUCKET_NAME!,
         Key: user.profilePicture,
       }),
       { expiresIn: 3600 }

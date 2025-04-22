@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import User from "@/library/Modal/User";
+import TeamUp from "@/library/Modal/teamUpSchema";
 
 export async function GET(
   req: Request,
@@ -13,10 +14,10 @@ export async function GET(
     const user = await User.findById(userId)
       .populate({
         path: "appliedTeamUp.teamUp",
-        model: "TeamUp",
+        model: TeamUp,
         populate: [
-          { path: "createdBy", model: "User", select: "-password -otp" },
-          { path: "appliedBy", model: "User", select: "-password -otp" },
+          { path: "createdBy", model: User, select: "-password -otp" },
+          { path: "appliedBy", model: User, select: "-password -otp" },
         ],
       })
       .lean();

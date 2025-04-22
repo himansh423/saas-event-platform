@@ -1,4 +1,4 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";
 import { NextResponse } from "next/server";
 

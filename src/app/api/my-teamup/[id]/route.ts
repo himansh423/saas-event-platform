@@ -1,4 +1,5 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
+import TeamUp from "@/library/Modal/teamUpSchema";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
 
@@ -12,9 +13,10 @@ export async function GET(
 
     const user = await User.findById(userId).populate({
       path: "createdTeamUp",
+      model: TeamUp,
       populate: {
         path: "appliedBy",
-        model: "User",
+        model: User,
         select: "firstName lastName email ",
       },
       select:

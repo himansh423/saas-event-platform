@@ -1,10 +1,10 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function PATCH(
   req: Request,

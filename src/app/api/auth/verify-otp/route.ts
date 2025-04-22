@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
 import cookie from "cookie";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(req: Request) {
   try {

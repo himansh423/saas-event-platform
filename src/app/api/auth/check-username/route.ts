@@ -1,4 +1,4 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import User from "@/library/Modal/User";
 
 import { NextResponse } from "next/server";

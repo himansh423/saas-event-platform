@@ -2,7 +2,7 @@ import TeamUp from "@/library/Modal/teamUpSchema";
 import User from "@/library/Modal/User";
 import { NextResponse, NextRequest } from "next/server";
 import mongoose, { Types } from "mongoose";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 
 interface UserType {
   _id: Types.ObjectId;

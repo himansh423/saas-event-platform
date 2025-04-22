@@ -1,5 +1,6 @@
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import TeamUp from "@/library/Modal/teamUpSchema";
+import User from "@/library/Modal/User";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -7,10 +8,11 @@ export async function GET() {
     await connectToDatabase();
     
 
-    const teamup = await TeamUp.find().populate(
-      "createdBy",
-      "firstName lastName"
-    );
+    const teamup = await TeamUp.find().populate({
+      path: "createdBy",
+      model: User,
+      select: "firstName lastName",
+    })
 
     if (!teamup || teamup.length === 0) {
       return NextResponse.json(

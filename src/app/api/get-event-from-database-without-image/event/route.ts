@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import EventAndHackathon from "@/library/Modal/EventsAndHackathonSchema";
 
 export async function GET() {

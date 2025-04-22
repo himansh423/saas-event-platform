@@ -1,22 +1,22 @@
 import { NextResponse } from "next/server";
 import { S3Client, HeadObjectCommand } from "@aws-sdk/client-s3";
-import connectToDatabase from "@/library/db";
+import connectToDatabase from "@/library/database/db";
 import User from "@/library/Modal/User";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 const s3Client = new S3Client({
-  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 });
 
 async function validateFileInS3(key: string): Promise<boolean> {
   try {
     const command = new HeadObjectCommand({
-      Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+      Bucket: process.env.S3_BUCKET_NAME!,
       Key: key,
     });
     await s3Client.send(command);
