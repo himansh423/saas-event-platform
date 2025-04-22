@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id: userId } = params;
+    const userId = (await params).id;
     await connectToDatabase();
 
     const user = await User.findById(userId);

@@ -1,7 +1,5 @@
 "use client"
 import Image from "next/image"
-import type React from "react"
-
 import RegisterImage from "../../public/event.jpg"
 import { Rowdies, Shadows_Into_Light } from "next/font/google"
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa"

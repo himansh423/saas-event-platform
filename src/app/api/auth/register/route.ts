@@ -7,7 +7,7 @@ import { sendEmail } from "@/library/sendEmail";
 
 export async function POST(req: Request) {
   await connectToDatabase();
-
+ 
   try {
     const {firstName, lastName, email, password,phoneNumber, username } = await req.json();
 

@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const id = (await params).id;
     await connectToDatabase();
     const eventOrHackathon = await EventAndHackathon.findById(id);
 

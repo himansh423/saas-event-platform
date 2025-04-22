@@ -5,7 +5,7 @@ export async function sendEmail({ to, subject, text, html }: { to: string; subje
     service: "gmail",
     auth: {
       user: process.env.NEXT_PUBLIC_EMAIL_USER,
-      pass: process.env.NEXT_PUBLIC_EMAIL_PASS,
+      pass:  process.env.NEXT_PUBLIC_EMAIL_PASS,
     },
   });
 

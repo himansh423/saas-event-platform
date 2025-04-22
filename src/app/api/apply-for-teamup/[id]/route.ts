@@ -14,12 +14,12 @@ interface TeamUpType {
   appliedBy: Array<Types.ObjectId>;
 }
 
-export async function PATCH(req: NextRequest) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    // Extract `userId` from the URL params
-    const url = new URL(req.url);
-    const userId = url.pathname.split("/").pop(); // Assuming the URL is `/api/route/${userId}`
-
+    const userId = (await params).id;
     if (!userId) {
       return NextResponse.json(
         { success: false, message: "User ID is required" },

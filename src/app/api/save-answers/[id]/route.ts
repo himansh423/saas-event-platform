@@ -8,10 +8,10 @@ const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id: userId } = params;
+    const userId  = (await params).id;
     const payload = await req.json();
     await connectToDatabase();
 

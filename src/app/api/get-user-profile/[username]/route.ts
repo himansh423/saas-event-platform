@@ -15,10 +15,10 @@ const s3Client = new S3Client({
 
 export async function GET(
   req: Request,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    const { username } = params;
+    const username = (await params).username;
     connectToDatabase();
 
     const user = await User.findOne({ username })

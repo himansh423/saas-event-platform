@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { Rowdies } from "next/font/google";
@@ -20,7 +20,7 @@ const rowdies = Rowdies({
   subsets: ["latin"],
 });
 type ResetPasswordData = z.infer<typeof ResetPasswordSchema>;
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
@@ -133,4 +133,15 @@ export default function ResetPassword() {
       </div>
     </div>
   );
+}
+
+
+export default function ResetPassword() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+      <Suspense fallback={<div className="text-white">Loading...</div>}>
+        <ResetPasswordForm />
+      </Suspense>
+    </div>
+  )
 }

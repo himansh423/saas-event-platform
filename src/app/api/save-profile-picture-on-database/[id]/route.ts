@@ -29,10 +29,10 @@ async function validateFileInS3(key: string): Promise<boolean> {
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id: userId } = params;
+    const userId = (await params).id;
     const profilePictureData = await req.json();
 
     if (!profilePictureData.profilePictureKey) {

@@ -15,10 +15,10 @@ const s3Client = new S3Client({
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const  id  = (await params).id;
 
     // Connect to MongoDB
     await connectToDatabase();
