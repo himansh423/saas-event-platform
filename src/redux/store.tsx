@@ -11,6 +11,7 @@ import importantQuestionsSlice from "./importantQuestionsSlice";
 import loginSlice from "./loginSlice";
 import forgotPasswordSlice from "./fogotPasswordSlice";
 import userProfileSlice from "./userProfileSlice";
+import applicationBoxSlice from "./ApplicationBoxSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     login: loginSlice.reducer,
     forgotPassword: forgotPasswordSlice.reducer,
     userProfile: userProfileSlice.reducer,
+    applicationBox: applicationBoxSlice.reducer,
   },
 });
 

@@ -1,4 +1,5 @@
 "use client";
+import { applicationBoxActions } from "@/redux/ApplicationBoxSlice";
 import { RootState } from "@/redux/store";
 import { teamUpAction } from "@/redux/teamUpSlice";
 import axios from "axios";
@@ -67,8 +68,6 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: MyTeamUp }) => {
     }
   };
 
-  
-
   const handleWithdraw = async (id: string) => {
     try {
       const res = await axios.patch(`/api/apply-for-teamup/${userId}`, {
@@ -89,7 +88,9 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: MyTeamUp }) => {
 
   // //////////////////////////////////////////////////////////
 
-  const handleCheckApplicationModal = () => {};
+  const handleCheckApplicationModal = () => {
+    dispatch(applicationBoxActions.setIsBoxVisible());
+  };
   return (
     <>
       <button
