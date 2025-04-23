@@ -50,9 +50,11 @@ const fetchUserDataFromCookie = async () => {
 };
 const getMyTeamUpData = async (id: string) => {
   try {
-    const res = await axios.get(`http://localhost:3000/api/my-teamup/${id}`);
+    const res = await axios.get(`http://localhost:3000/api/get-applied-teamup/${id}`);
     if (res.data.success) {
-      return res.data.data.createdTeamUp;
+      console.log(res.data.data.appliedTeamUp);
+      return res.data.data.appliedTeamUp;
+      
     }
   } catch (error) {
     console.log(error);

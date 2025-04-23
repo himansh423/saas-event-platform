@@ -13,7 +13,7 @@ export async function GET(
 
     const user = await User.findById(userId)
       .populate({
-        path: "appliedTeamUp.teamUp",
+        path: "appliedTeamUp._id",
         model: TeamUp,
         populate: [
           { path: "createdBy", model: User, select: "-password -otp" },

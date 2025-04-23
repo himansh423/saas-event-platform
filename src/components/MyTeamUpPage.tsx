@@ -39,7 +39,7 @@ const getMyTeamUpData = async (id: string) => {
       return res.data.data.createdTeamUp;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return [];
   }
 };
@@ -68,7 +68,44 @@ const MyTeamUpPage = async () => {
           Applications
         </p>
         <div className="w-full flex-1 bg-gray-900 rounded-md px-3 py-3 flex flex-col gap-3">
-          <div className="w-full h-[70px] bg-gray-950 border-[1px]  rounded-sm border-zinc-400"></div>
+          <div className="w-full h-[70px] bg-gray-950 border-[1px]  rounded-sm border-zinc-400 flex items-center justify-between px-3">
+            <div className="flex items-center gap-2 cursor-pointer">
+              <div className="w-[50px] h-[50px] bg-green-500 rounded-full"></div>
+              <div className="flex flex-col">
+                <p className="text-white text-[18px]">Team Name</p>
+                <p className="text-[#D1D5DB] text-[10px]">himansh423</p>
+              </div>
+            </div>
+            <div
+              className={`flex items-center gap-2 text-white ${rowdies1.className}`}
+            >
+              <div className="w-[200px] h-[45px]  bg-gradient-to-br from-green-500 to-green-300 rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
+                <p>Approve</p>
+              </div>
+              <div className="w-[200px] h-[45px] bg-gradient-to-tr from-red-500 to-red-200  rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
+                <p>Reject</p>
+              </div>
+            </div>
+          </div>
+          <div className="w-full h-[70px] bg-gray-950 border-[1px]  rounded-sm border-zinc-400 flex items-center justify-between px-3">
+            <div className="flex items-center gap-2 cursor-pointer">
+              <div className="w-[50px] h-[50px] bg-green-500 rounded-full"></div>
+              <div className="flex flex-col">
+                <p className="text-white text-[18px]">Team Name</p>
+                <p className="text-[#D1D5DB] text-[10px]">himansh423</p>
+              </div>
+            </div>
+            <div
+              className={`flex items-center gap-2 text-white ${rowdies1.className}`}
+            >
+              <div className="w-[200px] h-[45px]  bg-gradient-to-br from-green-500 to-green-300 rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
+                <p>Approve</p>
+              </div>
+              <div className="w-[200px] h-[45px] bg-gradient-to-tr from-red-500 to-red-200  rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
+                <p>Reject</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-full flex flex-col gap-4 items-center pt-10">
