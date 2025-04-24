@@ -14,14 +14,20 @@ const rowdies1 = Rowdies({
 });
 
 interface MyTeamUp {
-  _id: string;
+  _id: string; // Optional if not provided in the API
   hackName: string;
   description: string;
-  dateStart: Date;
+  dateStart: Date; // JSON returns date as string, not Date object
   dateEnd: Date;
   location: string;
   email: string;
   mobileNumber: string;
+  appliedBy: {
+    firstName: string;
+    lastName: string;
+    username: string;
+    profilePicture: string;
+  }[];
   eventOrHackathonUrl: string;
 }
 
@@ -31,6 +37,8 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: MyTeamUp }) => {
   );
   const isApplied = appliedTeamUps[teamUp._id] || false;
   const dispatch = useDispatch();
+
+  console.log("TeamUp applications:=> ",teamUp.appliedBy)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -88,9 +96,9 @@ const MyTeamUpButton = ({ teamUp }: { teamUp: MyTeamUp }) => {
 
   // //////////////////////////////////////////////////////////
 
-  const handleCheckApplicationModal = () => {
-    dispatch(applicationBoxActions.setIsBoxVisible());
-  };
+ const handleCheckApplicationModal = () => {
+  dispatch(applicationBoxActions.setVisibleBox(teamUp._id));
+};
   return (
     <>
       <button

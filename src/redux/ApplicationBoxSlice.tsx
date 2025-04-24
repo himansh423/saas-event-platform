@@ -1,18 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ApplicationBoxState {
-  isBoxVisible: boolean;
+  visibleBoxId: string | null;
 }
 
 const initialState: ApplicationBoxState = {
-  isBoxVisible: false,
+  visibleBoxId: null,
 };
+
 const applicationBoxSlice = createSlice({
   name: "applicationBox",
   initialState,
   reducers: {
-    setIsBoxVisible: (state) => {
-      state.isBoxVisible = !state.isBoxVisible;
+    setVisibleBox: (state, action: PayloadAction<string | null>) => {
+      state.visibleBoxId = action.payload;
+    },
+    closeBox: (state) => {
+      state.visibleBoxId = null;
     },
   },
 });

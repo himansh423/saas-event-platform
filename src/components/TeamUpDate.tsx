@@ -2,14 +2,20 @@
 import { formatEventDate } from "@/utils/dateFormatters";
 import { Calendar } from "lucide-react";
 interface MyTeamUp {
-  _id: string;
+  _id: string; // Optional if not provided in the API
   hackName: string;
   description: string;
-  dateStart: Date;
+  dateStart: Date; // JSON returns date as string, not Date object
   dateEnd: Date;
   location: string;
   email: string;
   mobileNumber: string;
+  appliedBy: {
+    firstName: string;
+    lastName: string;
+    username: string;
+    profilePicture: string;
+  }[];
   eventOrHackathonUrl: string;
 }
 const TeamUpDate = ({ teamUp }: { teamUp: MyTeamUp }) => {
