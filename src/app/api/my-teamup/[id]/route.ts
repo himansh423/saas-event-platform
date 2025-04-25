@@ -66,6 +66,7 @@ export async function GET(
         );
 
         return {
+          _id: team._id,
           hackName: team.hackName,
           description: team.description,
           dateStart: team.dateStart,

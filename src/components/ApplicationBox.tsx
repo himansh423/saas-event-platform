@@ -35,23 +35,45 @@ interface ApplicationBoxProps {
   onClose: () => void;
 }
 
-const ApplicationBox = ({ myTeamUp, isVisible, onClose }: ApplicationBoxProps) => {
+const ApplicationBox = ({
+  myTeamUp,
+  isVisible,
+  onClose,
+}: ApplicationBoxProps) => {
+  const handleApproval = (
+    username: string,
+    TeamUpId: string,
+    descision: string
+  ) => {
+    if (descision === "approve") {
+      console.log("Approved", username, TeamUpId);
+      console.log("teamup => ", myTeamUp);
+    } else {
+      console.log("Rejected", username, TeamUpId);
+    }
+  };
   return (
     <>
       {isVisible && (
-        <div className={`w-[70vw] h-[80vh] absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] rounded-lg border-zinc-400 border-[1px] bg-black flex flex-col items-center gap-6 px-5 py-5 z-50`}>
+        <div
+          className={`w-[70vw] h-[80vh] absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] rounded-lg border-zinc-400 border-[1px] bg-black flex flex-col items-center gap-6 px-5 py-5 z-50`}
+        >
           <div
             onClick={onClose}
             className="absolute top-[20px] right-[20px] cursor-pointer bg-white h-10 w-10 flex items-center justify-center rounded-full"
           >
             <ImCross />
           </div>
-          <p className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] text-center bg-clip-text text-transparent text-5xl`}>
+          <p
+            className={`${rowdies1.className} bg-gradient-to-r from-blue-400 to-[#0c1feb] text-center bg-clip-text text-transparent text-5xl`}
+          >
             Applications for {myTeamUp.hackName}
           </p>
           <div className="w-full flex-1 bg-gray-900 rounded-md px-3 py-3 flex flex-col gap-3 overflow-y-auto">
             {!myTeamUp.appliedBy || myTeamUp.appliedBy.length === 0 ? (
-              <p className="text-white text-center">No applications yet for this team-up.</p>
+              <p className="text-white text-center">
+                No applications yet for this team-up.
+              </p>
             ) : (
               myTeamUp.appliedBy.map((appliedBy) => (
                 <div
@@ -76,10 +98,21 @@ const ApplicationBox = ({ myTeamUp, isVisible, onClose }: ApplicationBoxProps) =
                       </p>
                     </div>
                   </div>
-                  <div className={`flex items-center gap-2 text-white ${rowdies1.className}`}>
-                    <div className="w-[200px] h-[45px] bg-gradient-to-br from-green-500 to-green-300 rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
+                  <div
+                    className={`flex items-center gap-2 text-white ${rowdies1.className}`}
+                  >
+                    <button
+                      onClick={() =>
+                        handleApproval(
+                          appliedBy.username,
+                          myTeamUp._id,
+                          "approve"
+                        )
+                      }
+                      className="w-[200px] h-[45px] bg-gradient-to-br from-green-500 to-green-300 rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer"
+                    >
                       <p>Approve</p>
-                    </div>
+                    </button>
                     <div className="w-[200px] h-[45px] bg-gradient-to-tr from-red-500 to-red-200 rounded-lg flex items-center justify-center border-[1px] border-black cursor-pointer">
                       <p>Reject</p>
                     </div>
@@ -95,4 +128,3 @@ const ApplicationBox = ({ myTeamUp, isVisible, onClose }: ApplicationBoxProps) =
 };
 
 export default ApplicationBox;
-
